@@ -1,0 +1,151 @@
+*{
+    margin: 0;
+}
+body{
+    background-color: #97729b;
+}
+#padre{
+    display: flex;
+    background-color: #97729b;
+    height: auto;
+}
+
+.hijo1{
+    background-color: #36303F;
+    flex: 20%;
+    color: white;
+    display: grid;
+    height: 100vh;
+    justify-content: center;
+}
+.opciones a{
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(0deg, rgba(0,5,5,1) 0%, rgba(102,110,110,1) 47%, rgba(0,0,0,1) 100%);
+    border-radius: 20px;
+    width: 200px;
+    height: 100px;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
+
+img{
+    margin-top: 50px;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+}
+.hijo1 input{
+    margin: 10px;
+    width: 300px;
+    border-radius: 20px;
+}
+.hijo1 h3{
+    text-align: center;
+}
+
+.hijo2{
+    flex: 70%;
+}
+.nave{
+    background-color: #cbffff59;
+    text-decoration: none;
+    display: flex;
+    justify-content:space-evenly;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.nave a{
+    text-decoration: none;
+    color: white;
+}
+.nave a:hover{
+    color: blue;
+}
+.nave a:visited{
+    background-color: skyblue   ;
+}
+.barra_buscador{
+    float: left;
+    width: 450px;
+    margin-right: 200px;
+    margin-left: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+.opciones{
+    margin-top: 50px;
+    display: flex;
+    column-gap: 75px;
+    padding-left: 20px;
+}
+.opciones a{
+    background: linear-gradient(0deg, rgba(0,5,5,1) 0%, rgba(102,110,110,1) 47%, rgba(0,0,0,1) 100%);
+    color: white;
+    border-radius: 30px;
+    height: 50px;
+    width: 200px;
+}
+.hijo2 a{
+    padding-left: 20px;
+    
+}
+
+.nieto{
+    display: flex;
+    column-gap: 20px;
+}
+.nieto h2{
+        align-self: center;
+        text-align: center;
+}
+.encabezado_de_clase{
+    background-color: #cbffff59;
+    margin-top: 20px;
+    margin-left: 10px;
+    padding-left: 10px;
+    border-radius: 20px;
+}
+.primer_trimestre{
+    
+    background-color: #cbffff59;
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 10px;
+    padding-left: 20px;
+    color: white;
+}
+.formas_de_pagos{
+    background-color: #cbffff59;
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 10px;
+    row-gap: 40px;
+    padding-left: 150px;
+    display: grid;
+}
+.formas_de_pagos1{
+    margin-top: 20px;
+    width: 90%;
+    border-radius: 20px;
+    padding-left: 20px;
+    display: grid;
+    grid-template-rows: 1,100%;
+    grid-template-columns: repeat(2,50%);
+    background-color:#c5e4e4 ;
+}
+.formas_de_pagos1 p:nth-child(2n){
+text-align:right;
+padding-right: 20px;
+}
+.Confirmar_Pago{
+    margin-bottom: 20px;
+}
+.metodo{
+    background-color: aquamarine;
+    width: 1270px;
+    border-radius: 20px;
+    padding-left: 20px;
+}

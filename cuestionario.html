@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="dad">
+      <label id="title">Cuestionario</label>
+      <div>
+      <input type="radio" value="a" name="respuesta" /><label id="re1">a</label>
+      <input type="radio" value="b" name="respuesta" /><label id="re2">b</label>
+      <input type="radio" value="c" name="respuesta" /><label id="re3">c</label>
+      <input type="radio" value="d" name="respuesta" /><label id="re4">d</label>
+      <br />
+      <button id="buty">enviar</button>
+    </div>
+    </div>
+
+    <script>
+      const Cuestionario = [
+        {
+          question:
+            "¿Cual de los siguientes lenguajes de programacion se ejecuta en el Navegador?",
+          a: "Java",
+          b: "C",
+          c: "Python",
+          d: "JavaScript",
+          correct: "d",
+        },
+        {
+          question: "Que significa CSS?",
+          a: "Central Style Sheets",
+          b: "Cascading Style Sheets",
+          c: "Cascading Simple Sheets",
+          d: "Cars SUVs Sailboats",
+          correct: "b",
+        },
+        {
+          question: "Que significa HTML?",
+          a: "Hypertext Markup Language",
+          b: "Hypertext Markdown Language",
+          c: "Hyperloop Machine Language",
+          d: "Helicopters Terminals Motorboats Lamborginis",
+          correct: "a",
+        },
+        {
+          question: "Que año se surgio Javascript ?",
+          a: "1996",
+          b: "1995",
+          c: "1994",
+          d: "none of the above",
+          correct: "b",
+        },
+      ];
+      const title = document.getElementById("title");
+      const res1= document.getElementById("re1")
+      const res2= document.getElementById("re2")
+      const res3= document.getElementById("re3")
+      const res4= document.getElementById("re4")
+      const but = document.getElementById("buty");
+      const dad = document.getElementById("dad");
+      const pre= document.querySelectorAll('input')
+      var j=[];
+      var res='';
+      var cont=0;
+      var i = 0;    
+
+      title.innerHTML=Cuestionario[0].question
+      res1.innerHTML=Cuestionario[0].a
+      res2.innerHTML=Cuestionario[0].b
+      res3.innerHTML=Cuestionario[0].c
+      res4.innerHTML=Cuestionario[0].d
+        but.addEventListener("click",function(){
+          if(i>(Cuestionario.length-1)){
+            dad.innerHTML = "";
+            const h1 = document.createElement("h1");
+            h1.textContent ="Respuestas correctas: "+cont+" de 4 ";
+            document.body.appendChild(h1);
+        }else{
+            title.innerHTML = Cuestionario[i].question;
+        j.push(res);
+        
+        if(j[i]==Cuestionario[i].correct) cont++;
+
+        i+=1;
+        if(i<=3){
+        title.innerHTML = Cuestionario[i].question;
+        res1.innerHTML = Cuestionario[i].a;
+        res2.innerHTML = Cuestionario[i].b;
+        res3.innerHTML = Cuestionario[i].c;
+        res4.innerHTML = Cuestionario[i].d;
+        }
+        
+        }
+    
+    window.addEventListener('load',()=>{
+        title.innerHTML = Cuestionario[i].question;
+        res1.innerHTML = Cuestionario[i].a;
+        res2.innerHTML = Cuestionario[i].b;
+        res3.innerHTML = Cuestionario[i].c;
+        res4.innerHTML = Cuestionario[i].d;
+    })
+    });
+    pre.forEach(element => {
+            element.addEventListener('click',()=>{
+                res = element.value;
+            }); 
+        });
+    </script>
+  </body>
+</html>
