@@ -123,6 +123,15 @@ header .logo .imgL{
     color: white;
     margin-top: 15px;
 }
+/*!------------boton---------- */
+#adm1{
+    margin-top: 15px;
+    width: 90%;
+    background-color: #3F3D40;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
 
 /**! contenido central*/
 .novedades{
