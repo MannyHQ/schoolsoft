@@ -1,0 +1,13 @@
+/*? ---------------Style JavaScript Cuadros ------------- */
+
+.table{
+    width: 80%;
+    box-shadow: 2px 4px 2px #3F3D40;
+    border: solid 1.5px black;
+}
+.table td, th{
+    border: solid 1.5px black;
+}
+.table tr:nth-child(2n+2){
+    background-color: rgb(42, 66, 65);
+}

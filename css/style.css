@@ -67,7 +67,7 @@ header .nav1 a{
     padding: 10px;
 }
 header a{
-    color: white;
+    color: #ffffff;
     text-decoration: none;
 }
 /*Logoel colegio*/
@@ -76,7 +76,7 @@ header .logo{
     width: auto;
 }
 header .logo .imgL{
-    width: 50px;
+    width: 90px;
     height: auto;
     
     border-radius: 50%;
@@ -213,6 +213,7 @@ header .logo .imgL{
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
+    /* background-color: #6AA5A9; */
 }
 #Centro-Options{
     width: 85%;
@@ -228,7 +229,7 @@ header .logo .imgL{
     grid-template-columns: repeat(3,1fr);
 }
 #Centro-Options > *{
-    border: solid 2px black;
+    border: solid 2px #000000;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -238,16 +239,20 @@ header .logo .imgL{
 }
 #Centro-Options > div{
     justify-content: center;
+    cursor: pointer;
+    box-shadow: 2px 4px 2px #3F3D40;
+    background-color:#ffffff;
 }
-#Centro-Options > div > a{
-    color: black;
-}
+
 .textoC{
     font-size: 14px;
     text-decoration: none;
+    list-style: none;
 }
+
 #Centro-Options .cuadro1{
     grid-area: one;
+    width: 100%;
 }
 #Centro-Options .cuadro2{
     grid-area: two;
