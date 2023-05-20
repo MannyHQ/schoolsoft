@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/schoolsoft/css/bootstrap.min.css">
     <link rel="stylesheet" href="/schoolsoft/css/style.css">
     <link rel="stylesheet" href="/schoolsoft/css/styleJS.css">
-    <script src="/schoolsoft/javaScript/bootstrap.bundle.min.js"></script>
     <title>Maestros</title>
 </head>
 <body>
@@ -25,8 +24,8 @@
         </nav>
         <nav class="nav1">       
             <a href=""><li>INICIO</li></a>            
-            <li>CALIFICACIONES</li></a>
-            <a href=""><li>MAESTROS</li></a>
+            <a href=""><li>CALIFICACIONES</li></a>
+            <a href=""><li>PADRES</li></a>
         </nav>
         <nav class="nav2">
             <a href=""><li class="fa fa-search"></li></a>
@@ -53,25 +52,24 @@
                     </button>
                   </h2>
                   <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                    <div class="curso">
-                        <h2>Ciencia Sociales</h2>
+                    <div class="curso1">
+                        <h2>1A</h2>
                     </div>
                     <div class="curso1">
-                        <h2>Ciencia Naturales</h2>
+                        <h2>2B</h2>
                     </div>
                     <div class="curso1">
-                        <h2>English</h2>
+                        <h2>1B</h2>
                     </div>
                     <div class="curso1">
-                        <h2>Arte</h2>
+                        <h2>1C</h2>
                     </div>
                     <div class="curso1">
-                        <h2>Musica</h2>
+                        <h2>2C</h2>
                     </div>
                   </div>
                 </div>  
         </section>
-        <a href="/schoolsoft/Procesos/adm.html" id="adm1">Administrar</a>
     </aside>
     <section class="novedades">
         <article class="avisos"><h2>Avisos Importantes Relacionados a la Institucion</h2></article>
@@ -85,47 +83,37 @@
     </section>
     <main id="pcentro">
         <section id="Centro-Options" class="centro">
-            <div class="cuadro1">
+            <div class="cuadro1" id="ho">
                 <li class="	fas fa-signal"></li>
                 <li class="textoC">Calificaciones Destacadas</li>
             </div>
-            <div class="cuadro2">
+            <a class="cuadro2" id="hov" href="/schoolsoft/Procesos/notas.html">
                 <li class="	fa fa-pencil-square-o"></li>
                 <li class="textoC">Notas Personales</li>
-            </div>
-            <div class="cuadro3">
-                <li class="	far fa-calendar-alt"></li>
-                <li class="textoC">Fechas Fijadas</li>
-            </div>
-            <div class="cuadro4">
-               <li class="	far fa-calendar-check"></li>
-               <li class="textoC">Objetivos Completados</li>
-            </div>
-            <div class="cuadro5">
-                <li class="	fas fa-bookmark"></li>
-                <li class="textoC">Trabajos Fijados</li>
-            </div>
-            <div class="cuadro6">
+            </a>
+            <a class="cuadro3" id="ho">
                 <li class="	fab fa-rocketchat"></li>
                 <li class="textoC">Chat Estudiantes</li>
-            </div>
-            <div class="cuadro7">
+            </a>
+            <a class="cuadro4" id="hov" href="/schoolsoft/Procesos/calendar-04/index.html">
+                <li class="	far fa-calendar-alt"></li>
+                <li class="textoC">Fechas Fijadas</li>
+            </a>
+            <a class="cuadro5" id="ho">
+                <li class="	fas fa-bookmark"></li>
+                <li class="textoC">Trabajos Fijados</li>
+            </a>
+            <a class="cuadro7" id="ho">
                 <li class="	fa fa-folder-open"></li>
                 <li class="textoC">Archivos Maestro/a</li>
-            </div>
-            <div class="cuadro8">
-                <li class="fa fa-unlock-alt"></li>
-                <li class="textoC">Examenes</li>
-            </div>
+            </a>
             <section class="privado">
                 <div class="tl"><h2>Mensaje Privado</h2></div>
                 <input type="text" placeholder="Dirigido a:" id="inp1">
                 <button id="div">Enviar</button>
-                <input type="text" placeholder="Asunto:" id="inp2">
+                <!-- <input type="text" placeholder="Asunto:" id="inp2"> -->
+                <textarea id="inp2" placeholder="Asunto:" rows="5"></textarea>
             </section>
-            <div class="pfoto">
-                <img src="/schoolsoft/Video/ciudad.gif" alt="">
-            </div>
         </section>
     </main>
     <footer class="piePagina">
@@ -143,5 +131,8 @@
         </ul>
     </footer>
     <script src="/schoolsoft/javaScript/expansion.js"></script>
+    <script src="/schoolsoft/javaScript/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+	<script src="/schoolsoft/javaScript/script.js"></script>
 </body>
 </html>
