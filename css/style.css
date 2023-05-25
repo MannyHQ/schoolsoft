@@ -95,6 +95,7 @@ header .logo .imgL{
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
 }
 .perfil .perfilT, .perfilF{
     padding: 15px;
@@ -223,9 +224,8 @@ header .logo .imgL{
     grid-template-areas: 
     "one one nine"
     "two thre nine"
-    "four five nine"
-    "seven seven nine";
-    grid-template-rows: 300px 100px 100px 100px;
+    "four five nine";
+    grid-template-rows: 350px 150px 150px;
     grid-template-columns: repeat(3,1fr);
 }
 #Centro-Options > *{
@@ -278,9 +278,6 @@ header .logo .imgL{
 #Centro-Options .cuadro5{
     grid-area: five;
 }
-#Centro-Options .cuadro7{
-    grid-area: seven;
-}
 
 /*! Mensajes Privados*/
 #Centro-Options .privado{
@@ -321,7 +318,7 @@ header .logo .imgL{
 .privado #inp2{
     grid-area: asunto;
     width: 100%;
-    height: 500px;
+    height: 90%;
     background-color: #cdcccc;
     border: none;
 }

@@ -3,17 +3,15 @@ const centro_Options = document.querySelector('#Centro-Options');
 const expansivo1 = document.querySelector('.cuadro1');
 const expansivo2 = document.querySelector('.cuadro3');
 const expansivo5 = document.querySelector('.cuadro5');
-const expansivo7 = document.querySelector('.cuadro7');
+const mediaQuery = window.matchMedia("(max-width: 600px)");
 
 const originalHTML = expansivo1.innerHTML;
 const valor = expansivo2.innerHTML;
 const originExpansivo5 = expansivo5.innerHTML;
-const originExpansivo7 = expansivo7.innerHTML;
 
 let expandido1 = false;
 let expandido2 = false;
 let expandido5 = false;
-let expandido7 = false;
 
 expansivo1.addEventListener('click', ()=>{
     let data;
@@ -23,8 +21,7 @@ expansivo1.addEventListener('click', ()=>{
         "one one one"
         "one one one"
         "two thre nine"
-        "four five nine"
-        "seven seven nine";`
+        "four five nine";`
         data = expansivo1;
         data.class = 'cuadrado1';
         data.style = `background-color: #6AA5A9;`
@@ -116,8 +113,7 @@ expansivo1.addEventListener('click', ()=>{
         centro_Options.style = `grid-template-areas: 
         "one one nine"
         "two thre nine"
-        "four five nine"
-        "seven seven nine";`
+        "four five nine"`
         data = expansivo1;
         data.style = `background-color: none;`
         data.innerHTML = originalHTML;
@@ -133,8 +129,7 @@ expansivo2.addEventListener('click', ()=>{
         "thre thre thre"
         "thre thre thre"
         "one two nine"
-        "four five nine"
-        "seven seven nine"`
+        "four five nine"`
         data2 = expansivo2;
         data2.style = 'background-color: #6AA5A9;'
         data2.innerHTML = `
@@ -229,6 +224,7 @@ expansivo2.addEventListener('click', ()=>{
         </section>`;
         expandido2 = true;
     }
+});
     // }else{
     //     centro_Options.style = `grid-template-areas: 
     //     "one one nine"
@@ -239,7 +235,7 @@ expansivo2.addEventListener('click', ()=>{
     //     data2.innerHTML = valor;
     //     expandido2 = false;
     // }
-})
+
 expansivo5.addEventListener('click', ()=>{
     let data;
     if(!expandido5){
@@ -248,8 +244,7 @@ expansivo5.addEventListener('click', ()=>{
         "five five five"
         "five five five"
         "one two nine"
-        "thre four nine"
-        "seven seven nine"`
+        "thre four nine"`
         data = expansivo5;
         data.style = 'background-color: #6AA5A9;'
         data.innerHTML = `
@@ -295,60 +290,34 @@ expansivo5.addEventListener('click', ()=>{
         expandido5 = true;
 
     }
-    // else{
-    //     centro_Options.style = `grid-template-areas: 
-    //     "one one nine"
-    //     "two thre nine"
-    //     "four five nine"
-    //     "seven seven nine";`;
-    //     data = expansivo5;
-    //     data.innerHTML = originExpansivo5;
-    //     expandido5 = false;
-    // }
-})
+});
 
-expansivo7.addEventListener('click', ()=>{
-    let data;
-    if(!expandido7){
-        centro_Options.style = `grid-template-areas: 
-        "seven seven seven"
-        "seven seven seven"
-        "seven seven seven"
-        "one two nine"
-        "thre four nine"
-        "five five nine"`
-        data = expansivo7;
-        data.style = 'background-color: #6AA5A9;'
-        data.innerHTML = `
-        <div class="fijado">
-            <nav id="cabeza" class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand">Archivos</a>
-                    <a id="volver" class="btn btn-primary" href="/schoolsoft/index.html">volver</a>
-                </div>
-            </nav>
-            <div class="container mt-5">
-                <h1>Carga de archivos</h1>
-                <form action="upload.php" method="POST" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="fileInput" class="form-label">Archivar:</label>
-                    <input type="file" class="form-control" id="fileInput" name="fileInput">
-                </div>
-                <button type="submit" class="btn btn-primary">Upload</button>
-                </form>
-            </div>
-        </div>`;
-        expandido7 = true;
-    }
 
-    // }else{
-    //     centro_Options.style = `grid-template-areas: 
-    //     "one one nine"
-    //     "two thre nine"
-    //     "four five nine"
-    //     "seven seven nine";`;
-    //     data = expansivo7;
-    //     data.innerHTML = originExpansivo7;
-    //     expandido7 = false;
-    // }
-})
+const mediaQueryEvent = (event)=>{
+    if(event.matches){
+    // El media query coincide con la condición
+        console.log("El ancho de la ventana es menor o igual a 600px");
+        expansivo1.addEventListener('click',()=>{
+            window.location.href = '/schoolsoft/Procesos/view_movil/calDestacadas.html';
+        });
+
+        expansivo2.addEventListener('click',()=>{
+            window.location.href = '/schoolsoft/Procesos/view_movil/chat.html';
+        });
+
+        expansivo5.addEventListener('click',()=>{
+            window.location.href = '/schoolsoft/Procesos/view_movil/trabajoF.html';
+        });
+    }else {
+        // El media query no coincide con la condición
+        console.log("El ancho de la ventana es mayor a 768px");
+        // Aquí puedes ejecutar la lógica adicional que deseas realizar
+
+      }
+};
+
+// Agrega el evento al media query
+mediaQuery.addEventListener("change", mediaQueryEvent);
+
+// Llama a la función de callback inicialmente para verificar el estado actual del media query
+mediaQueryEvent(mediaQuery);

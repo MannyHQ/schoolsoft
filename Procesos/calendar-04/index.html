@@ -4,21 +4,15 @@
   	<title>Calendar 04</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	
 	<link rel="stylesheet" href="css/style.css">
-
+	<link rel="stylesheet" href="/schoolsoft/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/schoolsoft/css/styleJS.css">
 	</head>
 	<body id="cale">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand">My Dates</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
 			<a id="volver" class="btn btn-primary" href="/schoolsoft/index.html">volver</a>
 		</div>
 	</nav>
@@ -39,9 +33,9 @@
 				          <span class="year" id="label"></span> 
 				          <span class="right-button fa fa-chevron-right" id="next"> </span>
 				        </div> 
-				        <table class="months-table w-100"> 
-				          <tbody>
-				            <tr class="months-row">
+				        <table class="months-table w-100" > 
+				          <tbody id="calM">
+				            <tr class="months-row" >
 				              <td class="month">Jan</td> 
 				              <td class="month">Feb</td> 
 				              <td class="month">Mar</td> 
@@ -58,7 +52,7 @@
 				          </tbody>
 				        </table> 
 				        
-				        <table class="days-table w-100"> 
+				        <table class="days-table w-100" id="calM"> 
 				          <td class="day">Sun</td> 
 				          <td class="day">Mon</td> 
 				          <td class="day">Tue</td> 
@@ -98,10 +92,11 @@
 	</section>
     <script src="/schoolsoft/javaScript/expansion.js"></script>
 	<script src="js/jquery.min.js"></script>
-  <script src="js/popper.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
-
+  	<script src="js/popper.js"></script>
+  	<script src="js/bootstrap.min.js"></script>
+  	<script src="js/main.js"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+  	<script src="/schoolsoft/javaScript/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 	</body>
 </html>
 
