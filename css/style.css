@@ -138,13 +138,13 @@ header .logo .imgL{
 .novedades{
     background-color: #AEAEAE;
     width: 48%;
-    height: 85px;
+    height: auto;
     margin: 0px auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content:space-around;
     align-items: center;
-    gap: 10px;
+    
 }
 .novedades .avisos > h2{
     font-size: 14px;
@@ -301,9 +301,10 @@ header .logo .imgL{
     text-align: center;
 }
 .privado #div{
+    width: auto;
     background-color: #48e7ad;
     grid-area: cuadrado;
-    font-size: 25px;
+    font-size: 16px;
     height: 45px;
     text-align: center;
     border: none;

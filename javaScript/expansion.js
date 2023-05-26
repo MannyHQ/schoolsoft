@@ -3,7 +3,7 @@ const centro_Options = document.querySelector('#Centro-Options');
 const expansivo1 = document.querySelector('.cuadro1');
 const expansivo2 = document.querySelector('.cuadro3');
 const expansivo5 = document.querySelector('.cuadro5');
-const mediaQuery = window.matchMedia("(max-width: 600px)");
+const mediaQuery = window.matchMedia("(max-width: 768px)");
 
 const originalHTML = expansivo1.innerHTML;
 const valor = expansivo2.innerHTML;
@@ -146,7 +146,7 @@ expansivo2.addEventListener('click', ()=>{
                         <span class="badge bg-warning me-3">20</span>
                         <i class="fas fa-minus me-3 text-muted fa-xs"></i>
                         <i class="fas fa-comments me-3 text-muted fa-xs"></i>
-                        <a id="volver" class="btn btn-primary" href="/schoolsoft/index.html"><i class="fas fa-times text-muted fa-xs"></i></a>
+                        <a id="volver" class="btn btn-primary" href="/schoolsoft/html/Maestros.html"><i class="fas fa-times text-muted fa-xs"></i></a>
                     </div>
                     </div>
                     <div class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px">
@@ -260,7 +260,7 @@ expansivo5.addEventListener('click', ()=>{
                             <input id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         </form>
                     </div>
-                    <a id="volver" class="btn btn-primary" href="/schoolsoft/index.html">volver</a>
+                    <a id="volver" class="btn btn-primary" href="/schoolsoft/html/Maestros.html">volver</a>
                 </div>
             </nav>
             <div class="container my-3" id="container">
