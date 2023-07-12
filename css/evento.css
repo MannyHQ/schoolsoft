@@ -1,0 +1,101 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+}
+
+.menu {
+  background-color: #f1f1f1;
+  width: 200px;
+  padding: 20px;
+  height: 100vh;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  width: 80px;
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  margin-bottom: 10px;
+}
+
+.menu a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.menu a i {
+  margin-right: 10px;
+}
+
+.menu a:hover {
+  background-color: #ccc;
+}
+
+.event-section {
+  flex: 1;
+  padding: 20px;
+}
+
+.event-section h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.event-list {
+  list-style: none;
+  padding: 0;
+}
+
+.event-item {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.event-title {
+  color: #333;
+  margin-top: 0;
+}
+
+.event-description {
+  color: #666;
+}
+
+.event-date {
+  color: #999;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Estilos adicionales para resaltar eventos específicos */
+
+.event-item.highlight {
+  background-color: #ffeecc;
+}
+
+.event-item.highlight .event-title {
+  color: #f90;
+}

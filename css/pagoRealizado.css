@@ -1,0 +1,5 @@
+@import url('pago.css');
+
+#success-message{
+    display:block !important;
+}

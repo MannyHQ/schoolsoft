@@ -1,0 +1,48 @@
+@import url('./pago.css');
+
+.container .tabla-registro .field-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.container .tabla-registro .field-container .field-titles, .field-data{
+    display: flex;
+    justify-content: space-around;
+
+    margin: 10px 0;
+}
+
+.container .tabla-registro .field-container .field-data .field-element{
+    border: solid 2px black;
+}
+
+.container .tabla-registro .field-container .field-data{
+    border-left: solid 2px black;
+
+    text-align: center;
+}
+
+.container .tabla-registro .field-container .field-data .field-element{
+    padding: 4px;
+}
+
+.container .tabla-registro .field-container .field-data .field-element:nth-child(n+1){
+    border-left: none;
+}
+
+.container .tabla-registro .field-container .field-data .field-element:nth-child(1){
+    flex: 0.5;
+}
+
+.container .tabla-registro .field-container .field-data .field-element:nth-child(2){
+    flex: 1;
+}
+
+.container .tabla-registro .field-container .field-data .field-element:nth-child(3){
+    flex: 0.8;
+}
+
+.container .tabla-registro .field-container .field-data .field-element:nth-child(4){
+    flex: 0.55;
+}
