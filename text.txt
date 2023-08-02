@@ -1,0 +1,104 @@
+HTML
+
+Estudiantes
+    schoolsoft/html/Estudiantes/Calficaciones.html
+    y asi para los demas html en Estudiantes
+
+
+/-----------------------------------------------------------------------------------\
+Maestros
+    Maestros.html
+    schoolsoft/html/Maestros/Maestros.html
+        Procesos
+            notas.html
+            schoolsoft/html/Maestros/Procesos/notas.html
+        calendario-04
+            index.html
+            schoolsoft/html/Maestros/Procesos/calendar-04/index.html
+        para los archivos de view_movil solo cambiar el calendar-04 por view_movil
+
+
+/-----------------------------------------------------------------------------------\
+Padres
+    eventos.html
+        schoolsoft/html/Padres/eventos.html
+    para el archivo Pagos.html solo cambiar
+    
+    pagina
+        schoolsoft/html/Padres/pagina/evento.html
+        dependiendo del archivo que quieras cambiar el nombre
+
+
+
+
+
+CSS
+
+Estudiantes
+    Calficaciones.css
+        schoolsoft/css/Estudiantes/Calficaciones.css
+    Clases.css
+        schoolsoft/css/Estudiantes/Clases.css
+    Cursos.css
+        schoolsoft/css/Estudiantes/Cursos.css
+    Estudiantes.css
+        schoolsoft/css/Estudiantes/Estudiantes.css
+
+/-----------------------------------------------------------------------------------\
+Maestros
+    style.css
+        schoolsoft/css/Maestros/style.css
+    styleAdm.css
+        schoolsoft/css/Maestros/styleAdm.css
+    styleJS.css
+        schoolsoft/css/Maestros/stylejs.css
+    bootstrap.css
+        schoolsoft/css/Maestros/bootstrap.min.css
+        calendario-04
+            style.css
+                schoolsoft/css/Maestros/Calendar-04/style.css
+
+/-----------------------------------------------------------------------------------\
+Padres
+    chat.css
+        schoolsoft/css/Padres/chat.css
+    evento.css
+        schoolsoft/css/Padres/evento.css
+    menu.css
+        schoolsoft/css/Padres/menu.css
+    pago.css
+        schoolsoft/css/Padres/pago.css
+    pagoRealizado.css
+        schoolsoft/css/Padres/chat.css
+    Pagos.css
+        schoolsoft/css/Padres/Pagos.css
+    registroDePago.css
+        schoolsoft/css/Padres/registroDePago.css
+
+
+
+/-----------------------------------------------------------------------------------\
+
+
+JavaScript
+
+Estudiantes
+    clases.js
+    schoolsoft/javaScript/Estudiantes/Clases.js
+
+
+/-----------------------------------------------------------------------------------\
+
+Maestros
+    script.js
+    schoolsoft/javaScript/Maestros/script.js
+    
+    calendario-04
+        schoolsoft/javaScript/Maestros/calendar-04/js/main.js
+
+
+/-----------------------------------------------------------------------------------\
+
+Padres
+    evento.js
+    schoolsoft/javaScript/Padres/evento.js

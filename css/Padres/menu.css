@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .menu {
+    background-color: #f1f1f1;
+    width: 200px;
+    padding: 10px;
+    height: 100vh;
+    
+  }
+
+  .logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .logo img {
+    width: 80px;
+  }
+
+  .menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .menu li {
+    margin-bottom: 50px;
+  }
+
+  .menu a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .menu a i {
+    margin-right: 10px;
+  }
+
+  .menu a:hover {
+    background-color: #ccc;
+  }
