@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <h1>Desasignar Asignaturas a {{ profesor.first_name }} {{ profesor.last_name }}</h1>
+  <form method="post">
+    {% csrf_token %}
+    <table>
+      <thead>
+        <tr>
+          <th>Seleccionar</th>
+          <th>Asignatura</th>
+          <th>Nivel</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for asignatura in asignaturas_asignadas %}
+          <tr>
+            <td><input type="checkbox" name="asignaturas_desasignar" value="{{ asignatura.subject_id.id }}"></td>
+            <td>{{ asignatura.subject_id.name }}</td>
+            <td>{{ asignatura.subject_id.level }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <button type="submit">Desasignar Asignaturas</button>
+  </form>
+</body>
+</html>

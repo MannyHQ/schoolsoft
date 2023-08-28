@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <h1>Desasignar Asignaturas a {{ profesor.first_name }} {{ profesor.last_name }}</h1>
+  <form method="post">
+    {% csrf_token %}
+    <select name="asignatura_id">
+      {% for asignatura in asignaturas_asignadas %}
+        <option value="{{ asignatura.subject_id.id }}">{{ asignatura.subject_id.name }} - {{ asignatura.subject_id.level }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Desasignar Asignatura</button>
+  </form>
+</body>
+</html>
