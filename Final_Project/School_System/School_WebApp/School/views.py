@@ -69,6 +69,12 @@ def select_professor(request):
     template = "School/select_teacher.html"
     return render(request,template,{'teachers':teachers})
 
+def select_student(request):
+    students = Students.objects.all()
+    template = "School/select_student.html"
+    return render(request, template,{'students':students})
+
+
 def add_courses(request):
     if request.method == 'POST':
         form = CourseForm(request.POST)
@@ -97,6 +103,26 @@ def add_subjects(request):
     else:
         form = SubjectForm()
     return render(request,'School/add-library.html',{'form': form,'courses': courses})
+
+def do_inscription(request):
+    students = Students.objects.all()
+    courses = Course.objects.all()
+    inscriptions = Inscription.objects.all()
+
+    if request.method == 'POST':
+        print(request.POST)
+        form = InscriptionForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('/do-inscription')
+            except:
+                pass
+    else:
+        form = InscriptionForm()
+    
+    return render(request,'School/add-fees.html',{'form':form,'students':students,'courses':courses,'inscriptions':inscriptions})
+
 
 def add_students(request):
     students = Students.objects.all()

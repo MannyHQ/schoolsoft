@@ -66,8 +66,8 @@ class Inscription(models.Model):
     student_id = models.ForeignKey(Students, on_delete=models.CASCADE)
     course_id =  models.ForeignKey(Course, on_delete=models.CASCADE)
     date_inscription = models.DateTimeField()
-    pay_status = models.SmallIntegerField()
-    ref_pay = models.CharField(max_length=200)
+    start_date = models.DateField()
+    end_date = models.DateField()
     inscription_status = models.SmallIntegerField()
     
     def __str__(self):

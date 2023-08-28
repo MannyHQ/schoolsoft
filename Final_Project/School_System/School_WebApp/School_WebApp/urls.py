@@ -48,8 +48,10 @@ urlpatterns = [
     path('edit-professor/update/<int:id>', views.edit_professor_confirm, name='update'),
     path('assign-subject/<int:profesor_id>', views.asignar_asignaturas, name='assign-subject'),
     path('select-professor/', views.select_professor, name='select-professor'),
-    path('remove-subject/<int:profesor_id>', views.quitar_asignaturas, name='remove-subject'),
-    path('quitar-asignaturas/<int:profesor_id>',views.desasignar_asignaturas,name="quitar-asignatura")
+    path('remove-subject/<int:profesor_id>', views.desasignar_asignaturas, name='remove-subject'),
+    path('quitar-asignaturas/<int:profesor_id>',views.desasignar_asignaturas,name="quitar-asignatura"),
+    path('select-student/', views.select_student, name='select-student'),
+    path('do-inscription/',views.do_inscription,name='do-inscription')
 ]
 
 urlpatterns += [

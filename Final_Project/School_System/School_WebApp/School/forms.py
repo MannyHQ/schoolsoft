@@ -51,6 +51,20 @@ class SubjectForm(forms.ModelForm):
             'level': forms.Select(attrs={'class': 'form-control'}),
         }
 
+class InscriptionForm(forms.ModelForm):
+    class Meta:
+        model = Inscription
+        fields = ['date_inscription','start_date','end_date','course_id','student_id','inscription_status']
+        widgets = {
+            'date_inscription': forms.TextInput(attrs={'class': 'datepicker-default form-control'}),
+            'start_date': forms.TextInput(attrs={'class': 'datepicker-default form-control'}),
+            'end_date': forms.TextInput(attrs={'class': 'datepicker-default form-control'}),
+            'inscription_status': forms.TextInput(attrs={'class': 'form-control'}),
+            'course_id': forms.Select(attrs={'class': 'form-control'}),
+            'student_id': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Students
