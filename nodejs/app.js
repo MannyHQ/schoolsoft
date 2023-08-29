@@ -1,39 +1,22 @@
-const express = require("express");
-const mysql = require('mysql2')
+import express from 'express';
+import mysql from 'mysql2';
+import bodyParse from 'body-parser';
+import session from 'express-session';
+import path from 'path';
+
+import indexPages from './routes/index.routes.js';
+import loginPages from './routes/login.routes.js';
 
 const app = express();
 
-const connection = mysql.createConnection(
-    {
-        host: 'localhost',
-        user: 'junior',
-        password: '153wasd',
-        database: 'validacion'
-    }
-)
+app.use(bodyParse.urlencoded({ extended: true }));
+app.use(express.static(path.resolve('nodejs/public')));
+app.use(session({ secret: 'your-secret-key', resave: true, saveUninitialized: true }));
+app.use(express.text());
+app.use(express.json());
 
-connection.connect((err) => {
-
-    if(err)
-        console.log('\n<--- hubo un error --->\n', err);
-    else
-        console.log('conexion exitosa');
-})
-
-const consulta = `SELECT * FROM usuario`;
-
-connection.query(consulta, (err, results, fields) => {
-
-    if(err)
-        console.log(`${err}\nhubo un error en la consulta`);
-    else{
-
-        for(const camp of results)
-            console.log(`${camp.id}\n${camp.nombre}\n${camp.email}`).
-        
-        console.log(`consulta exitosa`);
-    }
-})
+app.use(indexPages);
+app.use(loginPages);
 
 const PORT = process.env.PORT || 3000;
 const domain = '';
