@@ -51,7 +51,11 @@ urlpatterns = [
     path('remove-subject/<int:profesor_id>', views.desasignar_asignaturas, name='remove-subject'),
     path('quitar-asignaturas/<int:profesor_id>',views.desasignar_asignaturas,name="quitar-asignatura"),
     path('select-student/', views.select_student, name='select-student'),
-    path('do-inscription/',views.do_inscription,name='do-inscription')
+    path('do-inscription/',views.do_inscription,name='do-inscription'),
+    path('add-staff/',views.add_staff,name="add-staff"),
+    path('login/',views.login_us,name="login"),
+    path('logout/',views.logout_view,name="logout"),
+
 ]
 
 urlpatterns += [

@@ -4,6 +4,30 @@ from django.http import HttpResponse
 from django.template import loader
 from School.forms import *
 from School.models import *
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate, logout
+
+def logout_view(request):
+    logout(request)
+    return redirect('/login')
+
+def login_us(request):
+    username = ""
+    password = ""
+    template = "School/page-login.html"
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request,username = username,password = password)
+
+        if user is not None and user.is_staff == True and user.is_active:
+            login(request,user)
+            return redirect('/home')
+        else:
+            return render(request,template)
+    return render(request,template)
+
+@login_required(login_url="/login")
 def index(request):
     students_count = Students.objects.count()
     latest_inscriptions_list = Inscription.objects.order_by("-date_inscription")[:5]
@@ -16,10 +40,11 @@ def index(request):
     
     return HttpResponse(template.render(context,request))
 
+@login_required(login_url="/login")
 def all_professors(request):
     return render(request,'School/all-professors.html')
 
-
+@login_required(login_url="/login")
 def asignar_asignaturas(request, profesor_id):
     if request.method == 'POST':
         form = TeacherSubjectForm(request.POST)
@@ -32,7 +57,7 @@ def asignar_asignaturas(request, profesor_id):
         form = TeacherSubjectForm()
     return render(request, 'School/assign_subject.html', {'form': form})
 
-
+@login_required(login_url="/login")
 def quitar_asignaturas(request, profesor_id):
     profesor = get_object_or_404(Teachers, pk=profesor_id)
 
@@ -44,7 +69,7 @@ def quitar_asignaturas(request, profesor_id):
 
     asignaturas_asignadas = profesor.teacher_vs_subjects_set.all()
     return render(request, 'School/template.html', {'profesor': profesor, 'asignaturas_asignadas': asignaturas_asignadas})
-
+@login_required(login_url="/login")
 def desasignar_asignaturas(request, profesor_id):
     profesor = get_object_or_404(Teachers, pk=profesor_id)
     asignaturas_asignadas = profesor.teacher_vs_subjects_set.all()
@@ -63,7 +88,7 @@ def desasignar_asignaturas(request, profesor_id):
 
 
 
-
+@login_required(login_url="/login")
 def select_professor(request):
     teachers = Teachers.objects.all()
     template = "School/select_teacher.html"
@@ -74,7 +99,7 @@ def select_student(request):
     template = "School/select_student.html"
     return render(request, template,{'students':students})
 
-
+@login_required(login_url="/login")
 def add_courses(request):
     if request.method == 'POST':
         form = CourseForm(request.POST)
@@ -88,7 +113,7 @@ def add_courses(request):
         form = CourseForm()
     return render(request,'School/add-courses.html',{'form': form})
 
-
+@login_required(login_url="/login")
 def add_subjects(request):
     courses = Course.objects.all()
     if request.method == 'POST':
@@ -104,6 +129,7 @@ def add_subjects(request):
         form = SubjectForm()
     return render(request,'School/add-library.html',{'form': form,'courses': courses})
 
+@login_required(login_url="/login")
 def do_inscription(request):
     students = Students.objects.all()
     courses = Course.objects.all()
@@ -123,7 +149,7 @@ def do_inscription(request):
     
     return render(request,'School/add-fees.html',{'form':form,'students':students,'courses':courses,'inscriptions':inscriptions})
 
-
+@login_required(login_url="/login")
 def add_students(request):
     students = Students.objects.all()
     if request.method == 'POST':
@@ -138,6 +164,29 @@ def add_students(request):
         form = StudentForm
     return render(request,'School/add-student.html',{'form': form,'students':students})
 
+@login_required(login_url="/login")
+def add_staff(request):
+    data = {
+        'form': CustomUserCreationForm()
+    }
+
+    if request.method == "POST":
+        form = CustomUserCreationForm(data=request.POST)
+        print(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('/add-staff')
+            except:
+                pass
+        data["form"] = form
+
+
+
+    return render(request,'School/add-staff.html',data)
+
+
+@login_required(login_url="/login")
 def add_professor(request):
     teachers = Teachers.objects.all()
     if request.method == 'POST':
@@ -152,6 +201,7 @@ def add_professor(request):
         form = TeacherForm
     return render(request,'School/add-professor.html',{'form': form,'teachers':teachers})
 
+@login_required(login_url="/login")
 def add_parents(request):
     if request.method == 'POST':
         form = ParentForm(request.POST)
@@ -165,62 +215,72 @@ def add_parents(request):
         form = ParentForm
     return render(request,'School/add-departments.html',{'form': form})
 
+@login_required(login_url="/login")
 def edit_student(request):
     students = Students.objects.all()
     template = "School/edit-student.html"
     return render(request,template,{'students':students})
 
+@login_required(login_url="/login")
 def edit_professor(request):
     teachers = Teachers.objects.all()
     template = "School/edit-professor.html"
     return render(request,template,{'teachers':teachers})
 
+@login_required(login_url="/login")
 def edit_parents(request):
     parents = Parents.objects.all()
     template = "School/edit-departments.html"
     return render(request,template,{'parents':parents})
 
+@login_required(login_url="/login")
 def edit_subjects(request):
     subjects = Subject.objects.all()
     template = "School/edit-library.html"
     return render(request,template,{'subjects':subjects})
 
-
+@login_required(login_url="/login")
 def edit_courses(request):
     courses = Course.objects.all()
     template = "School/edit-courses.html"
     return render(request,template,{'courses':courses})
 
+@login_required(login_url="/login")
 def edit_st(request,id):
     students_v = Students.objects.get(id=id)
     students = Students.objects.all()
     template = "School/edit-student.html"
     return render(request,template,{'students':students,'students_v':students_v})
 
+@login_required(login_url="/login")
 def edit_professor_b(request,id):
     teachers_v = Teachers.objects.get(id=id)
     teachers = Teachers.objects.all()
     template = "School/edit-professor.html"
     return render(request,template,{'teachers':teachers,'teachers_v':teachers_v})
 
+@login_required(login_url="/login")
 def edit_parents_b(request,id):
     parents_v = Parents.objects.get(id=id)
     parents = Parents.objects.all()
     template = "School/edit-departments.html"
     return render(request,template,{'parents':parents,'parents_v':parents_v})
 
+@login_required(login_url="/login")
 def edit_subjects_b(request,id):
     subjects_v = Subject.objects.get(id=id)
     subjects = Subject.objects.all()
     template = "School/edit-library.html"
     return render(request,template,{'subjects':subjects,'subjects_v':subjects_v})
 
+@login_required(login_url="/login")
 def edit_courses_b(request,id):
     courses_v = Course.objects.get(id=id)
     courses = Course.objects.all()
     template = "School/edit-courses.html"
     return render(request,template,{'courses':courses,'courses_v':courses_v})
 
+@login_required(login_url="/login")
 def edit_courses_confirm(request,id):
     courses_v = Course.objects.get(id=id)
     courses = Course.objects.all()
@@ -231,6 +291,7 @@ def edit_courses_confirm(request,id):
         return redirect('/edit-courses')
     return render(request,template,{'courses':courses,'courses_v':courses_v})
 
+@login_required(login_url="/login")
 def edit_subjects_confirm(request,id):
     subjects_v = Subject.objects.get(id=id)
     subjects = Subject.objects.all()
@@ -241,7 +302,7 @@ def edit_subjects_confirm(request,id):
         return redirect('/edit-subjects')
     return render(request,template,{'subjects':subjects,'subjects_v':subjects_v})
 
-
+@login_required(login_url="/login")
 def edit_st_confirm(request,id):
     students_v = Students.objects.get(id=id)
     students = Students.objects.all()
@@ -253,6 +314,7 @@ def edit_st_confirm(request,id):
         return redirect('/edit-student')
     return render(request,template,{'students':students,'students_v':students_v})
 
+@login_required(login_url="/login")
 def edit_professor_confirm(request,id):
     teachers_v = Teachers.objects.get(id=id)
     teachers = Teachers.objects.all()
@@ -264,7 +326,7 @@ def edit_professor_confirm(request,id):
         return redirect('/edit-professor')
     return render(request,template,{'teachers':teachers,'teachers_v':teachers_v})
 
-
+@login_required(login_url="/login")
 def edit_parents_confirm(request,id):
     parents_v = Parents.objects.get(id=id)
     parents = Parents.objects.all()
