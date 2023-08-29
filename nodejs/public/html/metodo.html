@@ -37,10 +37,10 @@
   <div id="payment-period">
     <h2>Selecciona el período de pago:</h2>
     <div class="period-options">
-      <div class="period-option" onclick="showPaymentForm(this, '1 Mes')">
+      <div class="period-option">
         <span>1 Mes</span>
       </div>
-      <div class="period-option" onclick="showPaymentForm(this, '1 Año')">
+      <div class="period-option">
         <span>1 Año</span>
       </div>
     </div>
@@ -53,11 +53,11 @@
             <i class="fab fa-xmark"></i>
             <span>cancelar plan</span>
         </div>
-      <div class="payment-option" onclick="redirectToPayPal()">
+      <div class="payment-option" id="paypal-option" onclick="redirectToPayPal()">
         <i class="fab fa-paypal"></i>
         <span>Pagar con PayPal</span>
       </div>
-      <div class="payment-option" onclick="showCardPaymentForm()">
+      <div class="payment-option" id="card-option" onclick="showCardPaymentForm()">
         <i class="fas fa-credit-card"></i>
         <span>Pagar con Tarjeta</span>
       </div>
@@ -93,9 +93,6 @@
     <p>¡Gracias por tu pago!</p>
   </div>
 </div>
-  <script src="../../../javaScript/Padres/payment.js"></script>
-
- 
-  
+  <script src="../js/payment.js" type="module"></script>
 </body>
 </html>

@@ -1,20 +1,18 @@
 function showPaymentForm(element, period) {
     
     const periodOptions = document.getElementsByClassName('period-option');
-    for (let i = 0; i < periodOptions.length; i++) {
+    for (let i = 0; i < periodOptions.length; i++)
         periodOptions[i].classList.remove('selected');
-    }
   
     element.classList.add('selected');
 
     document.getElementById('payment-form').style.display = 'block';
     document.getElementById('payment-period').style.display = 'none';
-    //document.getElementById('selected-period').innerText = 'Período seleccionado: ' + period;
 }
 
-function redirectToPayPal() {
-    
-    window.location.href = 'https://www.paypal.com';
+async function redirectToPayPal() {
+
+    window.location.href = `/create-order`;
 }
   
 function showCardPaymentForm() {
@@ -47,3 +45,10 @@ function cancelOptionPlan() {
     document.getElementById('card-details').style.display = 'none';
 }
 document.querySelector('.cancel-option').onclick = () => cancelOptionPlan();
+
+document.querySelectorAll('.period-option').forEach(opt => {
+
+    opt.onclick = () => showPaymentForm(opt, opt.textContent);
+})
+
+document.getElementById('paypal-option').onclick = () => redirectToPayPal();

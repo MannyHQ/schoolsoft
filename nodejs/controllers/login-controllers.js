@@ -1,7 +1,7 @@
 import path from 'path';
-import mysql from 'mysql2'
+import mysql from 'mysql2';
 
-export const pagLogin = (req, res) => res.sendFile(path.resolve('nodejs/public/html/login.html'));
+export const pagLogin = (req, res) => res.sendFile(path.resolve('public/html/login.html'));
 
 export const userVerfication = async (req, res) => {
 
@@ -32,7 +32,7 @@ export const userVerfication = async (req, res) => {
             res.send('error al conectar')
         else{
 
-            res.send(results);
+            res.json(results[0]);
 
             console.log(results);
         }        
