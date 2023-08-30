@@ -1,10 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
-
-
-
 class StudentUser(models.Model):
     id_number = models.CharField('matricula',max_length=11)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,related_name="sur")
@@ -26,13 +22,13 @@ class Students(models.Model):
     mail = models.CharField(max_length=200)
     phone_number = models.BigIntegerField()
     status = models.SmallIntegerField()
-    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="stu")
+    
 
 class Subject(models.Model):
     name = models.CharField(max_length=200)
     start_date = models.DateTimeField()
     description = models.CharField(max_length=200)
-    level = models.CharField(max_length=200)
+    level = models.IntegerField()
     
     def __str__(self):
         return self.name+' Curso:' + self.level
@@ -45,7 +41,6 @@ class Teachers(models.Model):
     phone_number = models.BigIntegerField()
     id_number = models.CharField('cedula',max_length=11)
     status = models.SmallIntegerField()
-    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="tcu")
     #subject_id = models.ForeignKey(Subject, on_delete=models.CASCADE)
 
 class Teacher_VS_Subjects(models.Model):
@@ -78,4 +73,4 @@ class Inscription(models.Model):
         return self.name+' Descripcion:'+self.description+' Curso:' + self.level
     
 
-
+Subject.level = models.ManyToManyField(Course, related_name='course')

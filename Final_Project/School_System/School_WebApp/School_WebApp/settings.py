@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'School.apps.SchoolConfig',
+    'teachers.apps.TeachersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'school_system',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'axeldan123',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
