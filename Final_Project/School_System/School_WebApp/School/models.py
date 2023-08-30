@@ -55,7 +55,6 @@ class Parents(models.Model):
     id_number = models.CharField('cedula',max_length=11)
     mail = models.CharField(max_length=200)
     phone_number = models.BigIntegerField()
-    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="pru")
     status = models.SmallIntegerField()
 
 class Course(models.Model):
