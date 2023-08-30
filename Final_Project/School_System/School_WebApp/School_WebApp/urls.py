@@ -55,7 +55,9 @@ urlpatterns = [
     path('add-staff/',views.add_staff,name="add-staff"),
     path('login/',views.login_us,name="login"),
     path('logout/',views.logout_view,name="logout"),
-
+    path('edit-staff/',views.edit_staff,name="edit-staff"),
+    path('edit-staff/<int:id>',views.edit_staff_b,name="edit-staff"),
+    path('edit-staff/update/<int:id>',views.edit_staff_confirm,name="update"),
 ]
 
 urlpatterns += [

@@ -169,7 +169,7 @@ def add_staff(request):
     data = {
         'form': CustomUserCreationForm()
     }
-
+    print(request.POST)
     if request.method == "POST":
         form = CustomUserCreationForm(data=request.POST)
         print(request.POST)
@@ -221,6 +221,13 @@ def edit_student(request):
     template = "School/edit-student.html"
     return render(request,template,{'students':students})
 
+@login_required(login_url='/login')
+def edit_staff(request):
+    usernames = User.objects.all()
+    template = "School/edit-staff.html"
+    return render(request,template,{'usernames':usernames})
+
+
 @login_required(login_url="/login")
 def edit_professor(request):
     teachers = Teachers.objects.all()
@@ -258,6 +265,13 @@ def edit_professor_b(request,id):
     teachers = Teachers.objects.all()
     template = "School/edit-professor.html"
     return render(request,template,{'teachers':teachers,'teachers_v':teachers_v})
+
+@login_required(login_url="/login")
+def edit_staff_b(request,id):
+    usernames_v = User.objects.get(id=id)
+    usernames = User.objects.all()
+    template = "School/edit-staff.html"
+    return render(request,template,{'usernames':usernames,'usernames_v':usernames_v})
 
 @login_required(login_url="/login")
 def edit_parents_b(request,id):
@@ -326,6 +340,23 @@ def edit_professor_confirm(request,id):
         return redirect('/edit-professor')
     return render(request,template,{'teachers':teachers,'teachers_v':teachers_v})
 
+@login_required(login_url="/login")
+def edit_staff_confirm(request,id):
+    
+    usernames_v = User.objects.get(id=id)
+    usernames = User.objects.all()
+    template = "School/edit-staff.html"
+    data = {
+        'form': CustomUserCreationForm()
+    }
+    form = CustomUserCreationForm(data=request.POST,instance=usernames_v)
+    print(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('/edit-staff')
+    return render(request,template,{'usernames':usernames,'usernames_v':usernames_v})
+    
+    
 @login_required(login_url="/login")
 def edit_parents_confirm(request,id):
     parents_v = Parents.objects.get(id=id)

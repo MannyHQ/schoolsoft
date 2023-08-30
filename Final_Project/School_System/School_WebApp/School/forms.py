@@ -35,7 +35,7 @@ class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     class Meta:
         model = User
-        fields = ['username','email','password1','password2','first_name','last_name','is_superuser','is_staff','is_active']
+        fields = ['username','email','password1','password2','first_name','last_name','is_staff','is_active']
         widgets ={
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
