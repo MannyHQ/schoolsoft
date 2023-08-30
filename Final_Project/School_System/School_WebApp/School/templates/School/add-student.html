@@ -179,16 +179,17 @@
             <div class="dlabnav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    {% comment %} <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
 							<i class="la la-home"></i>
 							<span class="nav-text">Dashboard</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="/home">Home</a></li>
+                            <li><a href="index.html">Dashboard 1</a></li>
                             <li><a href="index-2.html">Dashboard 2</a></li>
                             <li><a href="index-3.html">Dashboard 3</a></li>
                         </ul>
-                    </li>
+                    </li> {% endcomment %}
+					
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
 							<i class="la la-user"></i>
 							<span class="nav-text">Profesores</span>
@@ -197,6 +198,9 @@
                             <li><a href="/all-professors">Lista de profesores</a></li>
                             <li><a href="/add-professor">Añadir profesor</a></li>
                             <li><a href="/edit-professor">Editar profesor</a></li>
+                            <li><a href="/professor-profile">Perfil del profesor</a></li>
+                            <li><a href="/select-professor">Asignar materia</a></li>
+                            <li><a href="/select-professor">Quitar materia</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -204,9 +208,10 @@
 							<span class="nav-text">Estudiantes</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="/all-students">Lista de estudiantes</a></li>
-                            <li><a href="/add-students">Añadir estudiante</a></li>
-                            <li><a href="/edit-student">Editar estudiantes</a></li>
+                            <li><a href="all-students.html">Lista de Estudiantes</a></li>
+                            <li><a href="/add-students">Añadir Estudiante</a></li>
+                            <li><a href="/edit-student">Editar Estudiante</a></li>
+                            <li><a href="about-student.html">Sobre los Estudiantes</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -214,9 +219,10 @@
 							<span class="nav-text">Cursos</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="/all-courses">Lista de cursos</a></li>
-                            <li><a href="/add-courses">Añadir cursos</a></li>
-                            <li><a href="/edit-courses">Editar cursos</a></li>
+                            <li><a href="/all-coursesl">Todos los cursos</a></li>
+                            <li><a href="/add-courses">Añadir curso</a></li>
+                            <li><a href="/edit-courses">Editar curso</a></li>
+                            <li><a href="/about-courses">Sobre los cursos</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -225,7 +231,7 @@
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="/all-subjects">Lista de asignaturas</a></li>
-                            <li><a href="/add-subjects">Añadir asignaturas</a></li>
+                            <li><a href="/add-subjects">Añadir asignatura</a></li>
                             <li><a href="/edit-subjects">Editar asignaturas</a></li>
                         </ul>
                     </li>
@@ -234,8 +240,8 @@
 							<span class="nav-text">Padres</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="/all-parents">Lista de padres</a></li>
-                            <li><a href="/add-parents">Añadir padre</a></li>
+                            <li><a href="/all-parents">Listado de padres</a></li>
+                            <li><a href="/add-parents">Añadir padres</a></li>
                             <li><a href="/edit-parents">Editar padres</a></li>
                         </ul>
                     </li>
@@ -245,18 +251,22 @@
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="/all-staff">Lista de usuarios</a></li>
-                            <li><a href="/add-staff">Añadir usuario</a></li>
-                            <li><a href="/edit-staff">Editar usuario</a></li>
+                            <li><a href="/add-staff">Añadir Usuarios</a></li>
+                            <li><a href="/edit-staff">Editar Usuarios</a></li>
+                            <li><a href="/user-student">Asignar usuario a estudiante</a></li>
+                            <li><a href="/user-teacher">Asignar usuario a profesor</a></li>
+                            <li><a href="/user-student">Asignar usuario a padre</a></li>
                         </ul>
                     </li>
+					
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
 							<i class="la la-dollar"></i>
-							<span class="nav-text">Fees</span>
+							<span class="nav-text">Inscripcion</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="fees-collection.html">Fees Collection</a></li>
-                            <li><a href="add-fees.html">Add Fees</a></li>
-                            <li><a href="fees-receipt.html">Fees Receipt</a></li>
+                            <li><a href="/all-inscription">Lista de inscripciones</a></li>
+                            <li><a href="/do-inscription">Inscribir estudiante</a></li>
+                            <li><a href="/edit-inscription">Modificar inscripcion</a></li>
                         </ul>
                     </li>					
 				</ul>

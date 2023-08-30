@@ -44,8 +44,8 @@ class Teachers(models.Model):
     #subject_id = models.ForeignKey(Subject, on_delete=models.CASCADE)
 
 class Teacher_VS_Subjects(models.Model):
-    subject_id = models.ForeignKey(Subject, on_delete=models.CASCADE,related_name="st")
-    teacher_id =  models.ForeignKey(Teachers, on_delete=models.CASCADE,related_name="tt")
+    subject_id = models.ForeignKey(Subject, on_delete=models.CASCADE,)
+    teacher_id =  models.ForeignKey(Teachers, on_delete=models.CASCADE,)
     def __str__(self):
         return f"ID: {self.subject_id.id}-{self.subject_id.name} Curso:{self.subject_id.level}"
 

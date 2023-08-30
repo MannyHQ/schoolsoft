@@ -69,6 +69,7 @@ def quitar_asignaturas(request, profesor_id):
 
     asignaturas_asignadas = profesor.teacher_vs_subjects_set.all()
     return render(request, 'School/template.html', {'profesor': profesor, 'asignaturas_asignadas': asignaturas_asignadas})
+
 @login_required(login_url="/login")
 def desasignar_asignaturas(request, profesor_id):
     profesor = get_object_or_404(Teachers, pk=profesor_id)
