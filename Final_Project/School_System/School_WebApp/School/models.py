@@ -23,12 +23,15 @@ class Students(models.Model):
     phone_number = models.BigIntegerField()
     status = models.SmallIntegerField()
     
-
+class Course(models.Model):
+    level = models.CharField(max_length=200)
+    
 class Subject(models.Model):
     name = models.CharField(max_length=200)
     start_date = models.DateTimeField()
     description = models.CharField(max_length=200)
-    level = models.IntegerField()
+    level = models.ForeignKey(Course, on_delete=models.CASCADE,)
+    # level = models.IntegerField()
     
     def __str__(self):
         return self.name+' Curso:' + self.level
@@ -57,9 +60,6 @@ class Parents(models.Model):
     phone_number = models.BigIntegerField()
     status = models.SmallIntegerField()
 
-class Course(models.Model):
-    level = models.CharField(max_length=200)
-
 class Inscription(models.Model):
     student_id = models.ForeignKey(Students, on_delete=models.CASCADE,related_name="ist")
     course_id =  models.ForeignKey(Course, on_delete=models.CASCADE,related_name="ics")
@@ -72,4 +72,4 @@ class Inscription(models.Model):
         return self.name+' Descripcion:'+self.description+' Curso:' + self.level
     
 
-Subject.level = models.ManyToManyField(Course, related_name='course')
+# Subject.level = models.ManyToManyField(Course, related_name='course')
