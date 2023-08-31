@@ -59,6 +59,14 @@ urlpatterns = [
     path('edit-staff/',views.edit_staff,name="edit-staff"),
     path('edit-staff/<int:id>',views.edit_staff_b,name="edit-staff"),
     path('edit-staff/update/<int:id>',views.edit_staff_confirm,name="update"),
+    path('search-courses/',views.SearchResultsView.as_view(),name="search-courses"),
+    path('search-subjects/',views.SearchSubjectView.as_view(),name="search-subjects"),
+    path('search-students/',views.SearchStudentView.as_view(), name = "search-students"),
+    path('search-parents/',views.SearchParentView.as_view(), name = "search-parents"),
+    path('search-staff/',views.SearchUserView.as_view(), name = "search-staff"),
+    path('search-teachers/',views.SearchTeacherView.as_view(), name = "search-teachers"),
+    path('search-selteachers/',views.SearchSelectProfessorView.as_view(), name = "search-selteachers"),
+    path('search-selstudent/',views.SearchSelectStudentView.as_view(), name = "search-selstudent"),
 ]
 
 urlpatterns += [

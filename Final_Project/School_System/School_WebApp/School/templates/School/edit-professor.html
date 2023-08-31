@@ -366,6 +366,13 @@
 									</div>
 								</form>
                                 <div class="table-responsive recentOrderTable">
+                                    <br>
+                                    <form action="{% url 'search-teachers' %}" method="GET">
+                                        <input name="search" class="form-control" type="search" placeholder="Buscar estudiante" aria-label="Search">
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">Buscar</button>
+                                    </form>
+                                    <br>
                                     <table class="table verticle-middle table-responsive-md">
                                         <thead>
                                             <tr>
@@ -381,6 +388,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        {% if object_list is None %}
                                         {% for teacher in teachers %}
                                             <tr>
                                                 <td>{{teacher.id}}</td>
@@ -397,6 +405,24 @@
                                                 </td>
                                             </tr>
                                         {% endfor %}
+                                        {% else %}
+                                        {% for teacher in object_list %}
+                                            <tr>
+                                                <td>{{teacher.id}}</td>
+												<td>{{teacher.first_name}}</td>
+                                                <td>{{teacher.last_name}}</td>
+                                                <td>{{teacher.code}}</td>
+                                                <td>{{teacher.mail}}</td>
+                                                <td>{{teacher.phone_number}}</td>
+                                                <td>{{teacher.id_number}}</td>
+                                                <td>{{teacher.status}}</td>
+                                                <td>
+                                                    <a href="/edit-professor/{{teacher.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        {% endif %}
                                         </tbody>
                                     </table>
                                     

@@ -6,6 +6,9 @@ from School.forms import *
 from School.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
+from django.views.generic import TemplateView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 
 def logout_view(request):
     logout(request)
@@ -15,6 +18,7 @@ def login_us(request):
     username = ""
     password = ""
     template = "School/page-login.html"
+
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -370,6 +374,84 @@ def edit_parents_confirm(request,id):
         return redirect('/edit-parents')
     return render(request,template,{'parents':parents,'parents_v':parents_v})
 
+@login_required(login_url="/login")
+def search_course(request):
+    template = "School/edit-courses.html"
 
+    if request.method == "GET":
+        s_courses = Course.objects.filter(level__icontains=request.GET)
+        if s_courses.exists():
+            return render(request,template,{'s_courses':s_courses})
+    
+class SearchResultsView(LoginRequiredMixin,ListView):
+    model = Course
+    login_url = '/login'
+    template_name = 'School/edit-courses.html'
+    def get_queryset(self): # new
+        query = self.request.GET.get("search")
+        s_courses = Course.objects.filter(level__icontains = query)
+        print(s_courses[0].level)
+        return s_courses
 
+class SearchSubjectView(LoginRequiredMixin,ListView):
+    model: Subject
+    login_url = '/login'
+    template_name = 'School/edit-library.html'
+    def get_queryset(self):
+        query = self.request.GET.get("search")
+        s_subjects = Subject.objects.filter(Q(name__icontains = query) | Q(description__icontains = query) | Q(level__icontains=query))
+        return s_subjects
 
+class SearchStudentView(LoginRequiredMixin,ListView):
+    model: Students
+    login_url = '/login'
+    template_name = 'School/edit-student.html'
+    def get_queryset(self):
+        query = self.request.GET.get("search")
+        s_student = Students.objects.filter(Q(first_name__icontains = query) | Q(last_name__icontains = query) | Q(id_number__icontains=query) | Q(mail__icontains = query) | Q(phone_number__icontains = query))
+        return s_student
+
+class SearchParentView(LoginRequiredMixin,ListView):
+    model: Parents
+    login_url = '/login'
+    template_name = 'School/edit-departments.html'
+    def get_queryset(self):
+        query = self.request.GET.get("search")
+        s_parent = Parents.objects.filter(Q(first_name__icontains = query) | Q(last_name__icontains = query) | Q(id_number__icontains=query) | Q(mail__icontains = query) | Q(phone_number__icontains = query))
+        return s_parent
+
+class SearchUserView(LoginRequiredMixin,ListView):
+    model: User
+    login_url = '/login'
+    template_name = 'School/edit-staff.html'
+    def get_queryset(self):
+        query = self.request.GET.get("search")
+        s_staff = User.objects.filter(Q(username__icontains = query) | Q(email__icontains = query) | Q(first_name__icontains = query) | Q(last_name__icontains = query))
+        return s_staff
+
+class SearchTeacherView(LoginRequiredMixin,ListView):
+    model: Teachers
+    login_url = '/login'
+    template_name = 'School/edit-professor.html'
+    def get_queryset(self):
+        query = self.request.GET.get("search")
+        s_teacher = Teachers.objects.filter(Q(first_name__icontains = query) | Q(last_name__icontains = query) | Q(code__icontains = query) | Q(id_number__icontains=query) | Q(mail__icontains = query) | Q(phone_number__icontains = query))
+        return s_teacher
+
+class SearchSelectProfessorView(LoginRequiredMixin,ListView):
+    model: Teachers
+    login_url = '/login'
+    template_name = 'School/select_teacher.html'
+    def get_queryset(self):
+        query = self.request.GET.get("search")
+        s_teacher = Teachers.objects.filter(Q(first_name__icontains = query) | Q(last_name__icontains = query) | Q(code__icontains = query) | Q(id_number__icontains=query) | Q(mail__icontains = query) | Q(phone_number__icontains = query))
+        return s_teacher
+
+class SearchSelectStudentView(LoginRequiredMixin,ListView):
+    model: Students
+    login_url = '/login'
+    template_name = 'School/select_student.html'
+    def get_queryset(self):
+        query = self.request.GET.get("search")
+        s_student = Students.objects.filter(Q(first_name__icontains = query) | Q(last_name__icontains = query) | Q(id_number__icontains=query) | Q(mail__icontains = query) | Q(phone_number__icontains = query))
+        return s_student

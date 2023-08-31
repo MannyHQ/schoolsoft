@@ -351,6 +351,13 @@
 									</div>
 								</form>
                                 <div class="table-responsive recentOrderTable">
+                                    <br>
+                                    <form action="{% url 'search-parents' %}" method="GET">
+                                        <input name="search" class="form-control" type="search" placeholder="Buscar estudiante" aria-label="Search">
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">Buscar</button>
+                                    </form>
+                                    <br>
                                     <table class="table verticle-middle table-responsive-md">
                                         <thead>
                                             <tr>
@@ -364,7 +371,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {% for parent in parents %}
+                                            {% if object_list is None %}
+                                            {% for parent in parents %}
                                             <tr>
                                                 <td>{{parent.id}}</td>
 												<td>{{parent.first_name}}</td>
@@ -379,6 +387,24 @@
                                                 </td>
                                             </tr>
                                         {% endfor %}
+                                            {% else %}
+                                            {% for parent in object_list %}
+                                            <tr>
+                                                <td>{{parent.id}}</td>
+												<td>{{parent.first_name}}</td>
+                                                <td>{{parent.last_name}}</td>
+                                                <td>{{parent.id_number}}</td>
+                                                <td>{{parent.mail}}</td>
+                                                <td>{{parent.phone_number}}</td>
+                                                <td>{{parent.status}}</td>
+                                                <td>
+                                                    <a href="/edit-parents/{{parent.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                            {% endif %}
+                                        
                                         </tbody>
                                     </table>
                                 </div>

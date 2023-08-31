@@ -28,7 +28,7 @@ class Subject(models.Model):
     name = models.CharField(max_length=200)
     start_date = models.DateTimeField()
     description = models.CharField(max_length=200)
-    level = models.IntegerField()
+    level = models.CharField(max_length=200)
     
     def __str__(self):
         return self.name+' Curso:' + self.level

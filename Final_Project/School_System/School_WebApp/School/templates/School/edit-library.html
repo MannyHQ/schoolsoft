@@ -424,6 +424,13 @@
 									</div>
 								</form>
                                 <div class="table-responsive recentOrderTable">
+                                    <br>
+                                    <form action="{% url 'search-subjects' %}" method="GET">
+                                        <input name="search" class="form-control" type="search" placeholder="Buscar estudiante" aria-label="Search">
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">Buscar</button>
+                                    </form>
+                                    <br>
                                     <table class="table verticle-middle table-responsive-md">
                                         <thead>
                                             <tr>
@@ -435,7 +442,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {% for subject in subjects %}
+                                            {% if object_list is None %}
+                                            {% for subject in subjects %}
                                             <tr>
                                                 <td>{{subject.id}}</td>
                                                 <td>{{subject.name}}</td>
@@ -447,7 +455,23 @@
                                                     <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
                                                 </td>
                                             </tr>
-                                        {% endfor %}
+                                            {% endfor %}
+                                            {% else %}
+                                            {% for subject in object_list %}
+                                            <tr>
+                                                <td>{{subject.id}}</td>
+                                                <td>{{subject.name}}</td>
+                                                <td>{{subject.start_date}}</td>
+                                                <td>{{subject.description}}</td>
+												<td>{{subject.level}}</td>
+                                                <td>
+                                                    <a href="/edit-subjects/{{subject.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                        
                                         </tbody>
                                     </table>
                                     

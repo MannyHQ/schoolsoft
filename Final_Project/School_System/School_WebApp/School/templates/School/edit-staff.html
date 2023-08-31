@@ -373,6 +373,13 @@
 									</div>
 								</form>
                                 <div class="table-responsive recentOrderTable">
+                                    <br>
+                                    <form action="{% url 'search-staff' %}" method="GET">
+                                        <input name="search" class="form-control" type="search" placeholder="Buscar estudiante" aria-label="Search">
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">Buscar</button>
+                                    </form>
+                                    <br>
                                     <table class="table verticle-middle table-responsive-md">
                                         <thead>
                                             <tr>
@@ -386,6 +393,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        {% if object_list is None %}
                                         {% for username in usernames %}
                                             <tr>
                                                 <td>{{username.id}}</td>
@@ -411,6 +419,34 @@
                                                 </td>
                                             </tr>
                                         {% endfor %}
+                                        {% else %}
+                                        {% for username in object_list %}
+                                            <tr>
+                                                <td>{{username.id}}</td>
+												<td>{{username.username}}</td>
+                                                <td>{{username.email}}</td>
+                                                <td>{{username.first_name}}</td>
+                                                <td>{{username.last_name}}</td>
+                                                {% if  username.is_staff == 1%}
+                                                <td>Si</td>
+                                                {% else %}
+                                                <td>No</td>
+                                                {% endif %}
+                                                {% if username.is_active == 1 %}
+                                                <td>Activo</td>
+                                                {% else %}
+                                                <td>Inactivo</td>
+                                                {% endif %}
+                                                {% comment %} <td>{{username.is_staff}}</td>
+                                                <td>{{username.is_active}}</td> {% endcomment %}
+                                                <td>
+                                                    <a href="/edit-staff/{{username.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        {% endif %}
+                                        
                                         </tbody>
                                     </table>
                                     
