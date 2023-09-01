@@ -3,8 +3,6 @@ from School.models import *
 from .models import *
 from django.http import HttpResponse
 from django.db.models import Count
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
 
 def teachers(request):
     return render(request, 'teachers/teachers.html')
@@ -119,13 +117,13 @@ def calificar(request):
             
         for inscription in inscriptions:
             course = inscription.course_id
-            subject = Subject.objects.filter(level=course)
+            subject = Subject.objects.filter(level_id=course)
             cursos_y_asignaturas.append({'course': course, 'subject': subject})
             
             
         return render(request, 'teachers/calification.html', {'student': student, 'cursos_y_asignaturas': cursos_y_asignaturas, 'list_calificaciones': list_calificaciones})
     except Exception as e:
-        return redirect('/teachers')
+        return redirect('teachers')
 
 def califications(request):
     if request.method == 'POST':
@@ -149,7 +147,7 @@ def califications(request):
             if not created:
                 calificacion_obj.firstPeriod = p1
                 calificacion_obj.save()
-            return redirect('/calificar')
+            return redirect('calificar')
         
         elif 'button2' in request.POST:
             p2 = request.POST.get('p2')
@@ -163,7 +161,7 @@ def califications(request):
             if not created:
                 calificacion_obj.secondPeriod = p2
                 calificacion_obj.save()
-            return redirect('/calificar')
+            return redirect('calificar')
         
         elif 'button3' in request.POST:
             p3 = request.POST.get('p3')
@@ -177,7 +175,7 @@ def califications(request):
             if not created:
                 calificacion_obj.thirdPeriod = p3
                 calificacion_obj.save()
-            return redirect('/calificar')
+            return redirect('calificar')
         
         elif 'button4' in request.POST:
             p4 = request.POST.get('p4')
@@ -191,7 +189,7 @@ def califications(request):
             if not created:
                 calificacion_obj.fourthPeriod = p4
                 calificacion_obj.save()
-            return redirect('/calificar')
+            return redirect('calificar')
         
         elif 'button5' in request.POST:
             p5 = request.POST.get('p5')
@@ -205,6 +203,6 @@ def califications(request):
             if not created:
                 calificacion_obj.finish = p5
                 calificacion_obj.save()
-            return redirect('/calificar')
+            return redirect('calificar')
         
-    return redirect('/calificar')
+    return redirect('calificar')
