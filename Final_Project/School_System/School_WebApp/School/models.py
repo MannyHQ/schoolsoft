@@ -30,12 +30,12 @@ class Subject(models.Model):
     name = models.CharField(max_length=200)
     start_date = models.DateTimeField()
     description = models.CharField(max_length=200)
-<<<<<<< HEAD
-    level = models.CharField(max_length=200)
-=======
+
+    #level = models.CharField(max_length=200)
+
     level = models.ForeignKey(Course, on_delete=models.CASCADE,)
     # level = models.IntegerField()
->>>>>>> d342b66222f21178f3f6b4de616a59db40d5b8bf
+
     
     def __str__(self):
         return self.name+' Curso:' + self.level
