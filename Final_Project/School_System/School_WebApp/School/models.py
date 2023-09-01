@@ -25,7 +25,8 @@ class Students(models.Model):
     
 class Course(models.Model):
     level = models.CharField(max_length=200)
-    
+    def __str__(self) -> str:
+        return self.level
 class Subject(models.Model):
     name = models.CharField(max_length=200)
     start_date = models.DateTimeField()

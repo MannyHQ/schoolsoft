@@ -248,8 +248,9 @@ def edit_parents(request):
 @login_required(login_url="/login")
 def edit_subjects(request):
     subjects = Subject.objects.all()
+    courses = Course.objects.all()
     template = "School/edit-library.html"
-    return render(request,template,{'subjects':subjects})
+    return render(request,template,{'subjects':subjects,'courses':courses})
 
 @login_required(login_url="/login")
 def edit_courses(request):
@@ -289,8 +290,9 @@ def edit_parents_b(request,id):
 def edit_subjects_b(request,id):
     subjects_v = Subject.objects.get(id=id)
     subjects = Subject.objects.all()
+    courses = Course.objects.all()
     template = "School/edit-library.html"
-    return render(request,template,{'subjects':subjects,'subjects_v':subjects_v})
+    return render(request,template,{'subjects':subjects,'subjects_v':subjects_v,'courses':courses})
 
 @login_required(login_url="/login")
 def edit_courses_b(request,id):
