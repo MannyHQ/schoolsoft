@@ -1,3 +1,4 @@
+from dataclasses import fields
 from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
@@ -114,6 +115,23 @@ class TeacherSubjectForm(forms.ModelForm):
     class Meta:
         model = Teacher_VS_Subjects
         fields = ['subject_id']
+
+
+
+class AssignUserForm(forms.Form):
+    identification = forms.CharField(max_length=11, label="Matrícula o Cédula")
+    
+    class Meta:
+        widgets ={
+            'identification': forms.TextInput(attrs={'name': 'identification'}),
+        }
+    
+    def clean_identification(self):
+        identification = self.cleaned_data['identification']
+        # Agrega la lógica necesaria para validar la matrícula o cédula según corresponda
+        return identification
+
+
 
 class RemoveSubjectForm(forms.Form):
     asignaturas = forms.ModelMultipleChoiceField(queryset=Subject.objects.all(), widget=forms.SelectMultiple(attrs={'class': 'select2'}))

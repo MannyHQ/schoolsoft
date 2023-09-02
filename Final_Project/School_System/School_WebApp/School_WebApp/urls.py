@@ -67,7 +67,10 @@ urlpatterns = [
     path('search-teachers/',views.SearchTeacherView.as_view(), name = "search-teachers"),
     path('search-selteachers/',views.SearchSelectProfessorView.as_view(), name = "search-selteachers"),
     path('search-selstudent/',views.SearchSelectStudentView.as_view(), name = "search-selstudent"),
-    path('all-students/',views.all_students,name='all-students')
+    path('all-students/',views.all_students,name='all-students'),
+    path('user-student/',views.assign_student_user,name='user-student'),
+    path('user-teacher/',views.assign_teacher_user,name='user-teacher'),
+    path('user-parent/',views.assign_parent_user,name='user-parent'),
     
 ]
 

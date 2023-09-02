@@ -9,10 +9,121 @@ from django.contrib.auth import login, authenticate, logout
 from django.views.generic import TemplateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.contrib.auth.models import Group
 
 def logout_view(request):
     logout(request)
     return redirect('/login')
+
+@login_required(login_url="/login")
+def assign_student_user(request):
+    unassigned_users = UnassignedUser.objects.all()
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        identification = request.POST.get('identification')
+
+        
+        
+        try:
+            user = User.objects.get(username=username)
+            student = Students.objects.get(id_number=identification)
+
+            # Verificar si el usuario ya está asignado
+            if not StudentUser.objects.filter(student_id=student, user_id=user).exists():
+                # Asignar el usuario al estudiante
+                student_user, created = StudentUser.objects.get_or_create(student_id=student, user_id=user)
+
+                if created:
+                    # Crear una instancia de UnassignedUser para el usuario asignado
+                    UnassignedUser.objects.filter(user=user).delete()
+                    
+                    # Asignar al usuario al grupo de estudiantes
+                    group = Group.objects.get(name='Estudiante')  # Reemplaza 'Estudiantes' con el nombre de tu grupo de estudiantes
+                    user.groups.add(group)
+                    
+                return redirect('/home')  # Redirigir a la lista de estudiantes
+
+        except User.DoesNotExist:
+            return render(request, 'School/assign-user.html', {'error_message': 'El nombre de usuario no existe.', 'unassigned_users': unassigned_users})
+        except Students.DoesNotExist:
+            return render(request, 'School/assign-user.html', {'error_message': 'No se encontró al estudiante con esta matrícula.', 'unassigned_users': unassigned_users})
+
+    return render(request, 'School/assign-user.html', {'form': AssignUserForm(), 'unassigned_users': unassigned_users})
+
+@login_required(login_url="/login")
+def assign_teacher_user(request):
+    unassigned_users = UnassignedUser.objects.all()
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        identification = request.POST.get('identification')
+
+        
+        
+        try:
+            user = User.objects.get(username=username)
+            teacher = Teachers.objects.get(id_number=identification)
+
+            # Verificar si el usuario ya está asignado
+            if not TeacherUser.objects.filter(teacher_id=teacher, user_id=user).exists():
+                # Asignar el usuario al estudiante
+                teacher_user, created = TeacherUser.objects.get_or_create(teacher_id=teacher, user_id=user)
+
+                if created:
+                    # Crear una instancia de UnassignedUser para el usuario asignado
+                    UnassignedUser.objects.filter(user=user).delete()
+                    
+                    # Asignar al usuario al grupo de estudiantes
+                    group = Group.objects.get(name='Profesor')  # Reemplaza 'Profesores' con el nombre de tu grupo de estudiantes
+                    user.groups.add(group)
+                    
+                return redirect('/home')  # Redirigir a la lista de profesores
+
+        except User.DoesNotExist:
+            return render(request, 'School/assign-user2.html', {'error_message': 'El nombre de usuario no existe.', 'unassigned_users': unassigned_users})
+        except Students.DoesNotExist:
+            return render(request, 'School/assign-user2.html', {'error_message': 'No se encontró al estudiante con esta matrícula.', 'unassigned_users': unassigned_users})
+
+    return render(request, 'School/assign-user2.html', {'form': AssignUserForm(), 'unassigned_users': unassigned_users})
+
+@login_required(login_url="/login")
+def assign_parent_user(request):
+    unassigned_users = UnassignedUser.objects.all()
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        identification = request.POST.get('identification')
+
+        
+        
+        try:
+            user = User.objects.get(username=username)
+            parent = Parents.objects.get(id_number=identification)
+
+            # Verificar si el usuario ya está asignado
+            if not ParentUser.objects.filter(parent_id=parent, user_id=user).exists():
+                # Asignar el usuario al estudiante
+                parent_user, created = ParentUser.objects.get_or_create(parent_id=parent, user_id=user)
+
+                if created:
+                    # Crear una instancia de UnassignedUser para el usuario asignado
+                    UnassignedUser.objects.filter(user=user).delete()
+                    
+                    # Asignar al usuario al grupo de estudiantes
+                    group = Group.objects.get(name='Padre')  # Reemplaza 'Padres' con el nombre de tu grupo de estudiantes
+                    user.groups.add(group)
+                    
+                return redirect('/home')  # Redirigir a la lista de Padres
+
+        except User.DoesNotExist:
+            return render(request, 'School/assign-user3.html', {'error_message': 'El nombre de usuario no existe.', 'unassigned_users': unassigned_users})
+        except Students.DoesNotExist:
+            return render(request, 'School/assign-user3.html', {'error_message': 'No se encontró al estudiante con esta matrícula.', 'unassigned_users': unassigned_users})
+
+    return render(request, 'School/assign-user3.html', {'form': AssignUserForm(), 'unassigned_users': unassigned_users})
+
+
 
 def login_us(request):
     username = ""
@@ -210,7 +321,8 @@ def add_staff(request):
         print(request.POST)
         if form.is_valid():
             try:
-                form.save()
+                user = form.save()
+                UnassignedUser.objects.create(user=user)
                 return redirect('/add-staff')
             except:
                 pass

@@ -1,17 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class StudentUser(models.Model):
-    id_number = models.CharField('matricula',max_length=11)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE,related_name="sur")
 
-class ParentUser(models.Model):
-    id_number = models.CharField('cedula',max_length=11)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE,related_name="pur")
-    
-class TeacherUser(models.Model):
-    id_number = models.CharField('cedula',max_length=11)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE,related_name="tur")
 
 class Students(models.Model):
     first_name = models.CharField(max_length=200)
@@ -79,3 +69,17 @@ class Inscription(models.Model):
     
 
 # Subject.level = models.ManyToManyField(Course, related_name='course')
+class UnassignedUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+class StudentUser(models.Model):
+    student_id = models.ForeignKey(Students,on_delete=models.CASCADE,related_name="ser")
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,related_name="sur")
+
+class ParentUser(models.Model):
+    parent_id = models.ForeignKey(Parents,on_delete=models.CASCADE,related_name="per")
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,related_name="pur")
+    
+class TeacherUser(models.Model):
+    teacher_id = models.ForeignKey(Teachers,on_delete=models.CASCADE,related_name="ter")
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,related_name="tur")
