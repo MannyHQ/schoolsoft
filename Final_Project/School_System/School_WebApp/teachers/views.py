@@ -279,9 +279,6 @@ def teacher_course_califications(request):
                     field_filter = 'finish'
                 else:
                     field_filter = None
-                # if field_filter and not any(getattr(calificacion, field_filter) for calificacion in calificaciones_estudiantes):
-                #     continue
-                
                           
             cursos_del_maestro.append({
                 'curso': curso,

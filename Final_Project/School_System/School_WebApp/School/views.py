@@ -46,7 +46,37 @@ def index(request):
 
 @login_required(login_url="/login")
 def all_professors(request):
-    return render(request,'School/all-professors.html')
+    teachers = Teachers.objects.all()
+    return render(request,'School/all-professors.html',{'teachers':teachers})
+
+@login_required(login_url="/login")
+def all_students(request):
+    students = Students.objects.all()
+    return render(request,'School/all-students.html',{'students':students})
+
+@login_required(login_url="/login")
+def all_courses(request):
+    courses = Course.objects.all()
+    return render(request,'School/all-courses.html',{'courses':courses})
+
+@login_required(login_url="/login")
+def all_parents(request):
+    parents = Parents.objects.all()
+    return render(request,'School/all-departments.html',{'parents':parents})
+
+@login_required(login_url="/login")
+def all_subjects(request):
+    subjects = Subject.objects.all()
+    return render(request,'School/all-library.html',{'subjects':subjects})
+
+@login_required(login_url="/login")
+def all_staff(request):
+    staff = User.objects.all()
+    return render(request,'School/all-staff',{'staff':staff})
+
+
+
+
 
 @login_required(login_url="/login")
 def asignar_asignaturas(request, profesor_id):

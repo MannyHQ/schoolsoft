@@ -67,6 +67,8 @@ urlpatterns = [
     path('search-teachers/',views.SearchTeacherView.as_view(), name = "search-teachers"),
     path('search-selteachers/',views.SearchSelectProfessorView.as_view(), name = "search-selteachers"),
     path('search-selstudent/',views.SearchSelectStudentView.as_view(), name = "search-selstudent"),
+    path('all-students/',views.all_students,name='all-students')
+    
 ]
 
 urlpatterns += [
