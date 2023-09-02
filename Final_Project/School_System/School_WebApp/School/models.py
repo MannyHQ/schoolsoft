@@ -40,7 +40,7 @@ class Subject(models.Model):
 
     
     def __str__(self):
-        return self.name
+        return f"Asignatura:({self.name})-Curso:({self.level})"
 
 class Teachers(models.Model):
     first_name = models.CharField(max_length=200)
