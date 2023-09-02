@@ -23,7 +23,6 @@
                         <th>Calificacion Dic.-Feb</th>
                         <th>Calificacion Mar.-Abr</th>
                         <th>Calificacion May.-Jun</th>
-                        <th>Calificacion Promedio</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,27 +72,8 @@
                                     <button id="contImg" name="button4"><img id="img" src="{% static 'images/imgTeacher/mas.png' %}" alt=""></button>
                                 </form>
                             </td>
-                            <td>
-                                <form action="{% url 'calification' %}"
-                                id="form" method="post">
-                                {% csrf_token %}
-                                    <input type="number" name="p5" maxlength="3" id="inp">
-                                    <input type="hidden" name="asignatura_id" value="{{ nota.subject_califi }}">
-                                    <input type="hidden" name="student_id" value="{{ nota.student_id_id }}">
-                                    {% comment %} <input type="hidden" name="student_name" value="{{ student.first_name }} {{ student.last_name }}"> {% endcomment %}
-                                    <button id="contImg" name="button5"><img id="img" src="{% static 'images/imgTeacher/mas.png' %}" alt=""></button>
-                                </form>
-                            </td>
                         </tr>
                     {% endfor %}
-                    <tr>
-                        <td></td> 
-                        <td></td> 
-                        <td></td> 
-                        <td></td> 
-                        <td>Indice Academico:</td>
-                        <td >10</td>
-                    </tr>
                 </tbody>
             </table>
             <h2 class="title">Calificacion de {{ student.first_name }} {{ student.last_name }}</h2>
@@ -112,21 +92,29 @@
                             <th>Calificacion Promedio</th>
                         </tr>
                     </thead>
-                {% for nota in list_calificaciones %}
                     <tbody>
+                        {% for nota in list_calificaciones %}
                         {% for asignatura in cursos_y_asignaturas %}
-                            <tr>
-                                <td>{{ nota.subject_name }}</td>
-                                <td>{{ nota.first }}</td>
-                                <td>{{ nota.second }}</td>
-                                <td>{{ nota.third }}</td>
-                                <td>{{ nota.four }}</td>
-                            </tr>
+                                <tr>
+                                    <td>{{ nota.subject_name }}</td>
+                                    <td>{{ nota.first }}</td>
+                                    <td>{{ nota.second }}</td>
+                                    <td>{{ nota.third }}</td>
+                                    <td>{{ nota.four }}</td>
+                                    <td>{{ nota.finish }}</td>
+                                </tr>
                         {% endfor %}
+                    {% endfor %}
+                        <tr>
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td></td> 
+                            <td>Indice Academico:</td>
+                            <td >10</td>
+                        </tr>
                     </tbody>
-                {% endfor %}
                 </table>
-            
         </div>
     {% endfor %}
 </div>

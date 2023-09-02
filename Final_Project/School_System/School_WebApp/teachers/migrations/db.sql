@@ -7,7 +7,7 @@ insert into school_students(first_name, last_name, birthdate,mail,phone_number,s
 insert into school_subject(name,start_date,description,level_id) VALUES('Frances',STR_TO_DATE('26-08-2023', '%d-%m-%Y'),'asignatura de Frances',1);
 
 
-insert into school_teacher_vs_subjects( subject_id_id, teacher_id_id) VALUES(2,1);
+insert into school_teacher_vs_subjects( subject_id_id, teacher_id_id) VALUES(6,1);
 
 insert into school_course(level) VALUES('primaria');
 
