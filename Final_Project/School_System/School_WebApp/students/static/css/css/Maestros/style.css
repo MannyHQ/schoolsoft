@@ -1,0 +1,368 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+/*! ----------GRID------------ */
+body{
+    display: grid;
+    height: 100%;
+    grid-template-columns: 80% auto;
+    grid-template-rows: 50px  80px 80px auto;
+}
+header{
+    grid-column: 1;
+    grid-row: 1;
+}
+.perfil{
+    grid-column: 2;
+    grid-row: 1/5;
+}
+.novedades{
+    grid-column: 1;
+    grid-row: 2;
+}
+#pcentro{
+    grid-column: 1;
+    grid-row: 4/5;
+}
+.piePagina{
+    grid-column: 1/3;
+}
+/*! ----------GRID------------ */
+/*Encabezado*/
+header{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    background-color: #252222;
+    justify-content: space-between;
+    align-items: center;
+}
+header .nav1, .nav2, .logo{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+header .nav1{
+    background-color: #3F3D40;
+    width: 60%;
+    height: 30px;
+    justify-content: space-around;
+    border-radius: 20px;
+}
+header .nav2, .logo{
+    gap: 10px;
+    padding: 10px;
+}
+header .nav1 a{
+    padding: 10px;
+}
+header a{
+    color: #ffffff;
+    text-decoration: none;
+}
+/*Logoel colegio*/
+
+header .logo{
+    width: auto;
+}
+header .logo .imgL{
+    width: 90px;
+    height: auto;
+    
+    border-radius: 50%;
+}
+/*!Aside contenedor de perfil*/
+.perfil{
+    width: 100%;
+    height: 100%;
+    background-color: #1D1C1E;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+.perfil .perfilF{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.perfil .perfilT, .perfilF{
+    padding: 15px;
+}
+.perfil figure img{
+    width: 35%;
+    border-radius: 50%;
+}
+.perfil section{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+.perfil section #cursos{
+    background-color: #3F3D40;
+    color: white;
+}
+/**menu desplegable contenido*/
+.accordion-item:last-child {
+    background-color: #1D1C1E ;
+}
+.curso , .curso1{
+    text-align: center;
+    height: auto;
+    background-color: #3F3D40;
+    color: white;
+    margin-top: 15px;
+}
+/*!------------boton---------- */
+#adm1{
+    margin-top: 15px;
+    width: 90%;
+    background-color: #3F3D40;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+/**! contenido central*/
+.novedades{
+    background-color: #AEAEAE;
+    width: 48%;
+    height: auto;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+    align-items: center;
+    
+}
+.novedades .avisos > h2{
+    font-size: 14px;
+}
+.novedades .avisos{
+    width: 70%;
+    background-color: #D9D9D9;
+    height: auto;
+    text-align: center;
+}
+.novedades .avMaestros >h4{
+    font-size: 12px;
+}
+.novedades .avMaestros{
+    width: 40%;
+    background-color: #6AA5A9;
+    height: auto;
+    text-align: center;
+}
+/** -------Alineacion de textos--------*/
+.avisos, .avMaestros, .contenidoC .barra{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/*! Encabezado negro antes de cuadrados*/
+.contenidoC{
+    height: 100px;
+    grid-column: 1;
+    grid-row: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.contenidoC #cont{
+    background-color: #1D1C1E;
+    width: 60px;
+    height: 30px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+.contenidoC .circulo{
+    background-color: #1D1C1E;
+    width: 30px;
+    height: 30px;
+    color: white;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 18px;
+    border: solid 2px white;
+}
+.contenidoC .barra{
+    background-color: #1D1C1E;
+    width: 75%;
+    height: 30px;
+    color: white;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.barra > h2{
+    font-size: 20px;
+}
+/*! Opciones centrals y mensaje privados*/
+#pcentro{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    /* background-color: #6AA5A9; */
+}
+#Centro-Options{
+    width: 85%;
+    height: 100%;
+    display: grid;
+    gap: 20px;
+    grid-template-areas: 
+    "one one nine"
+    "two thre nine"
+    "four five nine";
+    grid-template-rows: 350px 150px 150px;
+    grid-template-columns: repeat(3,1fr);
+}
+#Centro-Options > *{
+    border: solid 2px #000000;
+    border-radius: 10px;
+}
+#Centro-Options > a, #ho{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+    text-decoration: none;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 2px 4px 2px #3F3D40;
+    background-color: #5fbcb7;
+    color: #000000;
+    transition-duration: 0.5s;
+    transition-delay: 0.1s;
+}
+
+#Centro-Options #hov:hover{
+    background-color: #52d5a5;
+    transform: rotate(4deg);
+}
+#Centro-Options #ho:hover{
+    background-color: #52d5a5;
+}
+.textoC{
+    font-size: 14px;
+    text-decoration: none;
+    list-style: none;
+}
+
+#Centro-Options .cuadro1{
+    grid-area: one;
+    width: 100%;
+}
+#Centro-Options .cuadro2{
+    grid-area: two;
+}
+#Centro-Options .cuadro3{
+    grid-area: thre;
+}
+#Centro-Options .cuadro4{
+    grid-area: four;
+}
+#Centro-Options .cuadro5{
+    grid-area: five;
+}
+
+/*! Mensajes Privados*/
+#Centro-Options .privado{
+    grid-area: nine;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-areas: 
+    "titulo titulo"
+    "nombre cuadrado"
+    "asunto asunto";
+    grid-template-columns: 60% 28%;
+    grid-template-rows: 80px 50px auto;
+    column-gap: 10px;
+}
+.privado .tl{
+    grid-area: titulo;
+    margin: auto;
+    width: 100%;
+    background-color: #1D1C1E;
+    text-align: center;
+}
+.privado #div{
+    width: auto;
+    background-color: #48e7ad;
+    grid-area: cuadrado;
+    font-size: 16px;
+    height: 45px;
+    text-align: center;
+    border: none;
+}
+.privado #inp1{
+    grid-area: nombre;
+    width: 100%;
+    height: 45px;
+    background-color: #cdcccc;
+    border: none;
+}
+.privado #inp2{
+    grid-area: asunto;
+    width: 100%;
+    height: 90%;
+    background-color: #cdcccc;
+    border: none;
+}
+.privado #inp2::placeholder{
+    transform: translateY(-200px);
+}
+.privado h2{
+    font-size: 20px;
+    color: white;
+}
+#Centro-Options .pfoto{
+    grid-area: ten;
+}
+#Centro-Options .pfoto > img{
+    width: 100%;
+    height: 100%;
+}
+/*! FOOTER*/
+.piePagina{
+    width: 100%;
+    height: auto;
+    background-color: #242424;
+    border-top: solid 1px #07d7fc;
+    box-shadow: 4px 0px 5px #07d7fc;
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: 470px 150px;
+}
+.piePagina .listaI , .listaD{
+    margin-top: 20px;
+    list-style: none;
+    font-size: 20px;
+}
+.piePagina .listaD{
+    display: flex;
+    flex-direction: column; 
+}
+.piePagina .listaI a , .listaD a{
+    text-decoration: none;
+    color: white;
+}
+.piePagina .listaI a:hover, .listaD a:hover{
+    text-decoration: underline;
+    border-bottom: solid 2px #07d7fc;
+    color: aqua;
+}

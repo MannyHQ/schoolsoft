@@ -1,0 +1,83 @@
+
+*{
+    margin: 0;
+    background-color: #ae00ff;
+}
+#Padre_main{
+    display: flex;
+    background-color: #ae00ff;
+    height: auto;
+}
+
+.aside_izquierda{
+    background-color: #1d929c;
+    flex: 10%;
+    color: white;
+    display: grid;
+    height: 100vh;
+    justify-content: center;
+}
+
+.aside_izquierda .usuario{
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    margin-left: 40%;
+}
+
+.aside_izquierda .logo{
+    width: 375px;
+    height: 375px;
+    border-radius: 50%;
+}
+.aside_izquierda h3,h2{
+    text-align: center;
+}
+
+.section_derecha{
+    flex: 60%;
+    color: black;
+}
+
+.encabezado_de_clase{
+    background-color: #1d929c;
+    color: purple;
+    padding-left: 10px;
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 20px;
+}
+.mateasig{
+    color: black;
+    margin-top: 15px;
+    margin-left: 15px;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.5s;
+}
+.primer_trimestre{
+    background-color: #73ff00;
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 10px;
+    color: rgb(255, 0, 0);   
+}
+
+.aside_izquierda input{
+    border-radius: 20px;
+    text-align: center;
+}
+.section_derecha a{
+    padding-left: 20px;
+    
+}
+.notas_invisibles{
+    overflow: hidden;
+    position: relative;
+    max-height: 0px;
+    transition: max-height 0.4s ease-out;
+}
+.notas_visibles{
+    max-height: 400px;
+    transition: max-height 0.4s ease-in;
+}

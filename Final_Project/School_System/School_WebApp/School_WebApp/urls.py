@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 from School import views
 
 urlpatterns = [
+    path("", include('students.urls')),
     path("", include('teachers.urls')),
     path('School/', include('School.urls')),
     path('admin/', admin.site.urls),
