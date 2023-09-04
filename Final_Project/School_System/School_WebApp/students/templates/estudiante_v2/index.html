@@ -128,8 +128,9 @@
           
           <span class="desktopclases-text50">
             {% for subject in subjects %}
+           
             {% for cal in cali  %}
-            {% if subject.id == cal.Subject_id_id %}
+            {% if student.id == cal.student_id_id and subject.id == cal.Subject_id_id %}
             
             <label>{{subject.name}}</label>
             <table>
