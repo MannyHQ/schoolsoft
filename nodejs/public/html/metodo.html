@@ -16,83 +16,93 @@
 
 <body>
 
-
-  <div class="contenido">
-    <div class="menu">
-      <div class="logo">
-        <img src="ruta_del_logo.png" alt="Logo">
-      </div>
-      <ul>
-        <li><a href="/index"><i class="fas fa-calendar-alt"></i> Evento</a></li>
-        <li><a href="/pagos"><i class="fas fa-money-bill"></i> Pagos</a></li>
-        <li><a href="/historial"><i class="fas fa-history"></i> Historial de Pago</a></li>
-      </ul>
-    </div>
-  </div>
-
-
-<div class="container">
-  <h1>Sistema de Pago</h1>
-
-  <div id="payment-period">
-    <h2>Selecciona el período de pago:</h2>
-    <div class="period-options">
-      <div class="period-option">
-        <span>1 Mes</span>
-      </div>
-      <div class="period-option">
-        <span>1 Año</span>
-      </div>
-    </div>
-  </div>
-
-  <div id="payment-form" style="display: none;">
-    
-    <div class="payment-options">
-        <div class="payment-option cancel-option">
-            <i class="fab fa-xmark"></i>
-            <span>cancelar plan</span>
+  <main>
+    <div class="contenido">
+      <div class="menu">
+        <div class="logo">
+          <img src="ruta_del_logo.png" alt="Logo">
         </div>
-      <div class="payment-option" id="paypal-option" onclick="redirectToPayPal()">
-        <i class="fab fa-paypal"></i>
-        <span>Pagar con PayPal</span>
-      </div>
-      <div class="payment-option" id="card-option" onclick="showCardPaymentForm()">
-        <i class="fas fa-credit-card"></i>
-        <span>Pagar con Tarjeta</span>
+        <ul>
+          <div id="user-menu">
+            <li id="father-login"><a href="/login">login</a></li>
+            <li id="father-profile"><a href="/profile"><i class="fa-solid fa-user"></i></a></li>
+          </div>
+          <li><a href="/index"><i class="fas fa-calendar-alt"></i> Evento</a></li>
+          <li><a href="/pagos"><i class="fas fa-money-bill"></i> Pagos</a></li>
+          <li><a href="/historial"><i class="fas fa-history"></i> Historial de Pago</a></li>
+        </ul>
       </div>
     </div>
-
-    <div id="card-details">
+  
+  
+  <div class="container">
+    <h1>Sistema de Pago</h1>
+  
+    <div id="payment-period">
+      <h2>Selecciona el período de pago:</h2>
+      <div class="period-options">
+        <div class="period-option">
+          <span>1 Mes</span>
+        </div>
+        <div class="period-option">
+          <span>1 Año</span>
+        </div>
+      </div>
+    </div>
+  
+    <div id="payment-form" style="display: none;">
       
-      <form action="pagoRealizado.html" method="post" enctype="">
-    
-        <div class="form-group">
-            <label for="card-number">Número de tarjeta:</label>
-            <input type="password" id="card-number" required>
+      <div class="payment-options">
+          <div class="payment-option cancel-option">
+              <i class="fab fa-xmark"></i>
+              <span>cancelar plan</span>
+          </div>
+        <div class="payment-option" id="paypal-option" onclick="redirectToPayPal()">
+          <i class="fab fa-paypal"></i>
+          <span>Pagar con PayPal</span>
         </div>
-        <div class="form-group">
-            <label for="expiry">Fecha de vencimiento:</label>
-            <input type="text" id="expiry" placeholder="MM/AA" required>
+        <div class="payment-option" id="card-option" onclick="showCardPaymentForm()">
+          <i class="fas fa-credit-card"></i>
+          <span>Pagar con Tarjeta</span>
         </div>
-        <div class="form-group">
-            <label for="cvv">CVV:</label>
-            <input type="password" id="cvv" required>
-        </div>
-        <!-- <button type="submit" onclick="showSuccessMessage()">Pagar con Tarjeta</button> -->
-        <input type="submit" value="Pagar con tarjeta">
+      </div>
+  
+      <div id="card-details">
+        
+        <form action="pagoRealizado.html" method="post" enctype="">
+      
+          <div class="form-group">
+              <label for="card-number">Número de tarjeta:</label>
+              <input type="password" id="card-number" required>
+          </div>
+          <div class="form-group">
+              <label for="expiry">Fecha de vencimiento:</label>
+              <input type="text" id="expiry" placeholder="MM/AA" maxlength="5" required>
+          </div>
+          <div class="form-group">
+              <label for="cvv">CVV:</label>
+              <input type="password" id="cvv" required>
+          </div>
+          <input type="submit" value="Pagar con tarjeta" id="submitCardPay">
+  
+        </form>
+        
+      </div>
 
-      </form>
+      <div id="paypal-details">
+        
+      </div>
       
     </div>
-    
+  
+    <div id="success-message">
+      <h2>Pago Exitoso</h2>
+      <p>¡Gracias por tu pago!</p>
+    </div>
   </div>
-
-  <div id="success-message">
-    <h2>Pago Exitoso</h2>
-    <p>¡Gracias por tu pago!</p>
-  </div>
-</div>
+  </main>
+  
+  <script src="../js/checkLogin.js"></script>
   <script src="../js/payment.js" type="module"></script>
 </body>
 </html>

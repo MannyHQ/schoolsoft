@@ -32,11 +32,11 @@ body {
   padding: 0;
 }
 
-.menu li {
+.menu li, .menu div li {
   margin-bottom: 10px;
 }
 
-.menu a {
+.menu a, .menu div a{
   display: block;
   color: #fff;
   text-decoration: none;
@@ -45,12 +45,29 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.menu a i {
+.menu a i, .menu div a i{
   margin-right: 10px;
 }
 
-.menu a:hover {
+.menu a:hover, .menu div a:hover {
   background-color: #ccc;
+}
+
+.menu #user-menu{
+  font-size: larger;
+}
+
+.menu #user-menu li{
+  text-align: center;
+}
+
+.menu #user-menu li:nth-child(2) a{
+  background: #fff;
+  color: #000000;
+}
+
+.menu #user-menu li:last-child{
+  display: none;
 }
 
 .event-section {

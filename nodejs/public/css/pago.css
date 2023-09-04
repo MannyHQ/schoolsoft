@@ -1,28 +1,24 @@
-* {
-  box-sizing: border-box;
-  padding:0 ;
+body {
+  font-family: Arial, sans-serif;
   margin: 0;
+  padding: 0;
 }
 
-.container {
-  display: flex;
-  flex-direction: column; /* Cambio aquí */
-  max-width: 60%;
-  margin: 50px auto;
-  margin-top: -600px;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  width: 80px;
 }
 
 .menu {
   background-color: #000000;
   width: 200px;
   padding: 20px;
-  height: 100vh;
+  height: 93.9vh;
 }
-
 
 .logo {
   text-align: center;
@@ -39,25 +35,62 @@
   padding: 0;
 }
 
-.menu li {
+.menu li, .menu div li {
   margin-bottom: 10px;
 }
 
-.menu a {
+.menu a, .menu div a{
   display: block;
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
-  padding: 20px;
+  padding: 10px;
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 
-.menu a i {
+.menu a i, .menu div a i{
   margin-right: 10px;
 }
 
-.menu a:hover {
-  background-color: #179890;
+.menu a:hover, .menu div a:hover {
+  background-color: #ccc;
+}
+
+.menu #user-menu{
+  font-size: larger;
+}
+
+.menu #user-menu li{
+  text-align: center;
+}
+
+.menu #user-menu li:nth-child(2) a{
+  background: #fff;
+  color: #000000;
+}
+
+.menu #user-menu li:last-child{
+  display: none;
+}
+
+#father-profile {
+  text-align: center;
+}
+
+main {
+  display: flex;
+}
+
+.container {
+  display: flex;
+  flex-direction: column; /* Cambio aquí */
+  flex-basis: 60%;
+  height: fit-content;
+  margin: 50px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .payment-section {
@@ -119,7 +152,7 @@ h1 {
   color: #666;
 }
 
-#card-details {
+#card-details, #paypal-details {
   display: none;
 }
 
@@ -136,7 +169,7 @@ label {
 
 input[type="text"],
 input[type="password"] {
-  width: 100%;
+  width: 97%;
   padding: 10px;
   font-size: 14px;
   border-radius: 5px;

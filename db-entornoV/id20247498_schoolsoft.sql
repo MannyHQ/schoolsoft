@@ -182,7 +182,7 @@ CREATE TABLE `Notes_maestro` (
 --
 
 CREATE TABLE `Padres` (
-  `id_padre` int(11) NOT NULL,
+  `id_padre` FOREIGN KEY int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellido` varchar(50) NOT NULL,
   `correo` varchar(50) NOT NULL,
@@ -236,7 +236,7 @@ CREATE TABLE `Trabajo_fijado_maestro` (
 --
 
 CREATE TABLE `Usuario` (
-  `id_usuario` int(11) NOT NULL,
+  PRIMARY KEY `id_usuario` int(11) NOT NULL,
   `nombre_user` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `correo` varchar(50) NOT NULL,

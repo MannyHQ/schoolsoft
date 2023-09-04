@@ -1,3 +1,7 @@
+import MaskDate from "./components/mask_date.js";
+
+const maskDate = new MaskDate();
+
 function showPaymentForm(element, period) {
     
     const periodOptions = document.getElementsByClassName('period-option');
@@ -19,7 +23,12 @@ function showCardPaymentForm() {
     
     document.getElementById('card-details').style.display = 'block';
 }
-  
+
+function showPaypalPaymentForm() {
+
+    document.getElementBydId('paypal-details').style.display = 'block'
+}
+
 function showSuccessMessage() {
     
     const cardNumberInput = document.getElementById('card-number');
@@ -30,12 +39,7 @@ function showSuccessMessage() {
         
         alert('Por favor, completa todos los campos');
     }
-  
-    // const cardNumberFormatted = cardNumberInput.value.replace(/.(?=.{4})/g, '-');
-    // cardNumberInput.value = cardNumberFormatted;
-  
-    // document.getElementById('payment-form').style.display = 'none';
-    // document.getElementById('success-message').style.display = 'block';
+
 }
 
 function cancelOptionPlan() {
@@ -52,3 +56,6 @@ document.querySelectorAll('.period-option').forEach(opt => {
 })
 
 document.getElementById('paypal-option').onclick = () => redirectToPayPal();
+
+document.getElementById('card-option').onclick = () => showCardPaymentForm();
+

@@ -1,0 +1,20 @@
+@import url('pago.css');
+
+.info-container{
+    font-size: larger;
+}
+
+.info-container .info-element{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: wrap;
+    width: 40%;
+
+    margin: 20px auto;
+}
+
+.info-container .info-element .element-bar-line{
+    flex-basis: 100%;
+    height: 2px;
+    background: #000100;
+}

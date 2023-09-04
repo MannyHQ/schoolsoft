@@ -1,15 +1,34 @@
 const btnValidation = document.getElementById('btnValidation');
 
-btnValidation.onclick = () => {
+btnValidation.onclick = (e) => {
+    e.preventDefault();
 
     const inpUsername = document.getElementById('username').value;
     const inpPassword = document.getElementById('password').value;
 
-    fetch(`http://localhost:3000/verification/login/${inpUsername}-${inpPassword}`)
-        .then(response => response.json())
-        .then(json => {
+    fetch(`/verification/login/`, 
+        { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username: inpUsername, password: inpPassword})
+        }
+    )
+        .then(response => response.text())
+        .then(text => {
+
+            console.log(text);
             
-            if (json.length > 0)
-                window.location = 'http://localhost:3000/index';
+            if (text === 'true'){
+                
+                window.location = `/index`;
+            }
+            else
+                alert('usuario no encontrado');
+        })
+        .catch((err) => {
+
+            alert('error de inicio');
         });
 }

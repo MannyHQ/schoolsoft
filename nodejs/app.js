@@ -2,26 +2,39 @@ import express from 'express';
 import bodyParse from 'body-parser';
 import session from 'express-session';
 import path from 'path';
+import cookieParser from 'cookie-parser';
 
 import indexPages from './routes/index.routes.js';
 import loginPages from './routes/login.routes.js';
 import paymentPages from './routes/payments.routes.js';
+import apiResources from './routes/api.routes.js';
 
 import { PORT } from './config.js';
 
 const app = express();
 
+// modulos
+app.use(cookieParser());
 app.use(bodyParse.urlencoded({ extended: true }));
 app.use(express.static(path.resolve('nodejs/public')));
-app.use(session({ secret: 'your-secret-key', resave: true, saveUninitialized: true }));
+app.use(session(
+    { 
+        secret: 'user', 
+        resave: true, 
+        saveUninitialized: true,
+        cookie: { secure: false }
+    }
+));
 app.use(express.text());
 app.use(express.json());
 
+// recursos publicos
 app.use(indexPages);
 app.use(loginPages);
 app.use(paymentPages);
+app.use(apiResources);
 
 app.listen(PORT, () => {
 
-    console.log('el servidor esta escuchando');
+    console.log(`el servidor esta escuchando en el puerto ${PORT}`);
 })
