@@ -1,0 +1,8 @@
+Para hacer que funcione el login con admin
+-crear usuario administrador
+
+Para hacer que funcione la asignación de usuarios a padre, profesor y estudiante
+-crear los grupos: Estudiante, Profesor y Padre en la web admin de django
+-Asignar los permisos a Estudiante en la web admin de django: todos los que empiecen por students | history, students | students
+-Asginar los permisos a Profesor en la web admin de django: todos los que empiecen por teachers | calification
+-Proximamente asignacion de permisos a padre

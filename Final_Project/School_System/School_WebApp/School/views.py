@@ -10,12 +10,14 @@ from django.views.generic import TemplateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.contrib.auth.models import Group
+from django.contrib.admin.views.decorators import staff_member_required
 
 def logout_view(request):
     logout(request)
     return redirect('/login')
 
 @login_required(login_url="/login")
+@staff_member_required
 def assign_student_user(request):
     unassigned_users = UnassignedUser.objects.all()
 
@@ -52,6 +54,7 @@ def assign_student_user(request):
     return render(request, 'School/assign-user.html', {'form': AssignUserForm(), 'unassigned_users': unassigned_users})
 
 @login_required(login_url="/login")
+@staff_member_required
 def assign_teacher_user(request):
     unassigned_users = UnassignedUser.objects.all()
 
@@ -88,6 +91,7 @@ def assign_teacher_user(request):
     return render(request, 'School/assign-user2.html', {'form': AssignUserForm(), 'unassigned_users': unassigned_users})
 
 @login_required(login_url="/login")
+@staff_member_required
 def assign_parent_user(request):
     unassigned_users = UnassignedUser.objects.all()
 
@@ -134,15 +138,51 @@ def login_us(request):
         username = request.POST["username"]
         password = request.POST["password"]
         user = authenticate(request,username = username,password = password)
-
+        
         if user is not None and user.is_staff == True and user.is_active:
             login(request,user)
             return redirect('/home')
+        elif user is not None and user.is_staff == False:
+            grupo = list(user.groups.values_list('name',flat=True))
+            grupo_valor = ''.join(grupo)
+            request.session['staff'] = user.is_staff
+            try:
+                if grupo_valor == 'Estudiante':
+                    print("Es estudiante")
+                    student_user=StudentUser.objects.get(user_id_id=user.id)
+                    student_profile = Students.objects.get(id=student_user.student_id_id)
+                    nombre = student_profile.first_name+' '+student_profile.last_name
+                    request.session['estudiante_nombre'] = nombre
+                    request.session['id_estudiante'] = student_profile.id
+                    request.session['usuario'] = user.username
+                    
+                    login(request,user)
+                    return redirect('/student')
+                elif grupo_valor == 'Profesor':
+                    print('Es profesor')
+                    profesor_user=TeacherUser.objects.get(user_id_id=user.id)
+                    profesor_profile = Teachers.objects.get(id=profesor_user.teacher_id_id)
+                    nombre = profesor_profile.first_name+' '+profesor_profile.last_name
+                    request.session['profesor_nombre'] = nombre
+                    request.session['id_profesor'] = profesor_profile.id
+                    request.session['usuario'] = user.username
+                    
+                    login(request,user)
+                    return redirect('/teachers')
+                elif grupo_valor == 'Padre':
+                    print('Es padre')
+            except:
+                pass
+            
+            #print(list(user.groups.values_list('name',flat=True)))
+
         else:
             return render(request,template)
+        
     return render(request,template)
 
 @login_required(login_url="/login")
+@staff_member_required
 def index(request):
     students_count = Students.objects.count()
     latest_inscriptions_list = Inscription.objects.order_by("-date_inscription")[:5]
@@ -156,40 +196,47 @@ def index(request):
     return HttpResponse(template.render(context,request))
 
 @login_required(login_url="/login")
+@staff_member_required
 def all_professors(request):
     teachers = Teachers.objects.all()
     return render(request,'School/all-professors.html',{'teachers':teachers})
 
 @login_required(login_url="/login")
+@staff_member_required
 def all_students(request):
     students = Students.objects.all()
     return render(request,'School/all-students.html',{'students':students})
 
 @login_required(login_url="/login")
+@staff_member_required
 def all_courses(request):
     courses = Course.objects.all()
     return render(request,'School/all-courses.html',{'courses':courses})
 
 @login_required(login_url="/login")
+@staff_member_required
 def all_parents(request):
     parents = Parents.objects.all()
     return render(request,'School/all-departments.html',{'parents':parents})
 
 @login_required(login_url="/login")
+@staff_member_required
 def all_subjects(request):
     subjects = Subject.objects.all()
     return render(request,'School/all-library.html',{'subjects':subjects})
 
 @login_required(login_url="/login")
+@staff_member_required
 def all_staff(request):
     staff = User.objects.all()
-    return render(request,'School/all-staff',{'staff':staff})
+    return render(request,'School/all-staff.html',{'staff':staff})
 
 
 
 
 
 @login_required(login_url="/login")
+@staff_member_required
 def asignar_asignaturas(request, profesor_id):
     if request.method == 'POST':
         form = TeacherSubjectForm(request.POST)
@@ -203,6 +250,7 @@ def asignar_asignaturas(request, profesor_id):
     return render(request, 'School/assign_subject.html', {'form': form})
 
 @login_required(login_url="/login")
+@staff_member_required
 def quitar_asignaturas(request, profesor_id):
     profesor = get_object_or_404(Teachers, pk=profesor_id)
 
@@ -216,6 +264,7 @@ def quitar_asignaturas(request, profesor_id):
     return render(request, 'School/template.html', {'profesor': profesor, 'asignaturas_asignadas': asignaturas_asignadas})
 
 @login_required(login_url="/login")
+@staff_member_required
 def desasignar_asignaturas(request, profesor_id):
     profesor = get_object_or_404(Teachers, pk=profesor_id)
     asignaturas_asignadas = profesor.teacher_vs_subjects_set.all()
@@ -235,6 +284,7 @@ def desasignar_asignaturas(request, profesor_id):
 
 
 @login_required(login_url="/login")
+@staff_member_required
 def select_professor(request):
     teachers = Teachers.objects.all()
     template = "School/select_teacher.html"
@@ -246,6 +296,7 @@ def select_student(request):
     return render(request, template,{'students':students})
 
 @login_required(login_url="/login")
+@staff_member_required
 def add_courses(request):
     if request.method == 'POST':
         form = CourseForm(request.POST)
@@ -260,6 +311,7 @@ def add_courses(request):
     return render(request,'School/add-courses.html',{'form': form})
 
 @login_required(login_url="/login")
+@staff_member_required
 def add_subjects(request):
     courses = Course.objects.all()
     if request.method == 'POST':
@@ -276,6 +328,7 @@ def add_subjects(request):
     return render(request,'School/add-library.html',{'form': form,'courses': courses})
 
 @login_required(login_url="/login")
+@staff_member_required
 def do_inscription(request):
     students = Students.objects.all()
     courses = Course.objects.all()
@@ -296,6 +349,7 @@ def do_inscription(request):
     return render(request,'School/add-fees.html',{'form':form,'students':students,'courses':courses,'inscriptions':inscriptions})
 
 @login_required(login_url="/login")
+@staff_member_required
 def add_students(request):
     students = Students.objects.all()
     if request.method == 'POST':
@@ -311,6 +365,7 @@ def add_students(request):
     return render(request,'School/add-student.html',{'form': form,'students':students})
 
 @login_required(login_url="/login")
+@staff_member_required
 def add_staff(request):
     data = {
         'form': CustomUserCreationForm()
@@ -334,6 +389,7 @@ def add_staff(request):
 
 
 @login_required(login_url="/login")
+@staff_member_required
 def add_professor(request):
     teachers = Teachers.objects.all()
     if request.method == 'POST':
@@ -349,6 +405,7 @@ def add_professor(request):
     return render(request,'School/add-professor.html',{'form': form,'teachers':teachers})
 
 @login_required(login_url="/login")
+@staff_member_required
 def add_parents(request):
     if request.method == 'POST':
         form = ParentForm(request.POST)
@@ -363,12 +420,14 @@ def add_parents(request):
     return render(request,'School/add-departments.html',{'form': form})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_student(request):
     students = Students.objects.all()
     template = "School/edit-student.html"
     return render(request,template,{'students':students})
 
 @login_required(login_url='/login')
+@staff_member_required
 def edit_staff(request):
     usernames = User.objects.all()
     template = "School/edit-staff.html"
@@ -376,18 +435,21 @@ def edit_staff(request):
 
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_professor(request):
     teachers = Teachers.objects.all()
     template = "School/edit-professor.html"
     return render(request,template,{'teachers':teachers})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_parents(request):
     parents = Parents.objects.all()
     template = "School/edit-departments.html"
     return render(request,template,{'parents':parents})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_subjects(request):
     subjects = Subject.objects.all()
     courses = Course.objects.all()
@@ -395,12 +457,14 @@ def edit_subjects(request):
     return render(request,template,{'subjects':subjects,'courses':courses})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_courses(request):
     courses = Course.objects.all()
     template = "School/edit-courses.html"
     return render(request,template,{'courses':courses})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_st(request,id):
     students_v = Students.objects.get(id=id)
     students = Students.objects.all()
@@ -408,6 +472,7 @@ def edit_st(request,id):
     return render(request,template,{'students':students,'students_v':students_v})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_professor_b(request,id):
     teachers_v = Teachers.objects.get(id=id)
     teachers = Teachers.objects.all()
@@ -415,6 +480,7 @@ def edit_professor_b(request,id):
     return render(request,template,{'teachers':teachers,'teachers_v':teachers_v})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_staff_b(request,id):
     usernames_v = User.objects.get(id=id)
     usernames = User.objects.all()
@@ -422,6 +488,7 @@ def edit_staff_b(request,id):
     return render(request,template,{'usernames':usernames,'usernames_v':usernames_v})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_parents_b(request,id):
     parents_v = Parents.objects.get(id=id)
     parents = Parents.objects.all()
@@ -437,6 +504,7 @@ def edit_subjects_b(request,id):
     return render(request,template,{'subjects':subjects,'subjects_v':subjects_v,'courses':courses})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_courses_b(request,id):
     courses_v = Course.objects.get(id=id)
     courses = Course.objects.all()
@@ -444,6 +512,7 @@ def edit_courses_b(request,id):
     return render(request,template,{'courses':courses,'courses_v':courses_v})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_courses_confirm(request,id):
     courses_v = Course.objects.get(id=id)
     courses = Course.objects.all()
@@ -455,6 +524,7 @@ def edit_courses_confirm(request,id):
     return render(request,template,{'courses':courses,'courses_v':courses_v})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_subjects_confirm(request,id):
     subjects_v = Subject.objects.get(id=id)
     subjects = Subject.objects.all()
@@ -466,6 +536,7 @@ def edit_subjects_confirm(request,id):
     return render(request,template,{'subjects':subjects,'subjects_v':subjects_v})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_st_confirm(request,id):
     students_v = Students.objects.get(id=id)
     students = Students.objects.all()
@@ -478,6 +549,7 @@ def edit_st_confirm(request,id):
     return render(request,template,{'students':students,'students_v':students_v})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_professor_confirm(request,id):
     teachers_v = Teachers.objects.get(id=id)
     teachers = Teachers.objects.all()
@@ -490,6 +562,7 @@ def edit_professor_confirm(request,id):
     return render(request,template,{'teachers':teachers,'teachers_v':teachers_v})
 
 @login_required(login_url="/login")
+@staff_member_required
 def edit_staff_confirm(request,id):
     
     usernames_v = User.objects.get(id=id)
@@ -507,6 +580,7 @@ def edit_staff_confirm(request,id):
     
     
 @login_required(login_url="/login")
+@staff_member_required
 def edit_parents_confirm(request,id):
     parents_v = Parents.objects.get(id=id)
     parents = Parents.objects.all()
@@ -519,6 +593,7 @@ def edit_parents_confirm(request,id):
     return render(request,template,{'parents':parents,'parents_v':parents_v})
 
 @login_required(login_url="/login")
+@staff_member_required
 def search_course(request):
     template = "School/edit-courses.html"
 
@@ -531,6 +606,7 @@ class SearchResultsView(LoginRequiredMixin,ListView):
     model = Course
     login_url = '/login'
     template_name = 'School/edit-courses.html'
+    @staff_member_required
     def get_queryset(self): # new
         query = self.request.GET.get("search")
         s_courses = Course.objects.filter(level__icontains = query)
@@ -541,6 +617,7 @@ class SearchSubjectView(LoginRequiredMixin,ListView):
     model: Subject
     login_url = '/login'
     template_name = 'School/edit-library.html'
+    @staff_member_required
     def get_queryset(self):
         query = self.request.GET.get("search")
         s_subjects = Subject.objects.filter(Q(name__icontains = query) | Q(description__icontains = query) | Q(level__icontains=query))
@@ -550,6 +627,7 @@ class SearchStudentView(LoginRequiredMixin,ListView):
     model: Students
     login_url = '/login'
     template_name = 'School/edit-student.html'
+    @staff_member_required
     def get_queryset(self):
         query = self.request.GET.get("search")
         s_student = Students.objects.filter(Q(first_name__icontains = query) | Q(last_name__icontains = query) | Q(id_number__icontains=query) | Q(mail__icontains = query) | Q(phone_number__icontains = query))
@@ -559,6 +637,7 @@ class SearchParentView(LoginRequiredMixin,ListView):
     model: Parents
     login_url = '/login'
     template_name = 'School/edit-departments.html'
+    @staff_member_required
     def get_queryset(self):
         query = self.request.GET.get("search")
         s_parent = Parents.objects.filter(Q(first_name__icontains = query) | Q(last_name__icontains = query) | Q(id_number__icontains=query) | Q(mail__icontains = query) | Q(phone_number__icontains = query))
@@ -568,6 +647,7 @@ class SearchUserView(LoginRequiredMixin,ListView):
     model: User
     login_url = '/login'
     template_name = 'School/edit-staff.html'
+    @staff_member_required
     def get_queryset(self):
         query = self.request.GET.get("search")
         s_staff = User.objects.filter(Q(username__icontains = query) | Q(email__icontains = query) | Q(first_name__icontains = query) | Q(last_name__icontains = query))
@@ -577,6 +657,7 @@ class SearchTeacherView(LoginRequiredMixin,ListView):
     model: Teachers
     login_url = '/login'
     template_name = 'School/edit-professor.html'
+    @staff_member_required
     def get_queryset(self):
         query = self.request.GET.get("search")
         s_teacher = Teachers.objects.filter(Q(first_name__icontains = query) | Q(last_name__icontains = query) | Q(code__icontains = query) | Q(id_number__icontains=query) | Q(mail__icontains = query) | Q(phone_number__icontains = query))
@@ -586,6 +667,7 @@ class SearchSelectProfessorView(LoginRequiredMixin,ListView):
     model: Teachers
     login_url = '/login'
     template_name = 'School/select_teacher.html'
+    @staff_member_required
     def get_queryset(self):
         query = self.request.GET.get("search")
         s_teacher = Teachers.objects.filter(Q(first_name__icontains = query) | Q(last_name__icontains = query) | Q(code__icontains = query) | Q(id_number__icontains=query) | Q(mail__icontains = query) | Q(phone_number__icontains = query))
@@ -595,6 +677,7 @@ class SearchSelectStudentView(LoginRequiredMixin,ListView):
     model: Students
     login_url = '/login'
     template_name = 'School/select_student.html'
+    @staff_member_required
     def get_queryset(self):
         query = self.request.GET.get("search")
         s_student = Students.objects.filter(Q(first_name__icontains = query) | Q(last_name__icontains = query) | Q(id_number__icontains=query) | Q(mail__icontains = query) | Q(phone_number__icontains = query))
