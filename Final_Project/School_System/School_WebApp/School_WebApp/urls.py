@@ -72,6 +72,13 @@ urlpatterns = [
     path('user-student/',views.assign_student_user,name='user-student'),
     path('user-teacher/',views.assign_teacher_user,name='user-teacher'),
     path('user-parent/',views.assign_parent_user,name='user-parent'),
+    path('all-courses/', views.all_courses, name='all-course'),
+    path('all-subjects/',views.all_subjects,name='all-subjects'),
+    path('all-parents/',views.all_parents,name='all-parents'),
+    path('all-staff/',views.all_staff,name='all-staff'),
+    path('all-inscription/',views.all_inscription,name='all-inscription')
+
+
     
 ]
 

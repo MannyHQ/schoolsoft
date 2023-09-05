@@ -231,6 +231,11 @@ def all_staff(request):
     staff = User.objects.all()
     return render(request,'School/all-staff.html',{'staff':staff})
 
+@login_required(login_url="/login")
+@staff_member_required
+def all_inscription(request):
+    inscription = Inscription.objects.all()
+    return render(request,'School/all-inscriptions.html',{'inscription':inscription})
 
 
 

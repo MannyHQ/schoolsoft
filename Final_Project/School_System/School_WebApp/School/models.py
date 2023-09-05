@@ -12,6 +12,8 @@ class Students(models.Model):
     mail = models.CharField(max_length=200)
     phone_number = models.BigIntegerField()
     status = models.SmallIntegerField()
+    def __str__(self):
+        return self.first_name + ' '+self.last_name
     
 class Course(models.Model):
     level = models.CharField(max_length=200)

@@ -6,13 +6,14 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Edumin - Bootstrap Admin Dashboard </title>
+    <title>SchoolSoft</title>
+    {% load static %}
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-select/dist/css/bootstrap-select.min.css' %}">
 	<!-- Datatable -->
-    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="{% static 'vendor/datatables/css/jquery.dataTables.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
 
@@ -41,10 +42,10 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="index.html" class="brand-logo">
-                <img class="logo-abbr" src="images/logo-white.png" alt="">
-                <img class="logo-compact" src="images/logo-text-white.png" alt="">
-                <img class="brand-title" src="images/logo-text-white.png" alt="">
+            <a href="/home" class="brand-logo">
+                <img class="logo-abbr" src="{% static 'images/logo-white.png' %}" alt="">
+                <img class="logo-compact" src="{% static 'images/logo-text-white.png' %}" alt="">
+                <img class="brand-title" src="{% static 'images/logo-text-white.png' %}" alt="">
             </a>
 
             <div class="nav-control">
@@ -142,7 +143,7 @@
                             </li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <img src="images/profile/education/pic1.jpg" width="20" alt="">
+                                    <img src="{% static 'images/profile/education/pic1.jpg' %}" width="20" alt="">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="app-profile.html" class="dropdown-item ai-icon">
@@ -153,7 +154,7 @@
                                         <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                         <span class="ml-2">Inbox </span>
                                     </a>
-                                    <a href="page-login.html" class="dropdown-item ai-icon">
+                                    <a href="/logout" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                                         <span class="ml-2">Logout </span>
                                     </a>
@@ -175,7 +176,7 @@
             <div class="dlabnav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    {% comment %} <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
 							<i class="la la-home"></i>
 							<span class="nav-text">Dashboard</span>
 						</a>
@@ -184,223 +185,87 @@
                             <li><a href="index-2.html">Dashboard 2</a></li>
                             <li><a href="index-3.html">Dashboard 3</a></li>
                         </ul>
-                    </li>
-					<li><a class="ai-icon" href="event-management.html" aria-expanded="false">
-							<i class="la la-calendar"></i>
-							<span class="nav-text">Event Management</span>
-						</a>
-                    </li>
+                    </li> {% endcomment %}
+					
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
 							<i class="la la-user"></i>
-							<span class="nav-text">Professors</span>
+							<span class="nav-text">Profesores</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="all-professors.html">All Professor</a></li>
-                            <li><a href="add-professor.html">Add Professor</a></li>
-                            <li><a href="edit-professor.html">Edit Professor</a></li>
-                            <li><a href="professor-profile.html">Professor Profile</a></li>
+                            <li><a href="/all-professors">Lista de profesores</a></li>
+                            <li><a href="/add-professor">Añadir profesor</a></li>
+                            <li><a href="/edit-professor">Editar profesor</a></li>
+                            <li><a href="/professor-profile">Perfil del profesor</a></li>
+                            <li><a href="/select-professor">Asignar materia</a></li>
+                            <li><a href="/select-professor">Quitar materia</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
 							<i class="la la-users"></i>
-							<span class="nav-text">Students</span>
+							<span class="nav-text">Estudiantes</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="all-students.html">All Students</a></li>
-                            <li><a href="add-student.html">Add Students</a></li>
-                            <li><a href="edit-student.html">Edit Students</a></li>
-                            <li><a href="about-student.html">About Students</a></li>
+                            <li><a href="/all-students">Lista de Estudiantes</a></li>
+                            <li><a href="/add-students">Añadir Estudiante</a></li>
+                            <li><a href="/edit-student">Editar Estudiante</a></li>
+                            <li><a href="/about-student">Sobre los Estudiantes</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
 							<i class="la la-graduation-cap"></i>
-							<span class="nav-text">Courses</span>
+							<span class="nav-text">Cursos</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="all-courses.html">All Courses</a></li>
-                            <li><a href="add-courses.html">Add Courses</a></li>
-                            <li><a href="edit-courses.html">Edit Courses</a></li>
-                            <li><a href="about-courses.html">About Courses</a></li>
+                            <li><a href="/all-courses">Todos los cursos</a></li>
+                            <li><a href="/add-courses">Añadir curso</a></li>
+                            <li><a href="/edit-courses">Editar curso</a></li>
+                            <li><a href="/about-courses">Sobre los cursos</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
 							<i class="la la-book"></i>
-							<span class="nav-text">Library</span>
+							<span class="nav-text">Asignaturas</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="all-library.html">All Library</a></li>
-                            <li><a href="add-library.html">Add Library</a></li>
-                            <li><a href="edit-library.html">Edit Library</a></li>
+                            <li><a href="/all-subjects">Lista de asignaturas</a></li>
+                            <li><a href="/add-subjects">Añadir asignatura</a></li>
+                            <li><a href="/edit-subjects">Editar asignaturas</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
 							<i class="la la-building"></i>
-							<span class="nav-text">Departments</span>
+							<span class="nav-text">Padres</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="all-departments.html">All Departments</a></li>
-                            <li><a href="add-departments.html">Add Departments</a></li>
-                            <li><a href="edit-departments.html">Edit Departments</a></li>
+                            <li><a href="/all-parents">Listado de padres</a></li>
+                            <li><a href="/add-parents">Añadir padres</a></li>
+                            <li><a href="/edit-parents">Editar padres</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
 							<i class="la la-users"></i>
-							<span class="nav-text">Staff</span>
+							<span class="nav-text">Usuarios</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="all-staff.html">All Staff</a></li>
-                            <li><a href="add-staff.html">Add Staff</a></li>
-                            <li><a href="edit-staff.html">Edit Staff</a></li>
-                            <li><a href="staff-profile.html">Staff Profile</a></li>
+                            <li><a href="/all-staff">Lista de usuarios</a></li>
+                            <li><a href="/add-staff">Añadir Usuarios</a></li>
+                            <li><a href="/edit-staff">Editar Usuarios</a></li>
+                            <li><a href="/user-student">Asignar usuario a estudiante</a></li>
+                            <li><a href="/user-teacher">Asignar usuario a profesor</a></li>
+                            <li><a href="/user-student">Asignar usuario a padre</a></li>
                         </ul>
                     </li>
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-gift"></i>
-							<span class="nav-text">Holiday</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="all-holiday.html">All Holiday</a></li>
-                            <li><a href="add-holiday.html">Add Holiday</a></li>
-                            <li><a href="edit-holiday.html">Edit Holiday</a></li>
-                            <li><a href="holiday-calendar.html">Holiday Calendar</a></li>
-                        </ul>
-                    </li>
+					
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
 							<i class="la la-dollar"></i>
-							<span class="nav-text">Fees</span>
+							<span class="nav-text">Inscripcion</span>
 						</a>
                         <ul aria-expanded="false">
-                            <li><a href="fees-collection.html">Fees Collection</a></li>
-                            <li><a href="add-fees.html">Add Fees</a></li>
-                            <li><a href="fees-receipt.html">Fees Receipt</a></li>
+                            <li><a href="/all-inscription">Lista de inscripciones</a></li>
+                            <li><a href="/do-inscription">Inscribir estudiante</a></li>
+                            <li><a href="/edit-inscription">Modificar inscripcion</a></li>
                         </ul>
                     </li>					
-                    <li class="nav-label">Apps</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-users"></i>
-							<span class="nav-text">Apps</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="app-profile.html">Profile</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="email-compose.html">Compose</a></li>
-                                    <li><a href="email-inbox.html">Inbox</a></li>
-                                    <li><a href="email-read.html">Read</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="app-calender.html">Calendar</a></li>
-							<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="ecom-product-grid.html">Product Grid</a></li>
-									<li><a href="ecom-product-list.html">Product List</a></li>
-									<li><a href="ecom-product-detail.html">Product Details</a></li>
-									<li><a href="ecom-product-order.html">Order</a></li>
-									<li><a href="ecom-checkout.html">Checkout</a></li>
-									<li><a href="ecom-invoice.html">Invoice</a></li>
-									<li><a href="ecom-customers.html">Customers</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="la la-signal"></i>
-							<span class="nav-text">Charts</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="chart-flot.html">Flot</a></li>
-                            <li><a href="chart-morris.html">Morris</a></li>
-                            <li><a href="chart-chartjs.html">Chartjs</a></li>
-                            <li><a href="chart-chartist.html">Chartist</a></li>
-                            <li><a href="chart-sparkline.html">Sparkline</a></li>
-                            <li><a href="chart-peity.html">Peity</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-label">Components</li>
-                    <li class="mega-menu mega-menu-xl"><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="la la-globe"></i>
-							<span class="nav-text">Bootstrap</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="ui-accordion.html">Accordion</a></li>
-                            <li><a href="ui-alert.html">Alert</a></li>
-                            <li><a href="ui-badge.html">Badge</a></li>
-                            <li><a href="ui-button.html">Button</a></li>
-                            <li><a href="ui-modal.html">Modal</a></li>
-                            <li><a href="ui-button-group.html">Button Group</a></li>
-                            <li><a href="ui-list-group.html">List Group</a></li>
-                            <li><a href="ui-media-object.html">Media Object</a></li>
-                            <li><a href="ui-card.html">Cards</a></li>
-                            <li><a href="ui-carousel.html">Carousel</a></li>
-                            <li><a href="ui-dropdown.html">Dropdown</a></li>
-                            <li><a href="ui-popover.html">Popover</a></li>
-                            <li><a href="ui-progressbar.html">Progressbar</a></li>
-                            <li><a href="ui-tab.html">Tab</a></li>
-                            <li><a href="ui-typography.html">Typography</a></li>
-                            <li><a href="ui-pagination.html">Pagination</a></li>
-                            <li><a href="ui-grid.html">Grid</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-plus-square-o"></i>
-							<span class="nav-text">Plugins</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="uc-select2.html">Select 2</a></li>
-                            <li><a href="uc-nestable.html">Nestedable</a></li>
-                            <li><a href="uc-noui-slider.html">Noui Slider</a></li>
-                            <li><a href="uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="uc-toastr.html">Toastr</a></li>
-                            <li><a href="map-jqvmap.html">Jqv Map</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="widget-basic.html" aria-expanded="false">
-							<i class="la la-desktop"></i>
-							<span class="nav-text">Widget</span>
-						</a></li>
-                    <li class="nav-label">Forms</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-file-text"></i>
-							<span class="nav-text">Forms</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="form-element.html">Form Elements</a></li>
-                            <li><a href="form-wizard.html">Wizard</a></li>
-                            <li><a href="form-editor-summernote.html">Summernote</a></li>
-                            <li><a href="form-pickers.html">Pickers</a></li>
-                            <li><a href="form-validation-jquery.html">Jquery Validate</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-label">Table</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-table"></i>
-							<span class="nav-text">Table</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="table-bootstrap-basic.html">Bootstrap</a></li>
-                            <li><a href="table-datatable-basic.html">Datatable</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-label">Extra</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-th-list"></i>
-							<span class="nav-text">Pages</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="page-register.html">Register</a></li>
-                            <li><a href="page-login.html">Login</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="page-error-400.html">Error 400</a></li>
-                                    <li><a href="page-error-403.html">Error 403</a></li>
-                                    <li><a href="page-error-404.html">Error 404</a></li>
-                                    <li><a href="page-error-500.html">Error 500</a></li>
-                                    <li><a href="page-error-503.html">Error 503</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="page-lock-screen.html">Lock Screen</a></li>
-                        </ul>
-                    </li>
 				</ul>
             </div>
         </div>
@@ -420,14 +285,14 @@
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>All Departments</h4>
+                            <h4>Lista de padres</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Departments</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">All Departments</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Padres</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Todos los padres</a></li>
                         </ol>
                     </div>
                 </div>
@@ -436,8 +301,8 @@
 					<div class="col-lg-12">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">Department List</h4>
-								<a href="add-departments.html" class="btn btn-primary"> + Add List</a>
+								<h4 class="card-title">Lista de padres</h4>
+								<a href="add-departments.html" class="btn btn-primary"> + Añadir</a>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
@@ -445,276 +310,38 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Department</th>
-                                                <th>Head Of Dept.</th>
-                                                <th>Mobile</th>
-                                                <th>Email</th>
-                                                <th>Starting Year</th>
-                                                <th>Stu. Capacity</th>
+                                                <th>Nombre</th>
+                                                <th>Apellido</th>
+                                                <th>Cedula</th>
+                                                <th>Correo</th>
+                                                <th>Telefono</th>
+                                                <th>Estado</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for parent in parents  %}
+                                            
                                             <tr>
-                                                <td>01</td>
-                                                <td>Clerk</td>
-                                                <td>Rhona Davidson</td>
-                                                <td><a href="javascript:void(0);"><strong>123 456 7890</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2015</td>
-                                                <td>210</td>
+                                                <td>{{parent.id}}</td>
+                                                <td>{{parent.first_name}}</td>
+                                                <td>{{parent.last_name}}</td>
+                                                <td><a href="javascript:void(0);"><strong>{{parent.id_number}}</strong></a></td>
+                                                <td><a href="javascript:void(0);"><strong>{{parent.mail}}</strong></a></td>
+                                                <td>{{parent.phone_number}}</td>
+                                                {% if parent.status == 1 %}
+                                                <td>Activo</td>
+                                                
+                                                {% else %}
+                                                <td>Inactivo</td>
+                                                {% endif %}
                                                 <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                    <a href="/edit-parents/{{parent.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
                                                     <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
                                                 </td>												
                                             </tr>
-                                            <tr>
-												<td>02</td>
-                                                <td>Accountant</td>
-                                                <td>Michael Silva</td>
-                                                <td><a href="javascript:void(0);"><strong>987 654 3210</strong></a></td>
-												<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2017 </td>
-                                                <td>10</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>03</td>
-                                                <td>Junior Technical</td>
-                                                <td>Ashton Cox</td>
-                                                <td><a href="javascript:void(0);"><strong>(123) 4567 890</strong></a></td>
-												<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2016 </td>
-                                                <td>20</td>
-												<td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>04</td>
-                                                <td>Developer</td>
-                                                <td>Cedric Kelly</td>
-                                                <td><a href="javascript:void(0);"><strong>123 456 7890</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2015 </td>
-                                                <td>30</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>05</td>
-                                                <td>Accountant</td>
-                                                <td>Airi Satou</td>
-                                                <td><a href="javascript:void(0);"><strong>987 654 3210</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2017</td>
-                                                <td>40</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>06</td>
-                                                <td>Specialist</td>
-                                                <td>Brielle Williamson</td>
-                                                <td><a href="javascript:void(0);"><strong>123 456 7890</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2016 </td>
-                                                <td>50</td>
-												<td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>07</td>
-                                                <td>Sales Assistant</td>
-                                                <td>Herrod Chandler</td>
-                                                <td><a href="javascript:void(0);"><strong>987 654 3210</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2015</td>
-                                                <td>60</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>08</td>
-                                                <td>Librarian</td>
-                                                <td>Rhona Davidson</td>
-                                                <td><a href="javascript:void(0);"><strong>(123) 4567 890</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2017</td>
-                                                <td>70</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>09</td>
-                                                <td>Librarian</td>
-                                                <td>Colleen Hurst</td>
-                                                <td><a href="javascript:void(0);"><strong>(123) 4567 890</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2017</td>
-                                                <td>80</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>10</td>
-                                                <td>Librarian</td>
-                                                <td>Sonya Frost</td>
-                                                <td><a href="javascript:void(0);"><strong>123 456 7890</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2015</td>
-                                                <td>90</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>11</td>
-                                                <td>Office Manager</td>
-                                                <td>Jena Gaines</td>
-                                                <td><a href="javascript:void(0);"><strong>987 654 3210</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2016</td>
-                                                <td>110</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>12</td>
-                                                <td>Support Lead</td>
-                                                <td>Quinn Flynn</td>
-                                                <td><a href="javascript:void(0);"><strong>(123) 4567 890</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2015</td>
-                                                <td>120</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>13</td>
-                                                <td>Regional Director</td>
-                                                <td>Charde Marshall</td>
-                                                <td><a href="javascript:void(0);"><strong>123 456 7890</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2017</td>
-                                                <td>130</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>14</td>
-                                                <td>Librarian</td>
-                                                <td>Haley Kennedy</td>
-                                                <td><a href="javascript:void(0);"><strong>987 654 3210</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2016</td>
-                                                <td>140</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>15</td>
-                                                <td>Region al Director</td>
-                                                <td>Tatyana Fitzpatrick</td>
-												<td><a href="javascript:void(0);"><strong>(123) 4567 890</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2017 </td>
-                                                <td>150</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>16</td>
-                                                <td>Librarian</td>
-                                                <td>Michael Silva</td>
-                                                <td><a href="javascript:void(0);"><strong>123 456 7890</strong></a></td>
-												<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-												<td>2015</td>
-                                                <td>160</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>17</td>
-                                                <td>Financial Officer</td>
-                                                <td>Paul Byrd</td>
-                                                <td><a href="javascript:void(0);"><strong>987 654 3210</strong></a></td>
-												<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2016</td>
-                                                <td>170</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>18</td>
-                                                <td>Systems Administrator</td>
-                                                <td>Gloria Little</td>
-                                                <td><a href="javascript:void(0);"><strong>(123) 4567 890</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2017</td>
-                                                <td>180</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>19</td>
-                                                <td>Librarian</td>
-                                                <td>Bradley Greer</td>
-                                                <td><a href="javascript:void(0);"><strong>(123) 4567 890</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2016</td>
-                                                <td>190</td>
-												<td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-												<td>20</td>
-                                                <td>Personnel Lead</td>
-                                                <td>Dai Rios</td>
-                                                <td><a href="javascript:void(0);"><strong>123 456 7890</strong></a></td>
-                                                <td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-                                                <td>2015 </td>
-                                                <td>200</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
+                                            {% endfor %}
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -735,7 +362,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignLab</a> 2020</p>
+                <p>Copyright © Designed &amp; Developed by <a href="/home" target="_blank">SchoolSoft</a></p>
             </div>
         </div>
         <!--**********************************
@@ -760,19 +387,19 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="vendor/global/global.min.js"></script>
-	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <script src="js/custom.min.js"></script>
-    <script src="js/dlabnav-init.js"></script>	
+    <script src="{% static 'vendor/global/global.min.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+    <script src="{% static 'js/custom.min.js' %}"></script>
+    <script src="{% static 'js/dlabnav-init.js' %}"></script>	
 	
 	<!-- Datatable -->
-    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="js/plugins-init/datatables.init.js"></script>
+    <script src="{% static 'vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/plugins-init/datatables.init.js' %}"></script>
 	
     <!-- Svganimation scripts -->
-    <script src="vendor/svganimation/vivus.min.js"></script>
-    <script src="vendor/svganimation/svg.animation.js"></script>
-    <script src="js/styleSwitcher.js"></script>
+    <script src="{% static 'vendor/svganimation/vivus.min.js' %}"></script>
+    <script src="{% static 'vendor/svganimation/svg.animation.js' %}"></script>
+    <script src="{% static 'js/styleSwitcher.js' %}"></script>
 	
 </body>
 </html>
