@@ -76,7 +76,10 @@ urlpatterns = [
     path('all-subjects/',views.all_subjects,name='all-subjects'),
     path('all-parents/',views.all_parents,name='all-parents'),
     path('all-staff/',views.all_staff,name='all-staff'),
-    path('all-inscription/',views.all_inscription,name='all-inscription')
+    path('all-inscription/',views.all_inscription,name='all-inscription'),
+    path('edit-inscription/',views.edit_inscription,name='edit-inscription'),
+    path('edit-inscription/<int:id>',views.edit_inscription_b,name='edit-inscription'),
+    path('edit-inscription/update/<int:id>',views.edit_inscription_confirm,name='update'),
 
 
     

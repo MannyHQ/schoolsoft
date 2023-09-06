@@ -185,11 +185,18 @@ def login_us(request):
 @staff_member_required
 def index(request):
     students_count = Students.objects.count()
+    courses_count = Course.objects.count()
+    teachers_count = Teachers.objects.count()
+    inscription_count = Inscription.objects.count()
+
     latest_inscriptions_list = Inscription.objects.order_by("-date_inscription")[:5]
     template = loader.get_template("school/index.html")
     context = {
         "latest_inscriptions_list": latest_inscriptions_list,
-        "students_count": students_count
+        "students_count": students_count,
+        'courses_count':courses_count,
+        'teachers_count':teachers_count,
+        'inscription_count':inscription_count
         
     }
     
@@ -431,6 +438,15 @@ def edit_student(request):
     template = "School/edit-student.html"
     return render(request,template,{'students':students})
 
+@login_required(login_url="/login")
+@staff_member_required
+def edit_inscription(request):
+    inscription = Inscription.objects.all()
+    courses = Course.objects.all()
+    students = Students.objects.all()
+    template = "School/edit-inscriptions.html"
+    return render(request,template,{'inscription':inscription,'students':students,'courses':courses})
+
 @login_required(login_url='/login')
 @staff_member_required
 def edit_staff(request):
@@ -475,6 +491,17 @@ def edit_st(request,id):
     students = Students.objects.all()
     template = "School/edit-student.html"
     return render(request,template,{'students':students,'students_v':students_v})
+
+@login_required(login_url="/login")
+@staff_member_required
+def edit_inscription_b(request,id):
+    inscription_v = Inscription.objects.get(id=id)
+    inscription = Inscription.objects.all()
+    courses =  Course.objects.all()
+    students = Students.objects.all()
+    template = "School/edit-inscriptions.html"
+    return render(request,template,{'inscription':inscription,'inscription_v':inscription_v,'students':students,'courses':courses})
+
 
 @login_required(login_url="/login")
 @staff_member_required
@@ -527,6 +554,22 @@ def edit_courses_confirm(request,id):
         form.save()
         return redirect('/edit-courses')
     return render(request,template,{'courses':courses,'courses_v':courses_v})
+
+@login_required(login_url="/login")
+@staff_member_required
+def edit_inscription_confirm(request,id):
+    inscription_v = Inscription.objects.get(id=id)
+    inscription = Inscription.objects.all()
+    courses = Course.objects.all()
+    students = Students.objects.all()
+    template = "School/edit-inscriptions.html"
+    form = InscriptionForm(request.POST, instance=inscription_v)
+    print(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('/edit-inscription')
+    return render(request,template,{'inscription':inscription,'inscription_v':inscription_v,'courses':courses,'students':students})
+
 
 @login_required(login_url="/login")
 @staff_member_required

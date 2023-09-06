@@ -333,18 +333,18 @@
 													
 													<tr>
 														<td>{{student.id}}</td>
-														<td>{{student.student_id_id}}</td>
-														<td>{{student.course_id_id}}</td>
+														<td>{{student.student_id}}</td>
+														<td>{{student.course_id}}</td>
 														<td><a href="javascript:void(0);"><strong>{{student.date_inscription}}</strong></a></td>
 														<td><a href="javascript:void(0);"><strong>{{student.start_date}}</strong></a></td>
 														<td>{{student.end_date}}</td>
 														{% if student.inscription_status == 1 %}
-														<td>Activo</td>
+														<td>Pagada</td>
 														{% else %}
-														<td>Inactivo</td>
+														<td>Pendiente</td>
 														{% endif %}
 														<td>
-															<a href="/edit-inscription/{{user.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+															<a href="/edit-inscription/{{student.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
 															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
 														</td>												
 													</tr>

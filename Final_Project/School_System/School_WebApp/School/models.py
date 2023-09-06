@@ -17,7 +17,7 @@ class Students(models.Model):
     
 class Course(models.Model):
     level = models.CharField(max_length=200)
-    def __str__(self) -> str:
+    def __str__(self):
         return self.level
     
 class Subject(models.Model):
@@ -66,8 +66,8 @@ class Inscription(models.Model):
     end_date = models.DateField()
     inscription_status = models.SmallIntegerField()
     
-    def __str__(self):
-        return self.name+' Descripcion:'+self.description+' Curso:' + self.level
+    def __str__(self) -> str:
+        return self.first_name+' '+self.last_name
     
 
 # Subject.level = models.ManyToManyField(Course, related_name='course')
