@@ -219,11 +219,11 @@ header .logo .imgL{
     height: 100%;
     background-color: #6AA5A9;
 }
-/*----------menu desplegable -------*/
+/*TODO----------menu desplegable -------*/
 :root{
     --width: 300px;
     --padding: 10px;
-    --bgcolor: #a9acaf;
+    --bgcolor: #3F3D40;
     --hovercolor: rgb(23, 23, 23);
     --width--collapsed: 45px;
 }
@@ -235,7 +235,10 @@ header .logo .imgL{
     color: while;
 }
 #sidemenu{
-    background-color: var(--bgcolor);
+    background-color: rgba(38, 37, 37, 0.496);
+    border: 1px solid rgba(0, 0, 0, 0.578);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     color: while;
     position: fixed;
     height: 100%;
@@ -284,13 +287,6 @@ header .logo .imgL{
 #sidemenu #header #menu-btn:hover{
     background-color: var(--hovercolor);
 }
-
-/* #sidemenu #header #menu-btn .btn-hamburger{ 
-    background-color: #fff;
-    width: 100%;
-    height: 2;
-    margin: 5px 0;
-} */
 
 /*profile*/
 #sidemenu #profile{

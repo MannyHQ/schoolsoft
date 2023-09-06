@@ -26,7 +26,7 @@
         <nav class="nav1">       
             <a href="/home/"><li>INICIO</li></a>            
             <a href="/courses_califications"><li>CALIFICACIONES</li></a>
-            <a href="/students/"><li>PADRES</li></a>
+            {% comment %} <a href="/students/"><li>PADRES</li></a> {% endcomment %}
         </nav>
         <nav class="nav2">
             <a href=""><li class="fa fa-search"></li></a>
@@ -48,8 +48,8 @@
 
             <!-- profile -->
             <div id="profile">
-                <div id="photo"><img src="{% static 'images/imgTeacher/perfil4.png' %}" alt=""></div>
-                <div id="name"><span>nombre user</span></div>                        
+                <div id="photo"><img src="{% static 'images/imgTeacher/logo.png' %}" alt=""></div>
+                <div id="name"><span>{{ nombre }}</span></div>                        
             </div>
             <!-- items -->
             <div id="menu-items">
@@ -71,9 +71,9 @@
                 </div>
                 <!-- <div class="item separator"></div> -->
                 <div class="item">
-                    <a href="/cambioPassword">
-                        <div class="icon"><img src="{% static 'images/imgTeacher/recargar.png' %}" alt="" title="Cambio Contraseña"></div>
-                        <div class="title"><span>Cambiar Contraseña</span></div>
+                    <a href="/login">
+                        <div class="icon"><img src="{% static 'images/imgTeacher/logout.png' %}" alt="" title="Cambio Contraseña"></div>
+                        <div class="title"><span>Logout</span></div>
                     </a>
                 </div>
             </div>

@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.db.models import Count
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
+from django.http import request
+from collections import defaultdict
 from django.contrib.auth.decorators import login_required,user_passes_test,permission_required
 
 
@@ -13,7 +15,12 @@ from django.contrib.auth.decorators import login_required,user_passes_test,permi
 #@user_passes_test(grupo_check,login_url='/login')
 @permission_required("teachers.view_calification",login_url='/logout')
 def teachers(request):
-    return render(request, 'teachers/teachers.html')
+    if 'profesor_nombre' in request.session and request.session['profesor_nombre']:
+        nombreTeacher = request.session['profesor_nombre']
+        return render(request, 'teachers/teachers.html', {'nombre': nombreTeacher})
+    else:
+        return redirect('login')
+    
 #---------crear curso, asignatura y estudiante-------------
 @login_required(login_url='/login')
 @permission_required("teachers.view_calification",login_url='/logout')
@@ -23,76 +30,85 @@ def Creacion(request):
 @login_required(login_url='/login')
 @permission_required("teachers.view_calification",login_url='/logout')
 def lista_curso(request):
-    try:
-        teacher_id = request.session['id_profesor']  
-        relationships = Teacher_VS_Subjects.objects.filter(teacher_id=teacher_id)
-    
-        for relationship in relationships:
-            asignatura = relationship.subject_id
-            course_id = asignatura.level_id
+    if 'profesor_nombre' in request.session and request.session['profesor_nombre']:
+        try:
+            teacher_id = request.session['id_profesor'] 
+            print(teacher_id)
+            relationships = Teacher_VS_Subjects.objects.filter(teacher_id=teacher_id)
         
-        # Encuentra todos los estudiantes asociados a esta asignatura y curso
-            student_ids = Inscription.objects.filter(course_id=course_id).values_list('student_id', flat=True)
-        
-            for student_id in student_ids:
-                student = Students.objects.get(id=student_id)  # Obtener la instancia del estudiante
-                existe_calificacion = calification.objects.filter(student_id=student, Subject_id=asignatura).exists()
-            
-                if not existe_calificacion:
-                    nueva_calificacion = calification(
-                        student_id=student,  # Utilizar la instancia del estudiante
-                        Subject_id=asignatura,
-                        firstPeriod=None,
-                        secondPeriod=None,
-                        thirdPeriod=None,
-                        fourthPeriod=None,
-                        finish=None
-                    )
-                    nueva_calificacion.save()
-
-        cursos_del_maestro = []
-
-        if relationships.exists():
             for relationship in relationships:
-                subject = relationship.subject_id
-                curso = subject.level 
-                inscriptions = Inscription.objects.filter(course_id=curso.id)
-                students = set() 
-                for inscription in inscriptions:
-                    students.add(inscription.student_id)
+                asignatura = relationship.subject_id
+                course_id = asignatura.level_id
             
-            # Obtener todas las asignaturas del mismo curso
-                other_subjects = Subject.objects.filter(level_id=curso.id).exclude(id=subject.id)
+            # Encuentra todos los estudiantes asociados a esta asignatura y curso
+                student_ids = Inscription.objects.filter(course_id=course_id).values_list('student_id', flat=True)
+            
+                for student_id in student_ids:
+                    student = Students.objects.get(id=student_id)  # Obtener la instancia del estudiante
+                    existe_calificacion = calification.objects.filter(student_id=student, Subject_id=asignatura).exists()
+                
+                    if not existe_calificacion:
+                        nueva_calificacion = calification(
+                            student_id=student,  # Utilizar la instancia del estudiante
+                            Subject_id=asignatura,
+                            firstPeriod=None,
+                            secondPeriod=None,
+                            thirdPeriod=None,
+                            fourthPeriod=None,
+                            finish=None
+                        )
+                        nueva_calificacion.save()
 
-            # Crear calificaciones para todas las asignaturas del curso
-                for other_subject in other_subjects:
-                    for student in students:
-                        existe_calificacion = calification.objects.filter(student_id=student, Subject_id=other_subject).exists()
-                        if not existe_calificacion:
-                            nueva_calificacion = calification(
-                                student_id=student,
-                                Subject_id=other_subject,
-                                firstPeriod=None,
-                                secondPeriod=None,
-                                thirdPeriod=None,
-                                fourthPeriod=None,
-                                finish=None
-                            )
-                            nueva_calificacion.save()
+            # cursos_del_maestro = []
 
-                cursos_del_maestro.append({
-                    'curso': curso,
-                    'asignatura': subject,
-                    'students': students
-                })
+            if relationships.exists():
+                cursos_del_maestro = []
+                cursos_visitados = set()  # Para evitar cursos duplicados
+                
+                for relationship in relationships:
+                    subject = relationship.subject_id
+                    curso = subject.level 
+                    
+                    # Verifica si el curso ya ha sido visitado
+                    if curso.id not in cursos_visitados:
+                        cursos_visitados.add(curso.id)  # Agrega el curso a los visitados
+                        
+                        inscriptions = Inscription.objects.filter(course_id=curso.id)
+                        students = set()
+                        
+                        for inscription in inscriptions:
+                            students.add(inscription.student_id)
+                        
+                        other_subjects = Subject.objects.filter(level_id=curso.id).exclude(id=subject.id)
 
-        for curso_info in cursos_del_maestro:
-            curso_info['students'] = list(curso_info['students'])
-        return render(request, 'teachers/courses.html', {'cursos': cursos_del_maestro})
-    except:
-        pass
-    return render(request, 'teachers/courses.html')
-
+                        # Crear calificaciones para todas las asignaturas del curso
+                        for other_subject in other_subjects:
+                            for student in students:
+                                existe_calificacion = calification.objects.filter(student_id=student, Subject_id=other_subject).exists()
+                                if not existe_calificacion:
+                                    nueva_calificacion = calification(
+                                        student_id=student,
+                                        Subject_id=other_subject,
+                                        firstPeriod=None,
+                                        secondPeriod=None,
+                                        thirdPeriod=None,
+                                        fourthPeriod=None,
+                                        finish=None
+                                    )
+                                    nueva_calificacion.save()
+                        
+                        
+                        cursos_del_maestro.append({
+                            'curso': curso,
+                            'asignatura': subject,
+                            'students': list(students),  # Convierte el conjunto en lista
+                        })
+            return render(request, 'teachers/courses.html', {'cursos': cursos_del_maestro})
+        except:
+            pass
+        return render(request, 'teachers/courses.html')
+    else:
+            return redirect('login')
 
 @login_required(login_url='/login')
 @permission_required("teachers.view_calification",login_url='/logout')
@@ -251,58 +267,65 @@ def teacher_course_califications(request):
         subject_id_filter = Subject.objects.filter(name=subject_filter).values_list('id', flat=True).first()
 
     if relationships.exists():
+        cursos_visitados = set()  # Para evitar cursos duplicados
+        
         for relationship in relationships:
             subject = relationship.subject_id
             curso = subject.level 
-            inscriptions = Inscription.objects.filter(course_id=curso.id)
-            students = set() 
-            for inscription in inscriptions:
-                students.add(inscription.student_id)
             
-            # Obtener las calificaciones para cada estudiante en esta materia y curso
-            calificaciones_estudiantes = []
-            for student in students:
+            # Verifica si el curso ya ha sido visitado
+            if curso.id not in cursos_visitados:
+                cursos_visitados.add(curso.id)  # Agrega el curso a los visitados
+                
+                inscriptions = Inscription.objects.filter(course_id=curso.id)
+                students = set()
+                
+                for inscription in inscriptions:
+                    students.add(inscription.student_id)
+            
+                # Obtener las calificaciones para cada estudiante en esta materia y curso
+                calificaciones_estudiantes = []
+                for student in students:
+                    if subject_id_filter:
+                        # Filtrar por la ID de asignatura si se proporciona en el formulario
+                        calificacion = calification.objects.filter(student_id=student, Subject_id=subject_id_filter).first()
+                    else:
+                        # Si no se proporciona la ID de asignatura, utilizar la asignatura actual
+                        calificacion = calification.objects.filter(student_id=student, Subject_id=subject).first()
+                        
+                    calificaciones_estudiantes.append({
+                        'student': student,
+                        'calificacion': calificacion
+                    })
+
+                if course_filter and curso.level != course_filter:
+                    continue
+                
                 if subject_id_filter:
-                    # Filtrar por la ID de asignatura si se proporciona en el formulario
-                    calificacion = calification.objects.filter(student_id=student, Subject_id=subject_id_filter).first()
-                else:
-                    # Si no se proporciona la ID de asignatura, utilizar la asignatura actual
-                    calificacion = calification.objects.filter(student_id=student, Subject_id=subject).first()
-                    
-                calificaciones_estudiantes.append({
-                    'student': student,
-                    'calificacion': calificacion
+                    # Si se proporciona la ID de asignatura, utilizarla para mostrar la asignatura
+                    subject = Subject.objects.get(id=subject_id_filter)
+
+                # Filtrar por calificación si se proporciona en el formulario
+                if calification_filter:
+                    # Convierte el valor de calification_filter a un campo de calificación
+                    if calification_filter == 1:
+                        field_filter = 'firstPeriod'
+                    elif calification_filter == 2:
+                        field_filter = 'secondPeriod'
+                    elif calification_filter == 3:
+                        field_filter = 'thirdPeriod'
+                    elif calification_filter == 4:
+                        field_filter = 'fourthPeriod'
+                    elif calification_filter == 5:
+                        field_filter = 'finish'
+                    else:
+                        field_filter = None
+                              
+                cursos_del_maestro.append({
+                    'curso': curso,
+                    'asignatura': subject,
+                    'calificaciones_estudiantes': calificaciones_estudiantes,
                 })
-
-            if course_filter and curso.level != course_filter:
-                continue
-            
-            if subject_id_filter:
-                # Si se proporciona la ID de asignatura, utilizarla para mostrar la asignatura
-                subject = Subject.objects.get(id=subject_id_filter)
-
-            # Filtrar por calificación si se proporciona en el formulario
-            if calification_filter:
-                # Convierte el valor de calification_filter a un campo de calificación
-                if calification_filter == 1:
-                    field_filter = 'firstPeriod'
-                elif calification_filter == 2:
-                    print(calification_filter)
-                    field_filter = 'secondPeriod'
-                elif calification_filter == 3:
-                    field_filter = 'thirdPeriod'
-                elif calification_filter == 4:
-                    field_filter = 'fourthPeriod'
-                elif calification_filter == 5:
-                    field_filter = 'finish'
-                else:
-                    field_filter = None
-                          
-            cursos_del_maestro.append({
-                'curso': curso,
-                'asignatura': subject,
-                'calificaciones_estudiantes': calificaciones_estudiantes,
-            })
 
     return render(request, 'teachers/calificationCourses.html', {'cursos': cursos_del_maestro, 'calification_filter': calification_filter})
 
