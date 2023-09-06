@@ -111,13 +111,14 @@ CREATE TABLE `Curso` (
 --
 
 CREATE TABLE `Estudiante` (
-  `id_estudiante` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `fecha_nacimiento` datetime NOT NULL,
-  `correo` varchar(50) NOT NULL,
-  `telefono` bigint(20) NOT NULL,
-  `estado` bit(1) NOT NULL
+    'first_name' = varchar(200) NOT NULL,
+    'last_name' = varchar(200) NOT NULL,
+    'birthdate' = DateTime() NOT NULL,
+    'gender' = varchar(11) NOT NULL,
+    'id_number' = int(11) NOT NULL,
+    'mail' = varchar(100) NOT NULL,
+    'phone_number' = int(13) NOT NULL,
+    'status' = bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

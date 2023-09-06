@@ -1,6 +1,8 @@
 import axios from "axios";
+import mysql from 'mysql2';
+import path from 'path';
 
-import { PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET, HOST } from "../config.js";
+import { PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET, HOST, DATABASE } from "../config.js";
 
 export const createOrder = async (req, res) => {
 
@@ -22,7 +24,7 @@ export const createOrder = async (req, res) => {
             {
                 amount: {
                     currency_code: 'USD',
-                    value: '100.00'
+                    value: req.query.mont
                 }
             }
         ],
@@ -35,6 +37,8 @@ export const createOrder = async (req, res) => {
         }
     };
 
+    req.session.amount = order.purchase_units[0].amount.value;
+
     const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`, order, 
         {
             headers: {
@@ -46,9 +50,27 @@ export const createOrder = async (req, res) => {
     res.redirect(response.data.links[1].href);
 }
 
+function processId(id) {
+
+    let newId = ''
+
+    for ( let char of id ) {
+
+        if ( !isNaN(parseInt(char)) ) {
+
+            newId += char; 
+        }
+
+        if ( newId.length === 8)
+            break;
+    }
+
+    return newId;
+}
+
 export const captureOrder = async (req, res) => {
 
-    const { token } = req.params;
+    const { token } = req.query;
 
     const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {},
         {
@@ -58,10 +80,31 @@ export const captureOrder = async (req, res) => {
             }
         }
     )
-
     console.log(response.data);
 
-    res.json('payed');
+    const connection = mysql.createConnection(DATABASE);
+    
+    const id_pay = processId(response.data.id);
+    const id_father = req.session.usuario.id_usuario;
+
+    console.log(new Date().toISOString().split('T')[0]);
+
+    const consulta_pay = `INSERT INTO Pagos (id_pago, id_padre, id_estudiante, fecha_pago, monto_total, estado)
+        values (?, ?, ?, ?, ?, ?)`;
+    const values_pay = [parseInt(id_pay), id_father, req.session.matricula, new Date().toISOString().split('T')[0], req.session.amount, 1];
+
+    connection.query(consulta_pay, values_pay, (err, results, fields) => {
+
+        if ( err ) {
+
+            res.send(err);
+        }
+        else {
+
+            req.session.amount = null;
+            res.sendFile(path.resolve('nodejs/public/html/pagoRealizado.html'));
+        }
+    });
 };
 
-export const cancelOrder = (req, res) => res.send('cancelOrder');
+export const cancelOrder = (req, res) => res.sendFile(path.resolve('nodejs/public/html/pagoCancelado.html'));

@@ -2,7 +2,6 @@ import express from 'express';
 import bodyParse from 'body-parser';
 import session from 'express-session';
 import path from 'path';
-import cookieParser from 'cookie-parser';
 
 import indexPages from './routes/index.routes.js';
 import loginPages from './routes/login.routes.js';
@@ -14,7 +13,6 @@ import { PORT } from './config.js';
 const app = express();
 
 // modulos
-app.use(cookieParser());
 app.use(bodyParse.urlencoded({ extended: true }));
 app.use(express.static(path.resolve('nodejs/public')));
 app.use(session(

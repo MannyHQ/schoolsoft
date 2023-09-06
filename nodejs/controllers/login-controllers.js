@@ -27,7 +27,6 @@ export const userVerfication = async (req, res) => {
 
             if (results.length > 0){
                 
-                console.log(results[0]);
                 req.session.usuario = results[0];
                 res.send('true');
             }
@@ -35,8 +34,6 @@ export const userVerfication = async (req, res) => {
                 res.send('false');
         }
     })
-
-
 
     connection.end();
 }
@@ -49,6 +46,8 @@ export const checkLogin = (req, res) => {
 
         res.send('true');
     }
+    else 
+        res.send('false')
 }
 
 

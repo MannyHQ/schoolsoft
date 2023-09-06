@@ -11,5 +11,5 @@ export const DATABASE = {
     host: 'localhost',
     user: 'junior',
     password: '153wasd',
-    database: 'validacion'
+    database: 'schoolsoft'
 }

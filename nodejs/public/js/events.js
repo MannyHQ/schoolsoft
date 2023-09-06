@@ -17,8 +17,6 @@ btnValidation.onclick = (e) => {
     )
         .then(response => response.text())
         .then(text => {
-
-            console.log(text);
             
             if (text === 'true'){
                 

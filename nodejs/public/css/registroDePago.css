@@ -32,17 +32,17 @@
 }
 
 .container .tabla-registro .field-container .field-data .field-element:nth-child(1){
-    flex: 0.5;
+    flex: 0.3;
 }
 
 .container .tabla-registro .field-container .field-data .field-element:nth-child(2){
-    flex: 1;
+    flex: 0.5;
 }
 
 .container .tabla-registro .field-container .field-data .field-element:nth-child(3){
-    flex: 0.8;
+    flex: 0.4;
 }
 
 .container .tabla-registro .field-container .field-data .field-element:nth-child(4){
-    flex: 0.55;
+    flex: 0.4;
 }

@@ -205,6 +205,35 @@ button[type="submit"]:hover {
   color: #666;
 }
 
+.element-paypal-form {
+    display: flex;
+    align-items: center;
+    flex-flow: wrap;
+    height: fit-content;
+}
+
+.element-paypal-form p{
+    flex-basis: 300px;
+    
+    margin: 0;
+}
+
+.element-paypal-form button {
+    width: 100%;
+
+    margin: 10px auto;
+    padding: 10px;
+
+    background: #f2f2f2;
+    color: #010101;
+
+    border: none;
+
+    cursor: pointer;
+
+    font-size: larger;
+}
+
 @media (max-width: 600px) {
   .container {
     flex-wrap: wrap;
