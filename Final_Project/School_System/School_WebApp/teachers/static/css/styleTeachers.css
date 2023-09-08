@@ -1,40 +1,111 @@
+/*!---calificaciones destacadas en los 4 periodos*/
+.DestacPadre{
+    padding-top: 65px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 100px;
+}
+.padreCart{
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+    /* border: solid 1px black; */
+}
+.carts{
+    width: 350px;
+    height: 130px;
+    background-color: #9B9595;
+    border-radius: 5px;
+    /* border: solid 1px black; */
+    display: flex;
+    column-gap: 30px;
+    justify-content: center;
+    align-items: center;
+    
+}
+.imgCarts > img{
+    width: 80px;
+    height: auto;
+}
+
+.imgCarts{
+    background-color: #D9D9D9;
+    padding: 10px;
+    border-radius: 50%;
+}
+.textCart{
+    background-color: #D9D9D9;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/*!vista de cursos y estudiantes a calificar*/
 .content_padre{
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .content_curso{
     border-radius: 10px;
     margin: 10px;
     padding: 10px;
-    background-color: #212529;
+    background-color: #FFFFFF;
     width: 300px;
+    box-shadow: 1px 1px 5px black;
 }
 #courses{
     border-radius: 10px;
     margin: 10px;
     padding: 10px;
-    background-color: #212529;
+    background-color: #FFFFFF;
     width: 400px;
 }
 .title{
-    color: white;
+    color: black;
     text-align: center;
     padding-top: 20px;
 }
+.title strong{
+    color: rgb(0, 0, 0);
+    text-shadow: #1367C8 3px 3px 3px;
+}
+.table tr th{
+    background-color: #EFE8E8;
+    color: black;
+}
+.botonCurso{
+    border: none;
+    padding: 3px;
+    border-radius: 10px;
+    background-color: #1367C8;
+    color: white;
+}
+/* #table tbody tr:nth-child(even) {
+    background-color: #363434;
+}
+.tablaDatos tbody tr:nth-child(odd) {
+    background-color: #363434;
+    border-top: solid 1px #201E1E;
+    border-bottom: solid 1px #201E1E;
+} */
 
+/*! calificar estudiante*/
 .califation_estudent{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
-    background-color: #212529;
-
+    background-color: #FAF4F4;
+    border-radius: 10px;
 }
-
-.course_Subject{
-    color: white;
-    background-color: #212529;
+.content_Courses{
+    box-shadow: 1px 1px 5px black;
 }
 #titleCorse{
     text-align: center;
@@ -43,14 +114,98 @@
 #form{
     width: 150px;
 }
+#form > input{
+    height: 25px;
+}
 #inp{
     width: 120px;
 }
 #contImg{
     border: none;
-    background-color: #212529;
 }
-#img{
-    width: 25px;
-    height: auto;
+#contImg > i{
+    font-size: 25px;
+    color: black;
 }
+
+/*! curso y calificaciones por materia*/
+.filtro{
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+.form_filtro{
+    width: 100%;
+    background-color: #FFFFFF;
+    padding: 10px;
+    box-shadow: 1px 1px 5px black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.title_filtro{
+    margin-left: 10px;
+    font-size: 20px;
+    text-decoration:underline;
+    text-shadow: #1367C8 3px 3px 3px;
+}
+.label_filtro{
+    font-size: 18px;
+}
+.div_filtro{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.linea_filtro{
+    width: 98%;
+    height: 1px;
+    background-color: #E7E6E6;
+    margin: 10px;
+    margin-right: 10px;
+}
+.label_filtro > input{
+    border: none;
+    height: 35px;
+    border-radius: 5px;
+    padding-left: 10px;
+    box-shadow: 1px 1px 3px black;
+}
+.label_filtro > input:focus {
+    outline: none; 
+}
+.content_boton{
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+    padding-right: 10px;
+}
+.button_filtro{
+    padding: 5px;
+    font-weight: 700;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #1367C8;
+    transition: 0.5s;
+    box-shadow: 1px 1px 3px #1367C8;
+}
+.button_filtro:hover{
+    transform: scale(1.1);
+}
+#enlace_boton{
+    color: #1367C8;
+    width: 70px;
+    border: none;
+    padding: 3px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px black;
+}
+

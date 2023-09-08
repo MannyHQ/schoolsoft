@@ -10,22 +10,23 @@ html {
 
 /*! ----------GRID------------ */
 body{
+    background-color: #CFCFCF;
     display: grid;
     height: 100%;
     grid-template-columns: 100%;
-    grid-template-rows: 50px  80px 80px auto;
+    grid-template-rows: 50px 80px auto;
 }
 header{
     grid-column: 1;
     grid-row: 1;
 }
-.novedades{
+#contenidoC{
     grid-column: 1;
     grid-row: 2;
 }
-#centroJ{
+#pcentro{
     grid-column: 1;
-    grid-row: 4/5;
+    grid-row: 3/4;
 }
 /* .piePagina{
     grid-column: 1/3;
@@ -36,7 +37,7 @@ header{
     display: flex;
     width: 100%;
     height: 50px;
-    background-color: #252222;
+    background-color: #1367C8;
     justify-content: space-around;
     align-items: center;
 }
@@ -49,7 +50,8 @@ header .nav1, .nav2, .logo{
     color: white;
 }
 header .nav1{
-    background-color: #3F3D40;
+    background-color: #1A86B5;
+    
     width: 60%;
     height: 30px;
     justify-content: space-around;
@@ -63,7 +65,7 @@ header .nav1 a{
     padding: 10px;
 }
 header a{
-    color: #ffffff;
+    color: white;
     text-decoration: none;
 }
 /*Logoel colegio*/
@@ -77,61 +79,19 @@ header .logo .imgL{
     
     border-radius: 50%;
 }
-/*!Aside contenedor de perfil*/
-/* .perfil{
-    width: 100%;
-    height: 100%;
-    background-color: #1D1C1E;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: white;
-}
-.perfil .perfilF{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-.perfil .perfilT, .perfilF{
-    padding: 15px;
-}
-.perfil figure img{
-    width: 35%;
-    border-radius: 50%;
-}
-.perfil section{
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-}
-.perfil section #cursos{
-    background-color: #3F3D40;
-    color: white;
-} */
-/**menu desplegable contenido*/
-.accordion-item:last-child {
-    background-color: #1D1C1E ;
-}
-.curso , .curso1{
-    text-align: center;
-    height: auto;
-    background-color: #3F3D40;
-    color: white;
-    margin-top: 15px;
-}
+
 /*!------------boton---------- */
 #adm1{
     margin-top: 15px;
     width: 90%;
-    background-color: #3F3D40;
+    background-color: white;
     text-align: center;
     text-decoration: none;
-    color: white;
+    color: black;
 }
 
 /**! contenido central*/
-.novedades{
+/* .novedades{
     background-color: #AEAEAE;
     width: 48%;
     height: auto;
@@ -159,7 +119,7 @@ header .logo .imgL{
     background-color: #6AA5A9;
     height: auto;
     text-align: center;
-}
+} */
 /** -------Alineacion de textos--------*/
 .avisos, .avMaestros, .contenidoC .barra{
     display: flex;
@@ -178,14 +138,14 @@ header .logo .imgL{
     align-items: center;
 }
 .contenidoC #cont{
-    background-color: #1D1C1E;
+    background-color: #1367C8;
     width: 60px;
     height: 30px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
 }
 .contenidoC .circulo{
-    background-color: #1D1C1E;
+    background-color: #1367C8;
     width: 30px;
     height: 30px;
     color: white;
@@ -195,7 +155,7 @@ header .logo .imgL{
     border: solid 2px white;
 }
 .contenidoC .barra{
-    background-color: #1D1C1E;
+    background-color: #1367C8;
     width: 75%;
     height: 30px;
     color: white;
@@ -211,13 +171,16 @@ header .logo .imgL{
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     margin-bottom: 40px;
 }
 #hpcentro{
     width: 80%;
-    height: 100%;
-    background-color: #6AA5A9;
+    height: auto;
+    min-height: 500px;
+    background-color: #FAF4F4;
+    box-shadow: 1px 1px 5px black;
+    border-radius: 10px;
 }
 /*TODO----------menu desplegable -------*/
 :root{
@@ -403,7 +366,15 @@ header .logo .imgL{
 .menu-collapsed .item{
     width: 100px;
 }
+.icon > i{
+    font-size: 20px;
+    transition: 0.3s;
 
+}
+.icon >i:hover{
+    transform: scale(1.2);
+    color: #1367C8;
+}
 /*! FOOTER*/
 .piePagina{
     width: 100%;
