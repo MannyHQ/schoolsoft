@@ -25,6 +25,10 @@ app.use(session(
 ));
 app.use(express.text());
 app.use(express.json());
+app.use(indexPages);
+app.use(loginPages);
+app.use(paymentPages);
+app.use(apiResources);
 
 // recursos publicos
 app.use(indexPages);

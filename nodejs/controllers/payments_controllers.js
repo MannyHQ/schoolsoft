@@ -86,7 +86,7 @@ export const captureOrder = async (req, res) => {
     const id_pay = processId(response.data.id);
     const id_father = req.session.usuario.id_usuario;
 
-    const consulta_pay = `INSERT INTO Pagos (id_pago, id_padre, id_estudiante, fecha_pago, monto_total, estado)
+    const consulta_pay = `INSERT INTO school_billing (id_pago, id_padre_id, id_estudiante_id, fecha_pago, monto_total, estado)
         values (?, ?, ?, ?, ?, ?)`;
     const values_pay = [parseInt(id_pay), id_father, req.session.matricula, new Date().toISOString().split('T')[0], req.session.amount, 1];
 

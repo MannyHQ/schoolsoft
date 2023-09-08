@@ -40,7 +40,7 @@ export const setMatricula = async (req, res) => {
         }
     });
 
-    const consultaIdStudent = `SELECT * FROM Estudiante where id_number=${id}`;
+    const consultaIdStudent = `SELECT * FROM school_students where id_number=${id}`;
 
     connection.query(consultaIdStudent, (err, results, query) => {
 
