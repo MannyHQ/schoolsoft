@@ -94,3 +94,10 @@ class Pagos(models.Model):
     fecha_pago = models.DateTimeField()
     monto_total = models.FloatField()
     estado = models.SmallIntegerField()
+
+class Usuario(models.Model):
+    id_usuario = models.BigIntegerField()
+    nombre_user = models.CharField(max_length=200)
+    password = models.CharField(max_length=200)
+    correo = models.CharField(max_length=200)
+    estado = models.SmallIntegerField()

@@ -81,6 +81,17 @@ class InscriptionForm(forms.ModelForm):
         }
 
 
+class PadreUserForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['id_usuario','nombre_user','password','correo','estado']
+        widgets = {
+            'id_usuario': forms.Select(attrs={'class': 'form-control'}),
+            'nombre_user': forms.TextInput(attrs={'class': 'form-control'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'correo': forms.TextInput(attrs={'class': 'form-control'}),
+            'estado': forms.Select(attrs={'class': 'form-control'}),
+        }
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Students

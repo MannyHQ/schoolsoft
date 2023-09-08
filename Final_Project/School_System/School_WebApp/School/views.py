@@ -324,6 +324,26 @@ def add_courses(request):
 
 @login_required(login_url="/login")
 @staff_member_required
+def crear_usuario_padre(request):
+    parents = Parents.objects.all()
+    print(request.POST)
+    if request.method == "POST":
+        form = PadreUserForm(request.POST)
+        form.save()
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('/home')
+            except:
+                pass
+    else:
+        form = PadreUserForm()
+    return render(request,'School/padre-user.html',{'form':form,'parents':parents})
+
+
+
+@login_required(login_url="/login")
+@staff_member_required
 def add_subjects(request):
     courses = Course.objects.all()
     if request.method == 'POST':

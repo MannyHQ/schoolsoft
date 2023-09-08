@@ -80,6 +80,7 @@ urlpatterns = [
     path('edit-inscription/',views.edit_inscription,name='edit-inscription'),
     path('edit-inscription/<int:id>',views.edit_inscription_b,name='edit-inscription'),
     path('edit-inscription/update/<int:id>',views.edit_inscription_confirm,name='update'),
+    path('parent-user/',views.crear_usuario_padre,name='parent-user/')
 
 
     
