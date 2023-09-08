@@ -80,14 +80,11 @@ export const captureOrder = async (req, res) => {
             }
         }
     )
-    console.log(response.data);
 
     const connection = mysql.createConnection(DATABASE);
     
     const id_pay = processId(response.data.id);
     const id_father = req.session.usuario.id_usuario;
-
-    console.log(new Date().toISOString().split('T')[0]);
 
     const consulta_pay = `INSERT INTO Pagos (id_pago, id_padre, id_estudiante, fecha_pago, monto_total, estado)
         values (?, ?, ?, ?, ?, ?)`;
