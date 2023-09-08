@@ -86,3 +86,11 @@ class ParentUser(models.Model):
 class TeacherUser(models.Model):
     teacher_id = models.ForeignKey(Teachers,on_delete=models.CASCADE,related_name="ter")
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,related_name="tur")
+
+class Pagos(models.Model):
+    id_pago = models.BigIntegerField()
+    id_padre = models.IntegerField()
+    id_estudiante = models.IntegerField()
+    fecha_pago = models.DateTimeField()
+    monto_total = models.FloatField()
+    estado = models.SmallIntegerField()
