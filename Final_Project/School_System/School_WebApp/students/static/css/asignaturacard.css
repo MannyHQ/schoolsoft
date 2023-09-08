@@ -1,0 +1,24 @@
+.asignatura-card {
+    background-color: #45b8c0; /* Color de fondo verde llamativo */
+    color: #FFFFFF; /* Texto en color blanco para contraste */
+    border: 1px solid #38848e; /* Borde con un tono más oscuro de verde */
+    border-radius: 8px; /* Esquinas redondeadas */
+    padding: 15px;
+    margin: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 75%;
+    margin-left: 282px;
+}
+
+.asignatura-info {
+    text-align: center;
+}
+
+.asignatura-info h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.asignatura-info p {
+    font-size: 16px;
+}

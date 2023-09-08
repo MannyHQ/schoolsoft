@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudiante</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/EStudiante.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <h2>SchoolSoft</h2>
+        <ul>
+            <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="/subjects"><i class="fas fa-book"></i> Asignaturas</a></li>
+            <li><a href="/qualification"><i class="fa-sharp fa-solid fa-book-open"></i></i>Calificaciones</a></li>
+            <li><a href="/info"><i class="fas fa-info-circle"></i> Información</a></li>
+            <li><p>Estudiante: {{students.first_name}} {{students.last_name}} {{students.id_number}}</p></li>
+        </ul>
+    </div>
+    <div class="logo">
+        <img src="{% static 'img/logoEstu.png'%}" alt="Logo">
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/menuinformacion.css'%}">
+    <link rel="stylesheet" href="{% static 'css/informacion.css'%}">
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <h2>SchoolSoft</h2>
+        <ul>
+            <li><a href="/student"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="/subjects"><i class="fas fa-book"></i> Asignaturas</a></li>
+            <li><a href="/qualification"><i class="fa-sharp fa-solid fa-book-open"></i></i> Calificaciones</a></li>
+            <li><a href="#"><i class="fas fa-info-circle"></i> Información</a></li>
+            <li><p>Estudiante: {{students.first_name}} {{students.last_name}} {{students.id_number}}</p></li>
+        </ul>
+    </div>
+    
+    <div class="student-info">
+        <h1>Información del Estudiante</h1>
+        <p><strong>Estudiante:</strong> {{students.first_name}} {{students.last_name}}</p>
+        <p><strong>Matricula:</strong> {{students.id_number}}</p>
+        <p><strong>Edad:</strong> {{edad}}</p>
+        <p><strong>colegio:</strong>  SchoolSoft </p>
+        <p><strong>Correo Electrónico:</strong> {{students.mail}}</p>
+        <p><strong>Curso:</strong> {{cali.level}}</p>
+        
+    </div>
+</body>
+</html>

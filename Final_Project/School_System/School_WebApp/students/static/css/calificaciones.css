@@ -1,0 +1,39 @@
+
+.calificaciones {
+    width: 70%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-left: 270px;
+}
+
+.calificaciones th, .calificaciones td {
+    border: 1px solid #e0e0e0;
+    padding: 12px;
+    text-align: left;
+}
+
+.calificaciones th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    color: #333;
+}
+
+.calificaciones tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.calificaciones th:first-child, .calificaciones td:first-child {
+    width: 30%;
+}
+
+
+.materias {
+    font-size: 28px;
+    color: #333;
+    margin-top: 10px;
+    margin-left: 274px;
+}
+
+
+
+

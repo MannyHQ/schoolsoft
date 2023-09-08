@@ -1,0 +1,24 @@
+
+.student-info {
+    padding: 20px;
+    margin: 20px;
+    margin-left: 300px;
+    margin-top: 70px;
+}
+
+.student-info h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.student-info p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.student-info strong {
+    font-weight: bold;
+    color: #333;
+}
