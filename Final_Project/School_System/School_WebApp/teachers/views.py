@@ -178,6 +178,29 @@ def calificar(request):
                 finish = califi.finish
                 Subject_id = califi.Subject_id_id
                 student_id_id = califi.student_id_id
+                
+                # Calculate finish based on non-empty values
+                total_values = 0
+                total_sum = 0
+
+                if first is not None:
+                    total_values += 1
+                    total_sum += first
+                if second is not None:
+                    total_values += 1
+                    total_sum += second
+                if third is not None:
+                    total_values += 1
+                    total_sum += third
+                if four is not None:
+                    total_values += 1
+                    total_sum += four
+
+                finish = total_sum / total_values if total_values > 0 else None
+                finish = round(finish, 2) if finish is not None else None
+                # Actualizar el modelo de Calificación con el acabado calculado
+                califi.finish = finish
+                califi.save()
                 # Busca el nombre de la asignatura utilizando el ID de asignatura
                 subject = Subject.objects.get(id=subj_id)
                 
@@ -220,77 +243,72 @@ def califications(request):
             
             if 'button1' in request.POST:
                 p1 = request.POST.get('p1')
-                
-                calificacion_obj, created = calification.objects.get_or_create(
-                    student_id_id=student_id,
-                    Subject_id_id=asignatura_id,
-                    defaults={'firstPeriod': p1}
-                )
-                
-                if not created:
-                    calificacion_obj.firstPeriod = p1
-                    calificacion_obj.save()
+                if p1.strip():  # Verificar que el campo no esté en blanco
+                    calificacion_obj, created = calification.objects.get_or_create(
+                        student_id_id=student_id,
+                        Subject_id_id=asignatura_id,
+                        defaults={'firstPeriod': p1}
+                    )
+                    if not created:
+                        calificacion_obj.firstPeriod = p1
+                        calificacion_obj.save()
                 return redirect('calificar')
             
             elif 'button2' in request.POST:
                 p2 = request.POST.get('p2')
-                
-                calificacion_obj, created = calification.objects.get_or_create(
-                    student_id_id=student_id,
-                    Subject_id_id=asignatura_id,
-                    defaults={'secondPeriod': p2}
-                )
-                
-                if not created:
-                    calificacion_obj.secondPeriod = p2
-                    calificacion_obj.save()
+                if p2.strip():  # Verificar que el campo no esté en blanco
+                    calificacion_obj, created = calification.objects.get_or_create(
+                        student_id_id=student_id,
+                        Subject_id_id=asignatura_id,
+                        defaults={'secondPeriod': p2}
+                    )
+                    if not created:
+                        calificacion_obj.secondPeriod = p2
+                        calificacion_obj.save()
                 return redirect('calificar')
             
             elif 'button3' in request.POST:
                 p3 = request.POST.get('p3')
-                
-                calificacion_obj, created = calification.objects.get_or_create(
-                    student_id_id=student_id,
-                    Subject_id_id=asignatura_id,
-                    defaults={'secondPeriod': p3}
-                )
-                
-                if not created:
-                    calificacion_obj.thirdPeriod = p3
-                    calificacion_obj.save()
+                if p3.strip():  # Verificar que el campo no esté en blanco
+                    calificacion_obj, created = calification.objects.get_or_create(
+                        student_id_id=student_id,
+                        Subject_id_id=asignatura_id,
+                        defaults={'thirdPeriod': p3}
+                    )
+                    if not created:
+                        calificacion_obj.thirdPeriod = p3
+                        calificacion_obj.save()
                 return redirect('calificar')
             
             elif 'button4' in request.POST:
                 p4 = request.POST.get('p4')
-                
-                calificacion_obj, created = calification.objects.get_or_create(
-                    student_id_id=student_id,
-                    Subject_id_id=asignatura_id,
-                    defaults={'secondPeriod': p4}
-                )
-                
-                if not created:
-                    calificacion_obj.fourthPeriod = p4
-                    calificacion_obj.save()
+                if p4.strip():  # Verificar que el campo no esté en blanco
+                    calificacion_obj, created = calification.objects.get_or_create(
+                        student_id_id=student_id,
+                        Subject_id_id=asignatura_id,
+                        defaults={'fourthPeriod': p4}
+                    )
+                    if not created:
+                        calificacion_obj.fourthPeriod = p4
+                        calificacion_obj.save()
                 return redirect('calificar')
             
             elif 'button5' in request.POST:
                 p5 = request.POST.get('p5')
+                if p5.strip():  # Verificar que el campo no esté en blanco
+                    calificacion_obj, created = calification.objects.get_or_create(
+                        student_id_id=student_id,
+                        Subject_id_id=asignatura_id,
+                        defaults={'finish': p5}
+                    )
+                    if not created:
+                        calificacion_obj.finish = p5
+                        calificacion_obj.save()
+                return redirect('calificar', {'nombre': nombreTeacher})
                 
-                calificacion_obj, created = calification.objects.get_or_create(
-                    student_id_id=student_id,
-                    Subject_id_id=asignatura_id,
-                    defaults={'secondPeriod': p5}
-                )
-                
-                if not created:
-                    calificacion_obj.finish = p5
-                    calificacion_obj.save()
-                return redirect('calificar',{'nombre': nombreTeacher})
         return redirect('calificar')
     else:
         return redirect('login')
-
 @login_required(login_url='/login')
 @permission_required("teachers.view_calification",login_url='/logout')
 def teacher_course_califications(request):
