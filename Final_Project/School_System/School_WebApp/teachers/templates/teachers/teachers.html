@@ -34,7 +34,6 @@
     <div id="sidemenu" class="menu-collapsed">
         <!-- header -->
         <div id="header">
-            <!-- <div id="title"><span>ADGsystem</span></div> -->
             <div id="menu-btn">
                 <span class="material-symbols-outlined">
                     menu
@@ -95,17 +94,57 @@
             {% block content %}            
                 <div class="DestacPadre">
                     <section class="padreCart">
-                        <div class="carts">
-                            <div class="imgCarts">
-                                <img src="{% static 'images/imgTeacher/graduado.png' %}" alt="">
-                            </div>
-                            <div class="textCart">
-                                <h2>Estudent</h2>
-                                <h5>calification</h5>
-                            </div>
-                        </div>
+                            {% for column, score_data in highest_scores.items %}
+                                <div class="carts">
+                                    <div class="imgCarts">
+                                        <img src="{% static 'images/imgTeacher/graduado.png' %}" alt="">
+                                    </div>
+                                    <div class="textCart">
+                                        <li>
+                                            <h2>
+                                                {% if column == "firstPeriod" %}
+                                                    Calificación más alta en primer periodo:
+                                                {% elif column == "secondPeriod" %}
+                                                    Calificación más alta en segundo periodo:
+                                                {% elif column == "thirdPeriod" %}
+                                                    Calificación más alta en tercer periodo:
+                                                {% elif column == "fourthPeriod" %}
+                                                    Calificación más alta en cuarto periodo:
+                                                {% else %}
+                                                    {% if column %}
+                                                      Calificación más alta en {{ column }}:
+                                                    {% else %}
+                                                      Calificación más alta: N/A
+                                                    {% endif %}
+                                                {% endif %}
+                                              </h2>
+                                              <p class="p"> 
+                                                {% if score_data.subject_name %}
+                                                    <strong>Asignatura:</strong> <b>{{ score_data.subject_name }}</b>
+                                                {% else %}
+                                                  Asignatura: N/A
+                                                {% endif %}
+                                              </p>
+                                              <p class="p">
+                                                {% if score_data.student_name %}
+                                                    <strong>Estudiante:</strong> <b>{{ score_data.student_name }}</b>
+                                                {% else %}
+                                                  Estudiante: N/A
+                                                {% endif %}
+                                              </p>
+                                              <p class="p">
+                                                {% if score_data.score %}
+                                                    <strong>Calificación más alta:</strong> <b>{{ score_data.score }}</b>
+                                                {% else %}
+                                                  Calificación más alta: N/A
+                                                {% endif %}
+                                              </p>
+                                        </li>
+                                    </div>
+                                 </div>
+                            {% endfor %}
                 
-                        <div class="carts">
+                        {% comment %} <div class="carts">
                             <div class="imgCarts">
                                 <img src="{% static 'images/imgTeacher/graduado.png' %}" alt="">
                             </div>
@@ -113,36 +152,41 @@
                                 <h2>Estudent</h2>
                                 <h5>calification</h5>
                             </div>
-                        </div>
-                    </section>
-                    
-                    <section class="padreCart">
-                        <div class="carts">
-                            <div class="imgCarts">
-                                <img src="{% static 'images/imgTeacher/graduado.png' %}" alt="">
-                            </div>
-                            <div class="textCart">
-                                <h2>Estudent</h2>
-                                <h5>calification</h5>
-                            </div>
-                        </div>
-                
-                        <div class="carts">
-                            <div class="imgCarts">
-                                <img src="{% static 'images/imgTeacher/graduado.png' %}" alt="">
-                            </div>
-                            <div class="textCart">
-                                <h2>Estudent</h2>
-                                <h5>calification</h5>
-                            </div>
-                        </div>
+                        </div> {% endcomment %}
                     </section>
                     
                 </div>
             {% endblock %} 
         </div>
     </main>
-    {% comment %} <footer class="piePagina">
+
+    <section class="content_note">
+        <div class="notas">
+            <h2>Notas Personales</h2>
+            <div class="linea_filtro"></div>
+        </div>
+    </section>
+
+    <section class="notes">
+        <div class="notes_creator">
+            <nav class="header_title">
+                <div class="buscador">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #1367c8;"></i>
+                    <input type="text" placeholder="Buscar">
+                </div>
+            </nav>
+            <div class="creador">
+                <nav class="note_icon">
+                    <i class="fa-solid fa-note-sticky" style="color: #ffffff;"></i>
+                </nav>
+                <form action="" class="form_note">
+                    <input type="text" name="title_note" placeholder="Title">
+                    <textarea name="note" id="" cols="30" rows="10" placeholder="Note:"></textarea>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer class="piePagina">
         <ul class="listaI">
             <a href=""><li>Condiciones de uso</li></a>
             <a href=""><li>Anuncios basados en intereses</li></a>
@@ -155,7 +199,7 @@
             <a href="https://instagram.com/carlosdanielb.cruz?igshid=ZDdkNTZiNTM=" target="_blank"><li class="fab fa-instagram"></li> Instagram</a>
             <a href="https://www.facebook.com/profile.php?id=100081350198829&mibextid=ZbWKwL" target="_blank"><li class="fab fa-facebook"></li> Facebook</a>
         </ul>
-    </footer> {% endcomment %}
+    </footer>
     <script>
         const btn = document.querySelector('#menu-btn');
         const menu = document.querySelector('#sidemenu');

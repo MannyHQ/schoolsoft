@@ -1,26 +1,49 @@
 /*!---calificaciones destacadas en los 4 periodos*/
 .DestacPadre{
-    padding-top: 65px;
     width: 100%;
     height: 100%;
+    padding: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    row-gap: 100px;
 }
 .padreCart{
     display: flex;
-    width: 80%;
+    width: 70%;
     justify-content: space-around;
-    /* border: solid 1px black; */
+    flex-wrap: wrap;
+    row-gap: 70px;
+}
+.textCart{
+    background-color: #D9D9D9;
+    box-shadow: 1px 1px 5px #1367C8;
+    padding: 10px;
+    border-radius: 10px;
+    width: 210px;
+}
+.textCart li{
+    list-style-type: none;
+}
+.textCart li h2{
+    font-size: 16px;
+    text-align: center;
+    font-weight: 700;
+    text-shadow: #1367C8 1px 1px 3px;
+}
+.textCart li .p{
+    font-size: 13px;
+    text-align: center;
+}
+.textCart li .p b{
+    color: #1367C8;
 }
 .carts{
-    width: 350px;
-    height: 130px;
-    background-color: #9B9595;
+    width: 400px;
+    height: 200px;
+    background-color: #CFCFCF;
+    box-shadow: 1px 1px 5px #1367C8;
     border-radius: 5px;
-    /* border: solid 1px black; */
     display: flex;
     column-gap: 30px;
     justify-content: center;
@@ -28,20 +51,17 @@
     
 }
 .imgCarts > img{
-    width: 80px;
+    width: 100px;
     height: auto;
 }
 
 .imgCarts{
     background-color: #D9D9D9;
+    box-shadow: 1px 1px 5px #1367C8;
     padding: 10px;
     border-radius: 50%;
 }
-.textCart{
-    background-color: #D9D9D9;
-    padding: 10px;
-    border-radius: 10px;
-}
+
 
 /*!vista de cursos y estudiantes a calificar*/
 .content_padre{
@@ -76,8 +96,12 @@
     text-shadow: #1367C8 3px 3px 3px;
 }
 .table tr th{
-    background-color: #EFE8E8;
+    background-color: #CFCFCF;
     color: black;
+    
+}
+.table tr td{
+    border-bottom: solid 1px #AEAEAE;
 }
 .botonCurso{
     border: none;
@@ -87,9 +111,9 @@
     color: white;
 }
 /* #table tbody tr:nth-child(even) {
-    background-color: #363434;
-}
-.tablaDatos tbody tr:nth-child(odd) {
+    background-color: #CFCFCF;
+} */
+/* .tablaDatos tbody tr:nth-child(odd) {
     background-color: #363434;
     border-top: solid 1px #201E1E;
     border-bottom: solid 1px #201E1E;
@@ -163,7 +187,7 @@
 .linea_filtro{
     width: 98%;
     height: 1px;
-    background-color: #E7E6E6;
+    background-color: #AEAEAE;
     margin: 10px;
     margin-right: 10px;
 }
@@ -209,3 +233,76 @@
     box-shadow: 1px 1px 3px black;
 }
 
+/*! sesion notas */
+.notas{
+    width: 80%;
+    text-align: center;
+    color: white;
+    background-color: #1367C8;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.notes_creator{
+    width: 80%;
+    text-align: center;
+    height: auto;
+    background-color: #D9D9D9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px black;
+}
+.header_title{
+    background-color: #1367C8;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.buscador{
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+.buscador input{
+    border: none;
+    padding-left: 10px;
+}
+.buscador input, .form_note input,  .form_note textarea:focus {
+    outline: none; 
+}
+
+.creador{
+    width: 300px;
+    height: auto;
+    box-shadow: 1px 1px 3px black;
+    margin: 40px;
+    background-color: #CFCFCF;
+    border-radius: 10px;
+}
+.note_icon{
+    background-color: #1367C8;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.note_icon i{
+    font-size: 20px;
+}
+
+.form_note input, .form_note textarea{
+    width: 250px;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 1px 1px 3px black;
+    padding-left: 10px;
+}

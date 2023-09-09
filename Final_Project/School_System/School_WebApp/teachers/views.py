@@ -8,6 +8,7 @@ from django.db.models import Q
 from django.http import request
 from collections import defaultdict
 from django.contrib.auth.decorators import login_required,user_passes_test,permission_required
+from django.db.models import Max
 
 
 
@@ -17,7 +18,37 @@ from django.contrib.auth.decorators import login_required,user_passes_test,permi
 def teachers(request):
     if 'profesor_nombre' in request.session and request.session['profesor_nombre']:
         nombreTeacher = request.session['profesor_nombre']
-        return render(request, 'teachers/teachers.html', {'nombre': nombreTeacher})
+        teacher_id = request.session['id_profesor']
+        
+        # Obtener las asignaturas enseñadas por el profesor
+        subjects_taught = Teacher_VS_Subjects.objects.filter(teacher_id=teacher_id)
+
+        # Diccionario para almacenar las calificaciones más altas por columna
+        highest_scores = {}
+
+        # Obtener las columnas de calificación que se deben consultar
+        columns_to_query = ['firstPeriod', 'secondPeriod', 'thirdPeriod', 'fourthPeriod', 'finish']
+
+        for column in columns_to_query:
+            # Consultar la calificación máxima para la columna actual
+            max_score = calification.objects.aggregate(Max(column))[f'{column}__max']
+
+            if max_score is not None:
+                # Buscar el estudiante y la asignatura relacionados con la calificación más alta
+                student_data = calification.objects.filter(**{column: max_score}).first()
+
+                if student_data:
+                    subject_name = student_data.Subject_id.name
+                    student_name = f"{student_data.student_id.first_name} {student_data.student_id.last_name}"
+
+                    # Crear una entrada en el diccionario de calificaciones más altas
+                    highest_scores[column] = {
+                        'subject_name': subject_name,
+                        'student_name': student_name,
+                        'score': max_score,
+                    }
+
+        return render(request, 'teachers/teachers.html', {'nombre': nombreTeacher, 'highest_scores': highest_scores})
     else:
         return redirect('login')
 
