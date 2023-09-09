@@ -222,6 +222,15 @@ def all_courses(request):
 
 @login_required(login_url="/login")
 @staff_member_required
+def lista_pagos(request):
+    pagos = Pagos.objects.all()
+    padres = Parents.objects.all()
+    estudiantes = Students.objects.all()
+    return render(request,'School/lista-pagos.html',{'pagos':pagos,'padres':padres,'estudiantes':estudiantes})
+
+
+@login_required(login_url="/login")
+@staff_member_required
 def all_parents(request):
     parents = Parents.objects.all()
     return render(request,'School/all-departments.html',{'parents':parents})
