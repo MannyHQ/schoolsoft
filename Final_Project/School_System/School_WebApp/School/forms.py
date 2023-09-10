@@ -17,6 +17,14 @@ class ParentForm(forms.ModelForm):
             'status': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+class CobroForm(forms.ModelForm):
+    class Meta:
+        model = Cobro
+        fields = ['mensualidad']
+        widgets = {
+            'mensualidad': forms.TextInput(attrs={'class':'form-control'}),
+        }
+
 class UserManagementForm(UserCreationForm):
     email = forms.EmailField(required=True)
     class Meta:

@@ -14,7 +14,9 @@ class Students(models.Model):
     status = models.SmallIntegerField()
     def __str__(self):
         return self.first_name + ' '+self.last_name
-    
+
+class Cobro(models.Model):
+    mensualidad = models.FloatField()
     
 class Course(models.Model):
     level = models.CharField(max_length=200)

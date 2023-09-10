@@ -3,7 +3,7 @@
 
 <head>
 	
-    <meta charset="utf-8">
+	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>SchoolSoft</title>
@@ -20,7 +20,7 @@
 </head>
 
 <body>
-
+    {% block content %}
     <!--*******************
         Preloader start
     ********************-->
@@ -145,7 +145,7 @@
                             </li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                    <img src="images/profile/education/pic1.jpg" width="20" alt="">
+                                    <img src="{% static 'images/profile/education/pic1.jpg' %}" width="20" alt="">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="app-profile.html" class="dropdown-item ai-icon">
@@ -276,100 +276,146 @@
             Sidebar end
         ***********************************-->
 
+		
+		
         <!--**********************************
             Content body start
         ***********************************-->
         <div class="content-body">
             <!-- row -->
             <div class="container-fluid">
-			
+				    
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Seleccionar profesor</h4>
+                            <h4>Editar curso</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/home">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="edit-professor.html">Profesores</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Seleccionar profesor</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Cursos</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Editar curso</a></li>
                         </ol>
                     </div>
                 </div>
 				
 				<div class="row">
-					<div class="col-xl-12 col-xxl-12 col-sm-12">
-                        <div class="card">
-                            <div class="card-header">
-								<h5 class="card-title">Seleccionar profesor</h5>
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">Editar Curso</h4>
 							</div>
+							<div class="card-body">
+								<form action="/edit-mensualidad/update/{{cobros_v.id}}" method="post">
+                                    {% csrf_token %}
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Nivel</label>
+												<input name="mensualidad" type="text" class="form-control" value="{{cobros_v.mensualidad}}">
+											</div>
+										</div>
+                                        <!--
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Course Code</label>
+												<input type="text" class="form-control" value="Pro#005">
+											</div>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Course Details</label>
+												<textarea class="form-control" rows="5">Why is Early Education Essential</textarea>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Start Form</label>
+												<input name="datepicker" class="datepicker-default form-control" id="datepicker" value="7 August, 2020">
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Course Duration</label>
+												<input type="text" class="form-control" value="3 Year">
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Course Price</label>
+												<input type="text" class="form-control" value="$1500">
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Professor Name</label>
+												<input type="text" class="form-control" value="Jimmy Morris">
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Maximum Students</label>
+												<input type="text" class="form-control" value="200">
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Contact Number</label>
+												<input type="text" class="form-control" value="+01 123 456 7890">
+											</div>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<div class="form-group fallback w-100">
+												<label class="form-label d-block">Course Photo</label>
+												<input type="file" class="dropify" data-default-file="">
+											</div>
+										</div>
+                                        -->
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<button type="submit" class="btn btn-primary">Submit</button>
+											<button type="submit" class="btn btn-light">Cencel</button>
+										</div>
+									</div>
+								</form>
+                                <br>
                                 <div class="table-responsive recentOrderTable">
-                                    <br>
-                                    <form action="{% url 'search-selteachers' %}" method="GET">
-                                        <input name="search" class="form-control" type="search" placeholder="Buscar estudiante" aria-label="Search">
-                                        <br>
-                                        <button type="submit" class="btn btn-primary">Buscar</button>
-                                    </form>
-                                    <br>
+                                
+                                
                                     
+                               
+                                    <br>
                                     <table class="table verticle-middle table-responsive-md">
+                                        
                                         <thead>
                                             <tr>
                                                 <th scope="col">No.</th>
-                                                <th scope="col">Nombre</th>
-                                                <th scope="col">Apellido</th>
-                                                <th scope="col">Matricula</th>
-                                                <th scope="col">Correo</th>
-                                                <th scope="col">Telefono</th>
-                                                <th scope="col">Cedula</th>
-                                                <th scope="col">Estado</th>
+                                                <th scope="col">Mensualidad</th>
                                                 <th scope="col">Accion</th>
                                             </tr>
                                         </thead>
+                                        
                                         <tbody>
-                                        {% if object_list is None %}
-                                        {% for teacher in teachers %}
+                                       
+                                        {% for cobro in cobros %}
                                             <tr>
-                                                <td>{{teacher.id}}</td>
-												<td>{{teacher.first_name}}</td>
-                                                <td>{{teacher.last_name}}</td>
-                                                <td>{{teacher.code}}</td>
-                                                <td>{{teacher.mail}}</td>
-                                                <td>{{teacher.phone_number}}</td>
-                                                <td>{{teacher.id_number}}</td>
-                                                <td>{{teacher.status}}</td>
+                                                <td>{{cobro.id}}</td>
+												<td>{{cobro.mensualidad}}</td>
                                                 <td>
-                                                    <a href="/assign-subject/{{teacher.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="/remove-subject/{{teacher.id}}" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                    <a href="/edit-mensualidad/{{cobro.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
-                                        {% else %}
-                                        {% for teacher in object_list %}
-                                            <tr>
-                                                <td>{{teacher.id}}</td>
-												<td>{{teacher.first_name}}</td>
-                                                <td>{{teacher.last_name}}</td>
-                                                <td>{{teacher.code}}</td>
-                                                <td>{{teacher.mail}}</td>
-                                                <td>{{teacher.phone_number}}</td>
-                                                <td>{{teacher.id_number}}</td>
-                                                <td>{{teacher.status}}</td>
-                                                <td>
-                                                    <a href="/assign-subject/{{teacher.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="/remove-subject/{{teacher.id}}" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        {% endif %}
+                                       
+                                        
                                         </tbody>
                                     </table>
                                     
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+							</div>
+						</div>
+					</div>
 				</div>
 				
             </div>
@@ -411,8 +457,8 @@
     <!-- Required vendors -->
 <script src="{% static 'vendor/global/global.min.js' %}"></script>
 	<script src="{% static 'vendor/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
-    <script src="{% static 'js/custom.min.js' %}"></script>
-	<script src="{% static 'js/dlabnav-init.js' %}"></script>
+    <script src="{% static 'js/custom.min.js ' %}"></script>
+	<script src="{% static 'js/dlabnav-init.js ' %}"></script>
 
 	<!-- Svganimation scripts -->
     <script src="{% static 'vendor/svganimation/vivus.min.js' %}"></script>
@@ -426,6 +472,6 @@
 	
 	<!-- Pickdate -->
     <script src="{% static 'js/plugins-init/pickadate-init.js' %}"></script>
-	
+	{% endblock content %}
 </body>
 </html>

@@ -56,6 +56,7 @@ urlpatterns = [
     path('do-inscription/',views.do_inscription,name='do-inscription'),
     path('add-staff/',views.add_staff,name="add-staff"),
     path('login/',views.login_us,name="login"),
+    path('',views.login_us,name="login"),
     path('logout/',views.logout_view,name="logout"),
     path('edit-staff/',views.edit_staff,name="edit-staff"),
     path('edit-staff/<int:id>',views.edit_staff_b,name="edit-staff"),
@@ -81,7 +82,11 @@ urlpatterns = [
     path('edit-inscription/<int:id>',views.edit_inscription_b,name='edit-inscription'),
     path('edit-inscription/update/<int:id>',views.edit_inscription_confirm,name='update'),
     path('parent-user/',views.crear_usuario_padre,name='parent-user/'),
-    path('bills/',views.lista_pagos, name='bills')
+    path('bills/',views.lista_pagos, name='bills'),
+    path('mensualidad/',views.add_mensualidad,name='mensualidad'),
+    path('edit-mensualidad/',views.edit_mensualidad,name='edit-mensualidad'),
+    path('edit-mensualidad/<int:id>',views.edit_mensualidad_b,name='edit-mensualidad'),
+    path('edit-mensualidad/update/<int:id>',views.edit_mensualidad_confirm,name='update')
 
 
     
