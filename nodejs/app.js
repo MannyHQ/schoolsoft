@@ -10,6 +10,10 @@ import apiResources from './routes/api.routes.js';
 
 import { PORT } from './config.js';
 
+import consulta from './controllers/mensualidad.js'
+
+
+
 const app = express();
 
 // modulos
@@ -35,6 +39,20 @@ app.use(indexPages);
 app.use(loginPages);
 app.use(paymentPages);
 app.use(apiResources);
+
+app.get('/mensualidad', (req, res) => {
+    // Utiliza la función obtenerMensualidad de consulta.js para obtener la mensualidad desde la base de datos
+    consulta.obtenerMensualidad((err, mensualidad) => {
+      if (err) {
+        console.error('Error al obtener la mensualidad:', err);
+        return;
+      }
+      
+      // Envía la mensualidad como respuesta JSON al cliente
+      res.send({ mensualidad });
+    });
+  });
+
 
 app.listen(PORT, () => {
 

@@ -1,21 +1,43 @@
 import MaskDate from "./components/mask_date.js";
 import MaskMatricula from "./components/mask_matricula.js";
+
+
+
 // import MaskCVV from "./components/mask_cvv.js";
 
 // const maskCvv = new MaskCVV();
 // const maskDate = new MaskDate();
+
+
 const maskMatricula = new MaskMatricula();
 
-let mont = "";
+let mont = 0;
+
+let mensualidad; // Variable donde almacenarás la mensualidad
+
+// Realiza una solicitud HTTP para obtener la mensualidad
+fetch('/mensualidad')
+  .then((response) => response.json())
+  .then((data) => {
+    mensualidad = data.mensualidad; // Almacena la mensualidad en la variable
+    console.log('El valor de la mensualidad es:', mensualidad);
+
+    // Puedes usar la variable 'mensualidad' en este archivo JavaScript como desees
+    // Por ejemplo, puedes realizar acciones adicionales con la mensualidad o mostrarla en la consola
+  })
+  .catch((error) => {
+    console.error('Error al obtener la mensualidad:', error);
+  });
+
 
 function showPaymentForm(element, period) {
 
     let text = element.textContent.trim();
-
+    
     if ( text === '1 Mes' )
-        mont = "100.00";
+        mont = mensualidad*1;
     else if ( text === '1 Año')
-        mont = "1200.00";
+        mont = mensualidad*12;
 
     const periodOptions = document.getElementsByClassName('period-option');
     for (let i = 0; i < periodOptions.length; i++)
