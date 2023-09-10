@@ -12,7 +12,7 @@ const connection = mysql.createConnection({
 });
 
 function obtenerMensualidad(callback) {
-    const consultaSQL = 'SELECT mensualidad FROM Cobro LIMIT 1';
+    const consultaSQL = 'SELECT mensualidad FROM school_cobro LIMIT 1';
   
     connection.query(consultaSQL, (err, results) => {
       if (err) {
