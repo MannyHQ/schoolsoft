@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from School.models import *
 from .models import *
+from .models import notes
 from django.http import HttpResponse
 from django.db.models import Count
 from django.shortcuts import render, get_object_or_404
@@ -19,7 +20,7 @@ def teachers(request):
     if 'profesor_nombre' in request.session and request.session['profesor_nombre']:
         nombreTeacher = request.session['profesor_nombre']
         teacher_id = request.session['id_profesor']
-        
+
         # Obtener las asignaturas enseñadas por el profesor
         subjects_taught = Teacher_VS_Subjects.objects.filter(teacher_id=teacher_id)
 
@@ -28,19 +29,15 @@ def teachers(request):
 
         # Obtener las columnas de calificación que se deben consultar
         columns_to_query = ['firstPeriod', 'secondPeriod', 'thirdPeriod', 'fourthPeriod', 'finish']
-
         for column in columns_to_query:
             # Consultar la calificación máxima para la columna actual
             max_score = calification.objects.aggregate(Max(column))[f'{column}__max']
-
             if max_score is not None:
                 # Buscar el estudiante y la asignatura relacionados con la calificación más alta
                 student_data = calification.objects.filter(**{column: max_score}).first()
-
                 if student_data:
                     subject_name = student_data.Subject_id.name
                     student_name = f"{student_data.student_id.first_name} {student_data.student_id.last_name}"
-
                     # Crear una entrada en el diccionario de calificaciones más altas
                     highest_scores[column] = {
                         'subject_name': subject_name,
@@ -48,9 +45,37 @@ def teachers(request):
                         'score': max_score,
                     }
 
-        return render(request, 'teachers/teachers.html', {'nombre': nombreTeacher, 'highest_scores': highest_scores})
+        # Obtener todas las notas relacionadas con el profesor actual
+        teacher_notes = notes.objects.filter(teacher_id=teacher_id)
+
+        if request.method == 'POST':
+            # Obtener el id de la nota a eliminar desde el formulario
+            note_id_to_delete = request.POST.get('note_id_to_delete')
+            if note_id_to_delete:
+                # Buscar y eliminar la nota por su id
+                note_to_delete = get_object_or_404(notes, id=note_id_to_delete, teacher_id=teacher_id)
+                note_to_delete.delete()
+                return redirect('teachers')  # Redirigir de nuevo a la página de profesores
+
+        return render(request, 'teachers/teachers.html', {'nombre': nombreTeacher, 'highest_scores': highest_scores, 'teacher_notes': teacher_notes})
     else:
         return redirect('login')
+
+#---------notas personales-----------------
+def notes_teacher(request):
+    # nombreTeacher = request.session['profesor_nombre']    
+    if request.method == 'POST':
+        teacher_id = request.session['id_profesor']
+        teacher_instance = Teachers.objects.get(id=teacher_id)
+        new_note = notes(
+             teacher_id = teacher_instance,
+             title = request.POST['title_note'],
+             note = request.POST['note'],
+        )
+        new_note.save()
+        return redirect('teachers')
+    else:
+        return redirect('teachers')
 
 
 

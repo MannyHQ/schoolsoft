@@ -181,10 +181,30 @@
                 <nav class="note_icon">
                     <i class="fa-solid fa-note-sticky" style="color: #ffffff;"></i>
                 </nav>
-                <form action="" class="form_note">
+                <form action="{% url 'notes_teacher' %}" method="post" class="form_note">
+                    {% csrf_token %}
                     <input type="text" name="title_note" placeholder="Title">
                     <textarea name="note" id="" cols="30" rows="10" placeholder="Note:"></textarea>
+                    <button type="submit" class="save_note">Save</button>
                 </form>
+            </div>
+            <div class="notas_hechas">
+                {% for note in teacher_notes %}
+                    <div id="note_R">
+                        <form method="post" class="delete_note">
+                            {% csrf_token %}
+                            <input type="hidden" name="note_id_to_delete" value="{{ note.id }}">
+                            <button type="submit">Eliminar</button>
+                        </form>
+                        <div>
+                            <h2>{{ note.title }}</h2>
+                        </div>
+                        <div class="linea_filtro"></div>
+                        <div>
+                            <p>{{ note.note }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </section>

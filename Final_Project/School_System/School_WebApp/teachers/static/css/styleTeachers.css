@@ -306,3 +306,45 @@
     box-shadow: 1px 1px 3px black;
     padding-left: 10px;
 }
+
+.save_note{
+    width: 100px;
+    padding: 5px;
+    margin: 10px;
+    border: none;
+    background-color: #1367C8;
+    border-radius: 5px;
+    color: white;
+    transition: 0.5s;
+}
+.save_note:hover{
+    transform: scale(1.1);
+}
+/*notas hechas*/
+.delete_note{
+    display: flex;
+    justify-content: end;
+}
+.delete_note > button{
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #EF2424;
+    color: white;
+}
+.notas_hechas{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+#note_R{
+    margin: 20px;
+    max-width: 350px;
+    background-color: #CFCFCF;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px black;
+}
