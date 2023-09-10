@@ -10,6 +10,7 @@ from django.http import request
 from collections import defaultdict
 from django.contrib.auth.decorators import login_required,user_passes_test,permission_required
 from django.db.models import Max
+from django.contrib import messages
 
 
 
@@ -47,6 +48,11 @@ def teachers(request):
 
         # Obtener todas las notas relacionadas con el profesor actual
         teacher_notes = notes.objects.filter(teacher_id=teacher_id)
+
+        # Filtrar notas por título si se proporciona un título de búsqueda
+        title_filter = request.GET.get('busqueda')
+        if title_filter:
+            teacher_notes = teacher_notes.filter(title__icontains=title_filter)
 
         if request.method == 'POST':
             # Obtener el id de la nota a eliminar desde el formulario
@@ -162,6 +168,8 @@ def lista_curso(request):
                             'asignatura': subject,
                             'students': list(students),  # Convierte el conjunto en lista
                         })
+                        
+                   # Redirigir de nuevo a la página de profesores
             return render(request, 'teachers/courses.html', {'cursos': cursos_del_maestro,'nombre': nombreTeacher})
         except:
             pass
@@ -266,74 +274,82 @@ def califications(request):
             request.session['student_id'] = student_id
             request.session['student_name'] = student_name
             
+            def validate_and_save_calification(calification_obj, value, field_name):
+                try:
+                    value = float(value)
+                    if 0 <= value <= 100:
+                        setattr(calification_obj, field_name, value)
+                        calification_obj.save()
+                    else:
+                        messages.error(request, f'Dato no permitido en el campo "{field_name}"')
+                except ValueError:
+                    messages.error(request, f'Dato no permitido en el campo "{field_name}"')
+                
             if 'button1' in request.POST:
                 p1 = request.POST.get('p1')
-                if p1.strip():  # Verificar que el campo no esté en blanco
+                if p1.strip():
                     calificacion_obj, created = calification.objects.get_or_create(
                         student_id_id=student_id,
                         Subject_id_id=asignatura_id,
                         defaults={'firstPeriod': p1}
                     )
                     if not created:
-                        calificacion_obj.firstPeriod = p1
-                        calificacion_obj.save()
+                        validate_and_save_calification(calificacion_obj, p1, 'firstPeriod')
                 return redirect('calificar')
             
             elif 'button2' in request.POST:
                 p2 = request.POST.get('p2')
-                if p2.strip():  # Verificar que el campo no esté en blanco
+                if p2.strip():
                     calificacion_obj, created = calification.objects.get_or_create(
                         student_id_id=student_id,
                         Subject_id_id=asignatura_id,
                         defaults={'secondPeriod': p2}
                     )
                     if not created:
-                        calificacion_obj.secondPeriod = p2
-                        calificacion_obj.save()
+                        validate_and_save_calification(calificacion_obj, p2, 'secondPeriod')
                 return redirect('calificar')
             
             elif 'button3' in request.POST:
                 p3 = request.POST.get('p3')
-                if p3.strip():  # Verificar que el campo no esté en blanco
+                if p3.strip():
                     calificacion_obj, created = calification.objects.get_or_create(
                         student_id_id=student_id,
                         Subject_id_id=asignatura_id,
                         defaults={'thirdPeriod': p3}
                     )
                     if not created:
-                        calificacion_obj.thirdPeriod = p3
-                        calificacion_obj.save()
+                        validate_and_save_calification(calificacion_obj, p3, 'thirdPeriod')
                 return redirect('calificar')
             
             elif 'button4' in request.POST:
                 p4 = request.POST.get('p4')
-                if p4.strip():  # Verificar que el campo no esté en blanco
+                if p4.strip():
                     calificacion_obj, created = calification.objects.get_or_create(
                         student_id_id=student_id,
                         Subject_id_id=asignatura_id,
                         defaults={'fourthPeriod': p4}
                     )
                     if not created:
-                        calificacion_obj.fourthPeriod = p4
-                        calificacion_obj.save()
+                        validate_and_save_calification(calificacion_obj, p4, 'fourthPeriod')
                 return redirect('calificar')
             
             elif 'button5' in request.POST:
                 p5 = request.POST.get('p5')
-                if p5.strip():  # Verificar que el campo no esté en blanco
+                if p5.strip():
                     calificacion_obj, created = calification.objects.get_or_create(
                         student_id_id=student_id,
                         Subject_id_id=asignatura_id,
                         defaults={'finish': p5}
                     )
                     if not created:
-                        calificacion_obj.finish = p5
-                        calificacion_obj.save()
+                        validate_and_save_calification(calificacion_obj, p5, 'finish')
                 return redirect('calificar', {'nombre': nombreTeacher})
                 
         return redirect('calificar')
     else:
         return redirect('login')
+
+    
 @login_required(login_url='/login')
 @permission_required("teachers.view_calification",login_url='/logout')
 def teacher_course_califications(request):

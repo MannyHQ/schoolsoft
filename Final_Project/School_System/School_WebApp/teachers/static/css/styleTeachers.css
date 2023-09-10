@@ -273,6 +273,9 @@
     border: none;
     padding-left: 10px;
 }
+.buscador form > button{
+    border: none;
+}
 .buscador input, .form_note input,  .form_note textarea:focus {
     outline: none; 
 }

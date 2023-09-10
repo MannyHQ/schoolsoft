@@ -173,8 +173,12 @@
         <div class="notes_creator">
             <nav class="header_title">
                 <div class="buscador">
-                    <i class="fa-solid fa-magnifying-glass" style="color: #1367c8;"></i>
-                    <input type="text" placeholder="Buscar">
+                    <form method="get">
+                        <button type="submit">
+                            <i class="fa-solid fa-magnifying-glass" style="color: #1367c8;"></i>
+                        </button>
+                        <input type="text" name="busqueda" placeholder="Buscar" value="{{ request.GET.busqueda }}">
+                    </form>
                 </div>
             </nav>
             <div class="creador">
@@ -189,23 +193,27 @@
                 </form>
             </div>
             <div class="notas_hechas">
-                {% for note in teacher_notes %}
-                    <div id="note_R">
-                        <form method="post" class="delete_note">
-                            {% csrf_token %}
-                            <input type="hidden" name="note_id_to_delete" value="{{ note.id }}">
-                            <button type="submit">Eliminar</button>
-                        </form>
-                        <div>
-                            <h2>{{ note.title }}</h2>
+                {% if teacher_notes %}
+                    {% for note in teacher_notes %}
+                        <div id="note_R">
+                            <form method="post" class="delete_note">
+                                {% csrf_token %}
+                                <input type="hidden" name="note_id_to_delete" value="{{ note.id }}">
+                                <button type="submit">Eliminar</button>
+                            </form>
+                            <div>
+                                <h2>{{ note.title }}</h2>
+                            </div>
+                            <div class="linea_filtro"></div>
+                            <div>
+                                <p>{{ note.note }}</p>
+                            </div>
                         </div>
-                        <div class="linea_filtro"></div>
-                        <div>
-                            <p>{{ note.note }}</p>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Las notas aqui no son visibles. Puedes crearlas y verlas en la página principal de profesor.</p>
+                {% endif %}
+            </div>            
         </div>
     </section>
     <footer class="piePagina">
