@@ -45,10 +45,18 @@ def teachers(request):
                         'student_name': student_name,
                         'score': max_score,
                     }
+                    
+        # mensaje superior
+        mensaje = ""
+        # Comprobar la ruta actual
+        if request.path == '/teachers/':
+            mensaje = "Calificaciones destacadas de la institucion"
+        elif request.path == '/courses/':
+            mensaje = "Cursos y sus estudiantes a calificar"
+
 
         # Obtener todas las notas relacionadas con el profesor actual
         teacher_notes = notes.objects.filter(teacher_id=teacher_id)
-
         # Filtrar notas por título si se proporciona un título de búsqueda
         title_filter = request.GET.get('busqueda')
         if title_filter:
@@ -63,7 +71,7 @@ def teachers(request):
                 note_to_delete.delete()
                 return redirect('teachers')  # Redirigir de nuevo a la página de profesores
 
-        return render(request, 'teachers/teachers.html', {'nombre': nombreTeacher, 'highest_scores': highest_scores, 'teacher_notes': teacher_notes})
+        return render(request, 'teachers/teachers.html', {'nombre': nombreTeacher, 'highest_scores': highest_scores, 'teacher_notes': teacher_notes, 'mensaje': mensaje})
     else:
         return redirect('login')
 
@@ -98,9 +106,11 @@ def lista_curso(request):
         try:
             nombreTeacher = request.session['profesor_nombre']
             teacher_id = request.session['id_profesor'] 
-            print(teacher_id)
             relationships = Teacher_VS_Subjects.objects.filter(teacher_id=teacher_id)
         
+            if request.path == '/courses/':
+                mensaje = "Cursos y sus estudiantes a calificar"
+                
             for relationship in relationships:
                 asignatura = relationship.subject_id
                 course_id = asignatura.level_id
@@ -170,7 +180,7 @@ def lista_curso(request):
                         })
                         
                    # Redirigir de nuevo a la página de profesores
-            return render(request, 'teachers/courses.html', {'cursos': cursos_del_maestro,'nombre': nombreTeacher})
+            return render(request, 'teachers/courses.html', {'cursos': cursos_del_maestro,'nombre': nombreTeacher, 'mensaje': mensaje})
         except:
             pass
         return render(request, 'teachers/courses.html')
@@ -252,9 +262,11 @@ def calificar(request):
                 course = inscription.course_id
                 subject = Subject.objects.filter(level_id=course)
                 cursos_y_asignaturas.append({'course': course, 'subject': subject})
+            
+            if request.path == '/calificar/':
+                mensaje = "Estudiante a calificar en expecifico"
                 
-                
-            return render(request, 'teachers/calification.html', {'student': student, 'cursos_y_asignaturas': cursos_y_asignaturas, 'list_calificaciones': list_calificaciones,'nombre': nombreTeacher})
+            return render(request, 'teachers/calification.html', {'student': student, 'cursos_y_asignaturas': cursos_y_asignaturas, 'list_calificaciones': list_calificaciones,'nombre': nombreTeacher, 'mensaje': mensaje})
         except Exception as e:
             return redirect('teachers')
     else:
@@ -404,8 +416,11 @@ def teacher_course_califications(request):
                         continue
                     
                     if subject_id_filter:
-                        # Si se proporciona la ID de asignatura, utilizarla para mostrar la asignatura
-                        subject = Subject.objects.get(id=subject_id_filter)
+                        calificacion = calification.objects.filter(student_id=student, Subject_id=subject_id_filter).first()
+                        asignatura_existe = calificacion is not None
+                    else:
+                        calificacion = calification.objects.filter(student_id=student, Subject_id=subject).first()
+                        asignatura_existe = calificacion is not None
 
                     # Filtrar por calificación si se proporciona en el formulario
                     if calification_filter:
@@ -427,11 +442,18 @@ def teacher_course_califications(request):
                         'curso': curso,
                         'asignatura': subject,
                         'calificaciones_estudiantes': calificaciones_estudiantes,
+                        'asignatura_existe': asignatura_existe,
                     })
 
-        return render(request, 'teachers/calificationCourses.html', {'cursos': cursos_del_maestro, 'calification_filter': calification_filter,'nombre': nombreTeacher})
+
+
+        if request.path == '/courses_califications/':
+            mensaje = "Cursos y calificaciones segun las asignaturas y periodos"
+                
+        return render(request, 'teachers/calificationCourses.html', {'cursos': cursos_del_maestro, 'calification_filter': calification_filter,'nombre': nombreTeacher, 'mensaje': mensaje})
     else:
         return redirect('login')
+
             
             
         
