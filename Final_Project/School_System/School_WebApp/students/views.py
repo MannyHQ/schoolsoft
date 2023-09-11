@@ -12,9 +12,14 @@ def estudiante(request):
         if request.session['id_estudiante'] is not None:
             id = request.session['id_estudiante']
         students = Students.objects.get(id= id)
-        inscription_course = Inscription.objects.get(student_id=students.id)
-        if inscription_course:
-            subjects = Subject.objects.filter(level_id=inscription_course.course_id_id)
+        insc = Inscription.objects.all()
+        
+        for ins in insc:
+            if ins.is_past_due == False and ins.student_id_id == id:
+                inscription = ins
+        #inscription_course = Inscription.objects.get(student_id=students.id)
+        if inscription:
+            subjects = Subject.objects.filter(level_id=inscription.course_id_id)
             cali = calification.objects.all()
         return render(request,"student.html",{"subjects":subjects,"students":students,"cali":cali})  
     except:
@@ -31,9 +36,18 @@ def ver_calificaciones(request):
             id = request.session['id_estudiante']
             print(id)
         students = Students.objects.get(id= id)
-        inscription_course = Inscription.objects.get(student_id=students.id)
-        if inscription_course:
-            subjects = Subject.objects.filter(level_id=inscription_course.course_id_id)
+        insc = Inscription.objects.all()
+        
+        for ins in insc:
+            if ins.is_past_due == False and ins.student_id_id == id:
+                inscription = ins
+                
+
+        #inscription_course = Inscription.objects.get(student_id=inscription.student_id_id)
+        
+        print(inscription.student_id_id)
+        if inscription:
+            subjects = Subject.objects.filter(level_id=inscription.course_id_id)
             
             
             cali = calification.objects.filter(student_id_id=students.id)
@@ -52,9 +66,14 @@ def ver_asignaturas(request):
             id = request.session['id_estudiante']
             print(id)
         students = Students.objects.get(id= id)
-        inscription_course = Inscription.objects.get(student_id=students.id)
-        if inscription_course:
-            subjects = Subject.objects.filter(level_id=inscription_course.course_id_id)
+        insc = Inscription.objects.all()
+        
+        for ins in insc:
+            if ins.is_past_due == False and ins.student_id_id == id:
+                inscription = ins
+        #inscription_course = Inscription.objects.get(student_id=inscription.students_id_id)
+        if inscription:
+            subjects = Subject.objects.filter(level_id=inscription.course_id_id)
             cali = calification.objects.filter(student_id_id=students.id)
             rel_teacher = Teacher_VS_Subjects.objects.all()
             teachers = Teachers.objects.all()
@@ -73,11 +92,16 @@ def informacion(request):
             id = request.session['id_estudiante']
             print(id)
         students = Students.objects.get(id= id)
-        inscription_course = Inscription.objects.get(student_id=students.id)
-        if inscription_course:
-            subjects = Subject.objects.filter(level_id=inscription_course.course_id_id)
+        insc = Inscription.objects.all()
+        
+        for ins in insc:
+            if ins.is_past_due == False and ins.student_id_id == id:
+                inscription = ins
+        #inscription_course = Inscription.objects.get(student_id=inscription.student_id_id)
+        if inscription:
+            subjects = Subject.objects.filter(level_id=inscription.course_id_id)
             cali = calification.objects.filter(student_id_id=students.id)
-            course = Course.objects.get(id=inscription_course.course_id_id)
+            course = Course.objects.get(id=inscription.course_id_id)
             rel_teacher = Teacher_VS_Subjects.objects.all()
             teachers = Teachers.objects.all()
             edad = int((datetime.now().date() - students.birthdate).days / 365.25)

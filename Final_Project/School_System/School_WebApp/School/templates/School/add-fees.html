@@ -341,6 +341,7 @@
                                                 <label class="form-label">Curso</label>
 												<select name="course_id" class="form-control">
                                                     {% for course in courses %}
+                                                    
                                                     <option value="{{course.id}}">{{course.level}}</option>
                                                     {% endfor %}
 												</select>
@@ -351,12 +352,21 @@
 												<label class="form-label">Estudiante</label>
                                                 
 												<select name="student_id" class="form-control">
-                                                    
+                                                    {% if students.count > 1 %}
                                                     {% for student in students %}
-                                                  
-                                                    <option value="{{student.id}}">{{student.first_name}}-{{student.last_name}}-{{student.id_number}}</option>
+
+                                                    {% for inscription in inscriptions %}
+                                                        {% if inscription.is_past_due == True and student.id == inscription.student_id_id %}
+                                                        
+                                                        <option value="{{student.id}}">{{student.first_name}}-{{student.last_name}}-{{student.id_number}}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
                                                     
                                                     {% endfor %}
+                                                    
+                                                    {% else %}
+                                                    <option value="{{students.id}}">{{students.first_name}}-{{students.last_name}}-{{students.id_number}}</option>
+                                                    {% endif %}
                                                     
 												</select>
 											</div>

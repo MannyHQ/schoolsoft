@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-import datetime
+from datetime import date
 
 
 class Students(models.Model):
@@ -71,6 +71,10 @@ class Inscription(models.Model):
     
     def __str__(self) -> str:
         return self.first_name+' '+self.last_name
+
+    @property
+    def is_past_due(self):
+        return date.today() > self.end_date
     
 
 # Subject.level = models.ManyToManyField(Course, related_name='course')
