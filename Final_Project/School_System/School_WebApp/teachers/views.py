@@ -193,19 +193,21 @@ def calificar(request):
     if 'profesor_nombre' in request.session and request.session['profesor_nombre']:
         try:
             nombreTeacher = request.session['profesor_nombre']
+            teacher_id = request.session['id_profesor'] 
             student_id = request.POST.get('student_id')
             student_name = request.POST.get('student_name')
             
-            # print(student_id+' '+student_name)
             if not student_id:
                 student_id = request.session.get('student_id')
             if not student_name:
                 student_name = request.session.get('student_name')
             
             student = get_object_or_404(Students, id=student_id)
-            # relaciones = Teacher_VS_Subjects.objects.filter(teacher_id=1)
             inscriptions = Inscription.objects.filter(student_id=student)
-            calificacion = calification.objects.filter(student_id=student)
+            related_subjects = Teacher_VS_Subjects.objects.filter(teacher_id=teacher_id)
+            subject_ids = related_subjects.values_list('subject_id', flat=True)
+            
+            calificacion = calification.objects.filter(student_id=student, Subject_id_id__in=subject_ids)
             list_calificaciones = []
             cursos_y_asignaturas = []
             
@@ -271,6 +273,7 @@ def calificar(request):
             return redirect('teachers')
     else:
         return redirect('login')
+
     
 @login_required(login_url='/login')
 @permission_required("teachers.view_calification",login_url='/logout')
