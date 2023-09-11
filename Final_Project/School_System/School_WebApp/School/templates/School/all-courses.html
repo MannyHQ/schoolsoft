@@ -193,7 +193,6 @@
                             <li><a href="/all-professors">Lista de profesores</a></li>
                             <li><a href="/add-professor">Añadir profesor</a></li>
                             <li><a href="/edit-professor">Editar profesor</a></li>
-                            <li><a href="/professor-profile">Perfil del profesor</a></li>
                             <li><a href="/select-professor">Asignar materia</a></li>
                             <li><a href="/select-professor">Quitar materia</a></li>
                         </ul>
@@ -206,7 +205,6 @@
                             <li><a href="/all-students">Lista de Estudiantes</a></li>
                             <li><a href="/add-students">Añadir Estudiante</a></li>
                             <li><a href="/edit-student">Editar Estudiante</a></li>
-                            <li><a href="/about-student">Sobre los Estudiantes</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -217,7 +215,6 @@
                             <li><a href="/all-courses">Todos los cursos</a></li>
                             <li><a href="/add-courses">Añadir curso</a></li>
                             <li><a href="/edit-courses">Editar curso</a></li>
-                            <li><a href="/about-courses">Sobre los cursos</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -238,6 +235,7 @@
                             <li><a href="/all-parents">Listado de padres</a></li>
                             <li><a href="/add-parents">Añadir padres</a></li>
                             <li><a href="/edit-parents">Editar padres</a></li>
+                            <li><a href="/parent-user">Crear usuario a padre</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -250,7 +248,7 @@
                             <li><a href="/edit-staff">Editar Usuarios</a></li>
                             <li><a href="/user-student">Asignar usuario a estudiante</a></li>
                             <li><a href="/user-teacher">Asignar usuario a profesor</a></li>
-                            <li><a href="/user-student">Asignar usuario a padre</a></li>
+                            {% comment %} <li><a href="/user-parent">Asignar usuario a padre</a></li> {% endcomment %}
                         </ul>
                     </li>
 					
@@ -262,6 +260,9 @@
                             <li><a href="/all-inscription">Lista de inscripciones</a></li>
                             <li><a href="/do-inscription">Inscribir estudiante</a></li>
                             <li><a href="/edit-inscription">Modificar inscripcion</a></li>
+                            <li><a href="/bills">Lista de pagos</a></li>
+                            <li><a href="/mensualidad">Mensualidad</a></li>
+                            <li><a href="/edit-mensualidad">Editar mensualidad</a></li>
                         </ul>
                     </li>					
 				</ul>
@@ -303,14 +304,14 @@
 							<div class="card-body">
 								<h4>{{course.level}}</h4>
 								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
+									{% comment %} <li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
 										<a href="javascript:void(0);"><i class="la la-heart-o mr-1"></i><strong>230</strong></a></li>
 									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
+										<s  pan class="mb-0">Duration :</span><strong>12 Months</strong></li>
 									<li class="list-group-item px-0 d-flex justify-content-between">
 										<span class="mb-0">Professor :</span><strong>Jack Ronan</strong></li>
 									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fa fa-graduation-cap text-primary mr-2"></i>Student</span><strong>+120</strong></li>
+										<span><i class="fa fa-graduation-cap text-primary mr-2"></i>Student</span><strong>+120</strong></li> {% endcomment %}
 								</ul>
 								<a href="/add-courses" class="btn btn-primary">Añadir curso</a>
 							</div>
@@ -318,143 +319,7 @@
 					</div>
                     {% endfor %}
 					
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic2.jpg" alt="">
-							<div class="card-body">
-								<h4>The Shocking Revelation of Education.</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o mr-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Jimmy Morris</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fa fa-graduation-cap text-primary mr-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic3.jpg" alt="">
-							<div class="card-body">
-								<h4>Five Things Nobody Told You About</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o mr-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Konne Backfield</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fa fa-graduation-cap text-primary mr-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic4.jpg" alt="">
-							<div class="card-body">
-								<h4>Learn Python – Interactive Python Tutorial</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o mr-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Nashid Martines</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fa fa-graduation-cap text-primary mr-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic5.jpg" alt="">
-							<div class="card-body">
-								<h4>Why is Early Education Essential?</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o mr-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Jack Ronan</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fa fa-graduation-cap text-primary mr-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic6.jpg" alt="">
-							<div class="card-body">
-								<h4>The Shocking Revelation of Education.</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o mr-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Jimmy Morris</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fa fa-graduation-cap text-primary mr-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic7.jpg" alt="">
-							<div class="card-body">
-								<h4>Five Things Nobody Told You About</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o mr-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Konne Backfield</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fa fa-graduation-cap text-primary mr-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic8.jpg" alt="">
-							<div class="card-body">
-								<h4>Learn Python – Interactive Python Tutorial</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o mr-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Nashid Martines</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fa fa-graduation-cap text-primary mr-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-            </div>
-        </div>
+					
         <!--**********************************
             Content body end
         ***********************************-->
@@ -465,7 +330,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignLab</a> 2020</p>
+                <p>Copyright © Designed &amp; Developed by <a href="/home" target="_blank">SchoolSoft</a></p>
             </div>
         </div>
         <!--**********************************

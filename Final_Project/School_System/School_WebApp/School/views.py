@@ -85,7 +85,7 @@ def assign_teacher_user(request):
 
         except User.DoesNotExist:
             return render(request, 'School/assign-user2.html', {'error_message': 'El nombre de usuario no existe.', 'unassigned_users': unassigned_users})
-        except Students.DoesNotExist:
+        except Teachers.DoesNotExist:
             return render(request, 'School/assign-user2.html', {'error_message': 'No se encontró al estudiante con esta matrícula.', 'unassigned_users': unassigned_users})
 
     return render(request, 'School/assign-user2.html', {'form': AssignUserForm(), 'unassigned_users': unassigned_users})
@@ -324,12 +324,27 @@ def add_courses(request):
         if form.is_valid():
             try:
                 form.save()
-                return redirect('/home')
+                return redirect('/add-courses')
             except:
                 pass
     else:
         form = CourseForm()
     return render(request,'School/add-courses.html',{'form': form})
+
+@login_required(login_url="/login")
+@staff_member_required
+def add_mensualidad(request):
+    if request.method == 'POST':
+        form = CobroForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('/mensualidad')
+            except:
+                pass
+    else:
+        form = CobroForm()
+    return render(request,'School/tarifa.html',{'form': form})
 
 @login_required(login_url="/login")
 @staff_member_required
@@ -469,6 +484,14 @@ def edit_student(request):
 
 @login_required(login_url="/login")
 @staff_member_required
+def edit_mensualidad(request):
+    cobros = Cobro.objects.all()
+    template = "School/edit-tarifa.html"
+    return render(request,template,{'cobros':cobros})
+
+
+@login_required(login_url="/login")
+@staff_member_required
 def edit_inscription(request):
     inscription = Inscription.objects.all()
     courses = Course.objects.all()
@@ -542,6 +565,16 @@ def edit_professor_b(request,id):
 
 @login_required(login_url="/login")
 @staff_member_required
+def edit_mensualidad_b(request,id):
+    cobros_v = Cobro.objects.get(id=id)
+    cobros = Cobro.objects.all()
+    template = "School/edit-tarifa.html"
+    return render(request,template,{'cobros':cobros,'cobros_v':cobros_v})
+
+
+
+@login_required(login_url="/login")
+@staff_member_required
 def edit_staff_b(request,id):
     usernames_v = User.objects.get(id=id)
     usernames = User.objects.all()
@@ -583,6 +616,18 @@ def edit_courses_confirm(request,id):
         form.save()
         return redirect('/edit-courses')
     return render(request,template,{'courses':courses,'courses_v':courses_v})
+
+@login_required(login_url="/login")
+@staff_member_required
+def edit_mensualidad_confirm(request,id):
+    cobros_v = Cobro.objects.get(id=id)
+    cobros = Cobro.objects.all()
+    template = "School/edit-courses.html"
+    form = CobroForm(request.POST, instance=cobros_v)
+    if form.is_valid():
+        form.save()
+        return redirect('/edit-mensualidad')
+    return render(request,template,{'cobros':cobros,'cobros_v':cobros_v})
 
 @login_required(login_url="/login")
 @staff_member_required

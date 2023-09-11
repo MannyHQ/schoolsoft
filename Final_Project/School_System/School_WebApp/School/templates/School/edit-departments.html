@@ -196,7 +196,6 @@
                             <li><a href="/all-professors">Lista de profesores</a></li>
                             <li><a href="/add-professor">Añadir profesor</a></li>
                             <li><a href="/edit-professor">Editar profesor</a></li>
-                            <li><a href="/professor-profile">Perfil del profesor</a></li>
                             <li><a href="/select-professor">Asignar materia</a></li>
                             <li><a href="/select-professor">Quitar materia</a></li>
                         </ul>
@@ -209,7 +208,6 @@
                             <li><a href="/all-students">Lista de Estudiantes</a></li>
                             <li><a href="/add-students">Añadir Estudiante</a></li>
                             <li><a href="/edit-student">Editar Estudiante</a></li>
-                            <li><a href="/about-student">Sobre los Estudiantes</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -220,7 +218,6 @@
                             <li><a href="/all-courses">Todos los cursos</a></li>
                             <li><a href="/add-courses">Añadir curso</a></li>
                             <li><a href="/edit-courses">Editar curso</a></li>
-                            <li><a href="/about-courses">Sobre los cursos</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -241,6 +238,7 @@
                             <li><a href="/all-parents">Listado de padres</a></li>
                             <li><a href="/add-parents">Añadir padres</a></li>
                             <li><a href="/edit-parents">Editar padres</a></li>
+                            <li><a href="/parent-user">Crear usuario a padre</a></li>
                         </ul>
                     </li>
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -253,7 +251,7 @@
                             <li><a href="/edit-staff">Editar Usuarios</a></li>
                             <li><a href="/user-student">Asignar usuario a estudiante</a></li>
                             <li><a href="/user-teacher">Asignar usuario a profesor</a></li>
-                            <li><a href="/user-student">Asignar usuario a padre</a></li>
+                            {% comment %} <li><a href="/user-parent">Asignar usuario a padre</a></li> {% endcomment %}
                         </ul>
                     </li>
 					
@@ -265,6 +263,9 @@
                             <li><a href="/all-inscription">Lista de inscripciones</a></li>
                             <li><a href="/do-inscription">Inscribir estudiante</a></li>
                             <li><a href="/edit-inscription">Modificar inscripcion</a></li>
+                            <li><a href="/bills">Lista de pagos</a></li>
+                            <li><a href="/mensualidad">Mensualidad</a></li>
+                            <li><a href="/edit-mensualidad">Editar mensualidad</a></li>
                         </ul>
                     </li>					
 				</ul>
@@ -351,13 +352,13 @@
 									</div>
 								</form>
                                 <div class="table-responsive recentOrderTable">
-                                    <br>
+                                    {% comment %} <br>
                                     <form action="{% url 'search-parents' %}" method="GET">
                                         <input name="search" class="form-control" type="search" placeholder="Buscar estudiante" aria-label="Search">
                                         <br>
                                         <button type="submit" class="btn btn-primary">Buscar</button>
                                     </form>
-                                    <br>
+                                    <br> {% endcomment %}
                                     <table class="table verticle-middle table-responsive-md">
                                         <thead>
                                             <tr>
