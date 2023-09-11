@@ -189,6 +189,7 @@ def lista_curso(request):
 
 @login_required(login_url='/login')
 @permission_required("teachers.view_calification",login_url='/logout')
+#problema resuelto
 def calificar(request):
     if 'profesor_nombre' in request.session and request.session['profesor_nombre']:
         try:
