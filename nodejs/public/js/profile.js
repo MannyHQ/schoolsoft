@@ -3,7 +3,7 @@ fetch('/api/profile')
     .then(json => {
 
         const elementsValue = document.querySelectorAll('.element-value');
-
+        
         elementsValue[0].textContent = json.nombre;
         elementsValue[1].textContent = json.apellido;
         elementsValue[2].textContent = json.correo;

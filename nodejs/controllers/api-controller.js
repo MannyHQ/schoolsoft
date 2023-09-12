@@ -8,7 +8,7 @@ export const getProfile = async (req, res) => {
     
     const connection = await mysql.createConnection(DATABASE);
 
-    const consulta = `SELECT * FROM Padres WHERE id_padre=${user.id_usuario}`;
+    const consulta = `SELECT * FROM school_parents WHERE id=${user.id_usuario}`;
 
     connection.query(consulta, (err, results, query) => {
 
@@ -40,7 +40,7 @@ export const setMatricula = async (req, res) => {
         }
     });
 
-    const consultaIdStudent = `SELECT * FROM Estudiante where id_number=${id}`;
+    const consultaIdStudent = `SELECT * FROM school_students where id_number=${id}`;
 
     connection.query(consultaIdStudent, (err, results, query) => {
 
@@ -65,7 +65,7 @@ export const getPays = (req, res) => {
 
     const connection = createConnection(DATABASE);
 
-    const consulta_pays = `SELECT * FROM Pagos WHERE id_padre=${id}`;
+    const consulta_pays = `SELECT * FROM school_pagos WHERE id_padre=${id}`;
 
     connection.query(consulta_pays, (err, results) => {
 
