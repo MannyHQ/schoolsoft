@@ -56,11 +56,11 @@ export const removeSession = (req, res) => {
 
     req.session.destroy(err => {
 
-        if  ( err ){
+        if  ( err ) {
 
             res.send('hubo un error al borrar la session');
         }
         else    
-            res.redirect('/index');
+            res.send('true');
     })
 }

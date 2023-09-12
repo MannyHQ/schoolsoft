@@ -10,3 +10,18 @@ fetch('/api/profile')
         elementsValue[3].textContent = json.telefono;
         elementsValue[4].textContent = json.cedula;
     });
+
+document.getElementById('btnLogout').onclick = () => {
+
+    fetch('/logout')
+        .then(response => response.text())
+        .then(text => {
+
+            if ( text === 'true')
+                window.location.href = '/login';
+            else {
+
+                alert (text);
+            }
+        })
+}
