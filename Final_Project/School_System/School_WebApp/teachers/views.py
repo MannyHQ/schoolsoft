@@ -11,6 +11,8 @@ from collections import defaultdict
 from django.contrib.auth.decorators import login_required,user_passes_test,permission_required
 from django.db.models import Max
 from django.contrib import messages
+from datetime import datetime
+from django.db import transaction
 
 
 
@@ -117,7 +119,7 @@ def lista_curso(request):
             
             # Encuentra todos los estudiantes asociados a esta asignatura y curso
                 student_ids = Inscription.objects.filter(course_id=course_id).values_list('student_id', flat=True)
-            
+                from datetime import datetime
                 for student_id in student_ids:
                     student = Students.objects.get(id=student_id)  # Obtener la instancia del estudiante
                     existe_calificacion = calification.objects.filter(student_id=student, Subject_id=asignatura).exists()
@@ -135,31 +137,60 @@ def lista_curso(request):
                         nueva_calificacion.save()
 
             # cursos_del_maestro = []
-
+            fecha_actual = datetime.now().date()
+            # print(fecha_actual)
             if relationships.exists():
                 cursos_del_maestro = []
-                cursos_visitados = set()  # Para evitar cursos duplicados
+                cursos_visitados = set()  # To avoid duplicate courses
                 
                 for relationship in relationships:
                     subject = relationship.subject_id
                     curso = subject.level 
-                    
-                    # Verifica si el curso ya ha sido visitado
+
+                    # Check if the course has already been visited
                     if curso.id not in cursos_visitados:
-                        cursos_visitados.add(curso.id)  # Agrega el curso a los visitados
+                        cursos_visitados.add(curso.id)  # Add the course to the visited set
                         
                         inscriptions = Inscription.objects.filter(course_id=curso.id)
                         students = set()
-                        
-                        for inscription in inscriptions:
-                            students.add(inscription.student_id)
+                        studentsExp = set()
                         
                         other_subjects = Subject.objects.filter(level_id=curso.id).exclude(id=subject.id)
+                        
+                        for inscription in inscriptions:
+                            end_date = inscription.end_date
+                            if end_date > fecha_actual:
+                                students.add(inscription.student_id)
+                            elif end_date < fecha_actual:
+                                studentsExp.add(inscription.student_id)
+                                for student_exp in studentsExp:
+                                    # Get all subjects related to the student in the calification model
+                                    related_subjects = calification.objects.filter(student_id=student_exp)
+    
+                                    for current_grade in related_subjects:
+                                        # Check if a history_calification record already exists for this student and subject
+                                        existe_history = history_calification.objects.filter(student_id=student_exp, Subject_id=current_grade.Subject_id).exists()
+                                        
+                                        if not existe_history:
+                                            # If no history record exists, create a new one
+                                            new_history = history_calification(
+                                                firstPeriod=current_grade.firstPeriod,
+                                                secondPeriod=current_grade.secondPeriod,
+                                                thirdPeriod=current_grade.thirdPeriod,
+                                                fourthPeriod=current_grade.fourthPeriod,
+                                                finish=current_grade.finish,
+                                                student_id=current_grade.student_id,
+                                                Subject_id=current_grade.Subject_id,
+                                            )
+                                            new_history.save()
+                                    
+                        # other_subjects = Subject.objects.filter(level_id=curso.id).exclude(id=subject.id)
 
                         # Crear calificaciones para todas las asignaturas del curso
                         for other_subject in other_subjects:
                             for student in students:
-                                existe_calificacion = calification.objects.filter(student_id=student, Subject_id=other_subject).exists()
+                                # inscriptionEstud = Inscription.objects.filter( student_id = student)
+                                existe_calificacion = calification.objects.filter(student_id=student,  Subject_id=asignatura).exists()
                                 if not existe_calificacion:
                                     nueva_calificacion = calification(
                                         student_id=student,
@@ -172,20 +203,18 @@ def lista_curso(request):
                                     )
                                     nueva_calificacion.save()
                         
-                        
                         cursos_del_maestro.append({
                             'curso': curso,
-                            'asignatura': subject,
-                            'students': list(students),  # Convierte el conjunto en lista
+                            'asignatura': asignatura,
+                            'students': list(students),
                         })
-                        
-                   # Redirigir de nuevo a la página de profesores
+                # Redirigir de nuevo a la página de profesores
             return render(request, 'teachers/courses.html', {'cursos': cursos_del_maestro,'nombre': nombreTeacher, 'mensaje': mensaje})
         except:
             pass
         return render(request, 'teachers/courses.html')
     else:
-            return redirect('login')
+        return redirect('login')
 
 @login_required(login_url='/login')
 @permission_required("teachers.view_calification",login_url='/logout')

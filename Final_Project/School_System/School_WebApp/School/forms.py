@@ -11,9 +11,9 @@ class ParentForm(forms.ModelForm):
         widgets ={
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'id_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'id_number': forms.NumberInput(attrs={'class': 'form-control','maxlength':'11'}),
             'mail': forms.TextInput(attrs={'class': 'form-control'}),
-            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.NumberInput(attrs={'class': 'form-control'}),
             'status': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
@@ -22,7 +22,7 @@ class CobroForm(forms.ModelForm):
         model = Cobro
         fields = ['mensualidad']
         widgets = {
-            'mensualidad': forms.TextInput(attrs={'class':'form-control'}),
+            'mensualidad': forms.NumberInput(attrs={'class':'form-control'}),
         }
 
 class UserManagementForm(UserCreationForm):
@@ -109,9 +109,9 @@ class StudentForm(forms.ModelForm):
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'birthdate': forms.TextInput(attrs={'class': 'datepicker-default form-control'}),
             'gender': forms.Select(attrs={'class': 'form-control'}),
-            'id_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'id_number': forms.NumberInput(attrs={'class': 'form-control'}),
             'mail': forms.TextInput(attrs={'class': 'form-control'}),
-            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.NumberInput(attrs={'class': 'form-control'}),
             'status': forms.TextInput(attrs={'class': 'form-control'}),
         }
         
@@ -122,10 +122,10 @@ class TeacherForm(forms.ModelForm):
         widgets ={
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'code': forms.TextInput(attrs={'class': 'form-control'}),
+            'code': forms.NumberInput(attrs={'class': 'form-control'}),
             'mail': forms.TextInput(attrs={'class': 'form-control'}),
-            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'id_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.NumberInput(attrs={'class': 'form-control'}),
+            'id_number': forms.NumberInput(attrs={'class': 'form-control'}),
             'status': forms.TextInput(attrs={'class': 'form-control'}),
         }
         

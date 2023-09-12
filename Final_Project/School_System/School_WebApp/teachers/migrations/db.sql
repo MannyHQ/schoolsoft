@@ -16,4 +16,3 @@ insert into school_teachers(first_name,last_name,code,id_number) VALUES('Felipe'
 insert into school_relationship( Subject_id_id, Teachers_id_id) VALUES(1,1);
 
 insert into school_inscription( date_inscription, pay_status, ref_pay, inscription_status, course_id_id, student_id_id) VALUES(STR_TO_DATE('26-08-2023', '%d-%m-%Y'),1,'referencia de algo',1,1,1);
-

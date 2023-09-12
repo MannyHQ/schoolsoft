@@ -409,13 +409,23 @@ def do_inscription(request):
 def add_students(request):
     students = Students.objects.all()
     if request.method == 'POST':
-        form = StudentForm(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('/add-students')
-            except:
-                pass
+            val_student = Students.objects.filter(id_number=request.POST.get('id_number'))
+            
+            if val_student.count()>0:
+                print("La matricula existe!")   
+                form = StudentForm
+            else:
+                if len(request.POST.get('id_number')) > 8 or len(request.POST.get('id_number')) < 8:
+                    print("La matricula debe ser de 8 digitos")
+                    form = StudentForm()
+                else:
+                    form = StudentForm(request.POST)
+                    if form.is_valid():
+                        try:
+                            form.save()
+                            return redirect('/add-students')
+                        except:
+                            pass
     else:
         form = StudentForm
     return render(request,'School/add-student.html',{'form': form,'students':students})
@@ -449,13 +459,25 @@ def add_staff(request):
 def add_professor(request):
     teachers = Teachers.objects.all()
     if request.method == 'POST':
-        form = TeacherForm(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('/add-professor')
-            except:
-                pass
+        
+            
+            val_teacher = Teachers.objects.filter(Q(code=request.POST.get('code')) | Q(id_number=request.POST.get('id_number')))
+            print(val_teacher.count())
+            if val_teacher.count() > 0:
+                print("La matricula o cedula ya existe")
+                form = TeacherForm()
+            else:
+                if len(request.POST.get('code')) > 8 or len(request.POST.get('id_number')) > 11 or len(request.POST.get('code')) < 8 or len(request.POST.get('id_number')) < 11:
+                    print("Revise la cedula o la matricula, recuerde que la cedula debe ser de 11 y la matricula de 8 digitos")
+                    form = TeacherForm()
+                else:
+                    form = TeacherForm(request.POST)
+                    if form.is_valid():
+                        try:
+                            form.save()
+                            return redirect('/add-professor')
+                        except:
+                            pass
     else:
         form = TeacherForm
     return render(request,'School/add-professor.html',{'form': form,'teachers':teachers})
@@ -464,13 +486,23 @@ def add_professor(request):
 @staff_member_required
 def add_parents(request):
     if request.method == 'POST':
-        form = ParentForm(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('/add-parents')
-            except:
-                pass
+        val_parent = Parents.objects.filter(Q(id_number=request.POST.get('id_number')))
+        if val_parent.count() > 0:
+            print("La cedula ya existe")
+            form = ParentForm()
+        else:
+            cedula = request.POST.get('id_number')
+            if len(cedula)> 11 or len(cedula) < 11:
+                print("La cedula tiene que ser de 11 digitos!")
+                form = ParentForm()
+            else:
+                form = ParentForm(request.POST)
+                if form.is_valid():
+                    try:
+                        #form.save()
+                        return redirect('/add-parents')
+                    except:
+                        pass
     else:
         form = ParentForm
     return render(request,'School/add-departments.html',{'form': form})
@@ -666,8 +698,18 @@ def edit_st_confirm(request,id):
     form = StudentForm(request.POST,instance=students_v)
     print(request.POST)
     if form.is_valid():
-        form.save()
-        return redirect('/edit-student')
+            val_student = Students.objects.filter(id_number=request.POST.get('id_number'))
+            
+            if val_student.count()>0:
+                print("La matricula existe!")   
+                form = StudentForm
+            else:
+                if len(request.POST.get('id_number')) > 8 or len(request.POST.get('id_number')) < 8:
+                    print("La matricula debe ser de 8 digitos")
+                    form = StudentForm()
+                else:
+                    form.save()
+                    return redirect('/edit-student')
     return render(request,template,{'students':students,'students_v':students_v})
 
 @login_required(login_url="/login")
@@ -679,8 +721,18 @@ def edit_professor_confirm(request,id):
     form = TeacherForm(request.POST,instance=teachers_v)
     print(request.POST)
     if form.is_valid():
-        form.save()
-        return redirect('/edit-professor')
+            val_teacher = Teachers.objects.filter(Q(code=request.POST.get('code')) | Q(id_number=request.POST.get('id_number')))
+            print(val_teacher.count())
+            if val_teacher.count() > 0:
+                print("La matricula o cedula ya existe")
+                form = TeacherForm()
+            else:
+                if len(request.POST.get('code')) > 8 or len(request.POST.get('id_number')) > 11 or len(request.POST.get('code')) < 8 or len(request.POST.get('id_number')) < 11:
+                    print("Revise la cedula o la matricula, recuerde que la cedula debe ser de 11 y la matricula de 8 digitos")
+                    form = TeacherForm()
+                else:
+                    form.save()
+                    return redirect('/edit-professor')
     return render(request,template,{'teachers':teachers,'teachers_v':teachers_v})
 
 @login_required(login_url="/login")
@@ -710,8 +762,18 @@ def edit_parents_confirm(request,id):
     form = ParentForm(request.POST,instance=parents_v)
     print(request.POST)
     if form.is_valid():
-        form.save()
-        return redirect('/edit-parents')
+        val_parent = Parents.objects.filter(Q(id_number=request.POST.get('id_number')))
+        if val_parent.count() > 0:
+            print("La cedula ya existe")
+            form = ParentForm()
+        else:
+            cedula = request.POST.get('id_number')
+            if len(cedula)> 11 or len(cedula) < 11:
+                print("La cedula tiene que ser de 11 digitos!")
+                form = ParentForm()
+            else:
+                form.save()
+                return redirect('/edit-parents')
     return render(request,template,{'parents':parents,'parents_v':parents_v})
 
 @login_required(login_url="/login")

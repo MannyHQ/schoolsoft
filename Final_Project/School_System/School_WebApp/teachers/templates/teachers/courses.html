@@ -17,22 +17,21 @@
                     </thead>
                     <tbody>
                         {% for student in curso.students %}
-                        <tr>
-                            <td>{{ student.first_name }}</td>
-                            <td>{{ student.last_name }}</td>
-                            <td>
-                                <form action="/calificar/" method="POST">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="student_id" value="{{ student.id }}">
-                                    <input type="hidden" name="student_name" value="{{ student.first_name }} {{ student.last_name }}">
-                                    <button type="submit" class="botonCurso">Calificar</button>
-                                </form>
-                            </td>
-                        </tr>
+                                <tr>
+                                    <td>{{ student.first_name }}</td>
+                                    <td>{{ student.last_name }}</td>
+                                    <td>
+                                        <form action="/calificar/" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="student_id" value="{{ student.id }}">
+                                            <input type="hidden" name="student_name" value="{{ student.first_name }} {{ student.last_name }}">
+                                            <button type="submit" class="botonCurso">Calificar</button>
+                                        </form>
+                                    </td>
+                                </tr>
                         {% endfor %}
-                    </tbody>
+                    </tbody>                    
                 </table>
-                
             </div>  
         {% endfor %}
     </div> 
