@@ -499,7 +499,7 @@ def add_parents(request):
                 form = ParentForm(request.POST)
                 if form.is_valid():
                     try:
-                        #form.save()
+                        form.save()
                         return redirect('/add-parents')
                     except:
                         pass
