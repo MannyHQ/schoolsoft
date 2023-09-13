@@ -232,6 +232,7 @@
 							<div class="card-body">
                                 <form action="/edit-professor/update/{{teachers_v.id}}" method="post">
                                     {% csrf_token %}
+                                    {% include "School/messages.html" %}
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">

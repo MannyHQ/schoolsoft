@@ -8,9 +8,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from django.views.generic import TemplateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Q
+from django.db.models import Q,Sum
 from django.contrib.auth.models import Group
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib import messages
 
 def logout_view(request):
     logout(request)
@@ -43,12 +44,14 @@ def assign_student_user(request):
                     # Asignar al usuario al grupo de estudiantes
                     group = Group.objects.get(name='Estudiante')  # Reemplaza 'Estudiantes' con el nombre de tu grupo de estudiantes
                     user.groups.add(group)
-                    
+                    messages.success(request,'Usuario asignado correctamente!')
                 return redirect('/home')  # Redirigir a la lista de estudiantes
 
         except User.DoesNotExist:
+            messages.error(request,'El usuario no existe!')
             return render(request, 'School/assign-user.html', {'error_message': 'El nombre de usuario no existe.', 'unassigned_users': unassigned_users})
         except Students.DoesNotExist:
+            messages.error(request,'No se encontró al estudiante!')
             return render(request, 'School/assign-user.html', {'error_message': 'No se encontró al estudiante con esta matrícula.', 'unassigned_users': unassigned_users})
 
     return render(request, 'School/assign-user.html', {'form': AssignUserForm(), 'unassigned_users': unassigned_users})
@@ -80,12 +83,14 @@ def assign_teacher_user(request):
                     # Asignar al usuario al grupo de estudiantes
                     group = Group.objects.get(name='Profesor')  # Reemplaza 'Profesores' con el nombre de tu grupo de estudiantes
                     user.groups.add(group)
-                    
+                    messages.success(request,'Usuario asignado correctamente')
                 return redirect('/home')  # Redirigir a la lista de profesores
 
         except User.DoesNotExist:
+            messages.error(request,'Usuario no existe!')
             return render(request, 'School/assign-user2.html', {'error_message': 'El nombre de usuario no existe.', 'unassigned_users': unassigned_users})
         except Teachers.DoesNotExist:
+            messages.error(request,'No se encontró al profesor!')
             return render(request, 'School/assign-user2.html', {'error_message': 'No se encontró al estudiante con esta matrícula.', 'unassigned_users': unassigned_users})
 
     return render(request, 'School/assign-user2.html', {'form': AssignUserForm(), 'unassigned_users': unassigned_users})
@@ -175,8 +180,8 @@ def login_us(request):
                 pass
             
             #print(list(user.groups.values_list('name',flat=True)))
-
         else:
+            messages.error(request,'Credenciales incorrectas!')
             return render(request,template)
         
     return render(request,template)
@@ -188,7 +193,15 @@ def index(request):
     courses_count = Course.objects.count()
     teachers_count = Teachers.objects.count()
     inscription_count = Inscription.objects.count()
-
+    subjects_count = Subject.objects.count()
+    users_count = User.objects.count()
+    parents_count = Parents.objects.count()
+    bill_sum = Pagos.objects.aggregate(Sum('monto_total'))
+    try:
+        monthly_pay = Cobro.objects.all()[:1]
+    except:
+        monthly_pay = {'mensualidad': 0}
+        pass
     latest_inscriptions_list = Inscription.objects.order_by("-date_inscription")[:5]
     template = loader.get_template("school/index.html")
     context = {
@@ -196,8 +209,12 @@ def index(request):
         "students_count": students_count,
         'courses_count':courses_count,
         'teachers_count':teachers_count,
-        'inscription_count':inscription_count
-        
+        'inscription_count':inscription_count,
+        'bill_sum': bill_sum,
+        'subjects_count': subjects_count,
+        'users_count': users_count,
+        'parents_count': parents_count,
+        'monthly_pay': monthly_pay,
     }
     
     return HttpResponse(template.render(context,request))
@@ -265,8 +282,10 @@ def asignar_asignaturas(request, profesor_id):
             profesor = Teachers.objects.get(pk=profesor_id)
             for asignatura in form.cleaned_data['asginaturas']:
                 Teacher_VS_Subjects.objects.create(teacher_id=profesor, subject_id=asignatura)
+            messages.success(request,'Asignatura asignada correctamente!')
             return redirect('/home')
     else:
+        messages.error(request,'Hubo un error al asignar la asignatura!')
         form = TeacherSubjectForm()
     return render(request, 'School/assign_subject.html', {'form': form})
 
@@ -294,6 +313,7 @@ def desasignar_asignaturas(request, profesor_id):
         asignaturas_desasignar_ids = request.POST.getlist('asignaturas_desasignar')
         asignaturas_desasignar = Subject.objects.filter(id__in=asignaturas_desasignar_ids)
         profesor.teacher_vs_subjects_set.filter(subject_id__in=asignaturas_desasignar).delete()
+        messages.success(request,'Asignaturas desasignadas correctamente!')
         return redirect('/home')
 
     return render(request, 'School/desasignar_asignaturas_tabla.html', {'profesor': profesor, 'asignaturas_asignadas': asignaturas_asignadas})
@@ -324,8 +344,10 @@ def add_courses(request):
         if form.is_valid():
             try:
                 form.save()
+                messages.success(request,'Curso agregado correctamente!')
                 return redirect('/add-courses')
             except:
+                messages.error(request,'Error al agregar un curso!')
                 pass
     else:
         form = CourseForm()
@@ -339,8 +361,10 @@ def add_mensualidad(request):
         if form.is_valid():
             try:
                 form.save()
+                messages.success(request,'Mensualidad agregada correctamente!')
                 return redirect('/mensualidad')
             except:
+                messages.error(request,'Error al agregar la mensualidad!')
                 pass
     else:
         form = CobroForm()
@@ -357,8 +381,10 @@ def crear_usuario_padre(request):
         if form.is_valid():
             try:
                 form.save()
+                messages.success(request,'Usuario padre creado correctamente!')
                 return redirect('/home')
             except:
+                messages.error(request,'Error al crear el usuario padre!')
                 pass
     else:
         form = PadreUserForm()
@@ -376,8 +402,10 @@ def add_subjects(request):
         if form.is_valid():
             try:
                 form.save()
+                messages.success(request,"Asignatura creada correctamente!")
                 return redirect('/add-subjects')
             except:
+                messages.error(request,'Error al crear una asignatura!')
                 pass
     else:
         form = SubjectForm()
@@ -396,8 +424,10 @@ def do_inscription(request):
         if form.is_valid():
             try:
                 form.save()
+                messages.success(request,'Inscripcion procesada!')
                 return redirect('/do-inscription')
             except:
+                messages.error(request,'Error al procesar la inscripcion!')
                 pass
     else:
         form = InscriptionForm()
@@ -412,19 +442,23 @@ def add_students(request):
             val_student = Students.objects.filter(id_number=request.POST.get('id_number'))
             
             if val_student.count()>0:
-                print("La matricula existe!")   
+                print("La matricula existe!")
+                messages.error(request,'Error, la matricula ya existe!')   
                 form = StudentForm
             else:
                 if len(request.POST.get('id_number')) > 8 or len(request.POST.get('id_number')) < 8:
                     print("La matricula debe ser de 8 digitos")
+                    messages.error(request,'La matricula debe ser de 8 digitos!')
                     form = StudentForm()
                 else:
                     form = StudentForm(request.POST)
                     if form.is_valid():
                         try:
                             form.save()
+                            messages.success(request,'Estudiante creado correctamente!')
                             return redirect('/add-students')
                         except:
+                            messages.error(request,'Error al crear un estudiante!')
                             pass
     else:
         form = StudentForm
@@ -443,6 +477,7 @@ def add_staff(request):
         if form.is_valid():
             try:
                 user = form.save()
+                messages.success(request,'Usuario creado correctamente!')
                 UnassignedUser.objects.create(user=user)
                 return redirect('/add-staff')
             except:
@@ -465,18 +500,22 @@ def add_professor(request):
             print(val_teacher.count())
             if val_teacher.count() > 0:
                 print("La matricula o cedula ya existe")
+                messages.success(request,'La matricula o la cedula ya existe!')
                 form = TeacherForm()
             else:
                 if len(request.POST.get('code')) > 8 or len(request.POST.get('id_number')) > 11 or len(request.POST.get('code')) < 8 or len(request.POST.get('id_number')) < 11:
                     print("Revise la cedula o la matricula, recuerde que la cedula debe ser de 11 y la matricula de 8 digitos")
+                    messages.success(request,'Revise la cedula o matricula, recordando que la cedula debe ser de 11 digitos y la matricula de 8 digitos!')
                     form = TeacherForm()
                 else:
                     form = TeacherForm(request.POST)
                     if form.is_valid():
                         try:
                             form.save()
+                            messages.success(request,'Profesor creado correctamente!')
                             return redirect('/add-professor')
                         except:
+                            messages.error(request,'Error al crear el profesor!')
                             pass
     else:
         form = TeacherForm
@@ -489,19 +528,23 @@ def add_parents(request):
         val_parent = Parents.objects.filter(Q(id_number=request.POST.get('id_number')))
         if val_parent.count() > 0:
             print("La cedula ya existe")
+            messages.error(request,'La cedula ya existe!')
             form = ParentForm()
         else:
             cedula = request.POST.get('id_number')
             if len(cedula)> 11 or len(cedula) < 11:
                 print("La cedula tiene que ser de 11 digitos!")
+                messages.error(request,'La cedula debe ser de 11 digitos')
                 form = ParentForm()
             else:
                 form = ParentForm(request.POST)
                 if form.is_valid():
                     try:
                         form.save()
+                        messages.success(request,'Padre creado correctamente!')
                         return redirect('/add-parents')
                     except:
+                        messages.error(request,'Error al crear padre!')
                         pass
     else:
         form = ParentForm
@@ -645,8 +688,13 @@ def edit_courses_confirm(request,id):
     template = "School/edit-courses.html"
     form = CourseForm(request.POST, instance=courses_v)
     if form.is_valid():
-        form.save()
-        return redirect('/edit-courses')
+        try:
+            form.save()
+            messages.success(request,'Curso modificado correctamente!')
+            return redirect('/edit-courses')
+        except:
+            messages.error(request,'Error al modificar curso!')
+            pass
     return render(request,template,{'courses':courses,'courses_v':courses_v})
 
 @login_required(login_url="/login")
@@ -657,8 +705,13 @@ def edit_mensualidad_confirm(request,id):
     template = "School/edit-courses.html"
     form = CobroForm(request.POST, instance=cobros_v)
     if form.is_valid():
-        form.save()
-        return redirect('/edit-mensualidad')
+        try:
+            form.save()
+            messages.success(request,'Mensualidad modificada correctamente!')
+            return redirect('/edit-mensualidad')
+        except:
+            messages.error(request,'Error al modificar la mensualidad!')
+            pass
     return render(request,template,{'cobros':cobros,'cobros_v':cobros_v})
 
 @login_required(login_url="/login")
@@ -672,8 +725,13 @@ def edit_inscription_confirm(request,id):
     form = InscriptionForm(request.POST, instance=inscription_v)
     print(request.POST)
     if form.is_valid():
-        form.save()
-        return redirect('/edit-inscription')
+        try:
+            form.save()
+            messages.success(request,'Inscripcion modificada correctamente!')
+            return redirect('/edit-inscription')
+        except:
+            messages.error(request,'Error al modificar la inscripcion!')
+            pass
     return render(request,template,{'inscription':inscription,'inscription_v':inscription_v,'courses':courses,'students':students})
 
 
@@ -685,8 +743,13 @@ def edit_subjects_confirm(request,id):
     template = "School/edit-library.html"
     form = SubjectForm(request.POST, instance=subjects_v)
     if form.is_valid():
-        form.save()
-        return redirect('/edit-subjects')
+        try:
+            form.save()
+            messages.success(request,'Asignatura modificada correctamente!')
+            return redirect('/edit-subjects')
+        except:
+            messages.error(request,'Error al modificar la asignatura!')
+            pass
     return render(request,template,{'subjects':subjects,'subjects_v':subjects_v})
 
 @login_required(login_url="/login")
@@ -701,15 +764,22 @@ def edit_st_confirm(request,id):
             val_student = Students.objects.filter(id_number=request.POST.get('id_number'))
             
             if val_student.count()>0:
-                print("La matricula existe!")   
+                print("La matricula existe!")
+                messages.error(request,'La matricula ya existe!')   
                 form = StudentForm
             else:
                 if len(request.POST.get('id_number')) > 8 or len(request.POST.get('id_number')) < 8:
                     print("La matricula debe ser de 8 digitos")
+                    messages.error(request,'La matricula debe ser de 8 digitos!')
                     form = StudentForm()
                 else:
-                    form.save()
-                    return redirect('/edit-student')
+                    try:
+                        form.save()
+                        messages.success(request,'Estudiante modificado correctamente!')
+                        return redirect('/edit-student')
+                    except:
+                        messages.error(request,'Error al modificar un estudiante!')
+                        pass
     return render(request,template,{'students':students,'students_v':students_v})
 
 @login_required(login_url="/login")
@@ -725,14 +795,21 @@ def edit_professor_confirm(request,id):
             print(val_teacher.count())
             if val_teacher.count() > 0:
                 print("La matricula o cedula ya existe")
+                messages.error(request,'La matricula o la cedula ya existe!')
                 form = TeacherForm()
             else:
                 if len(request.POST.get('code')) > 8 or len(request.POST.get('id_number')) > 11 or len(request.POST.get('code')) < 8 or len(request.POST.get('id_number')) < 11:
                     print("Revise la cedula o la matricula, recuerde que la cedula debe ser de 11 y la matricula de 8 digitos")
+                    messages.error(request,'Verifique la cedula o la matricula, recordando que la cedula debe ser de 11 digitos y la matricula de 8 digitos!')
                     form = TeacherForm()
                 else:
-                    form.save()
-                    return redirect('/edit-professor')
+                    try:
+                        form.save()
+                        messages.success(request,'Profesor modificado correctamente!')
+                        return redirect('/edit-professor')
+                    except:
+                        messages.error(request,'Error al modificar un profesor!')
+                        pass
     return render(request,template,{'teachers':teachers,'teachers_v':teachers_v})
 
 @login_required(login_url="/login")
@@ -748,8 +825,14 @@ def edit_staff_confirm(request,id):
     form = CustomUserCreationForm(data=request.POST,instance=usernames_v)
     print(request.POST)
     if form.is_valid():
-        form.save()
-        return redirect('/edit-staff')
+        try:
+
+            form.save()
+            messages.success(request,'Usuario modificado correctamente!')
+            return redirect('/edit-staff')
+        except:
+            messages.error(request,'Error al modificar un usuario!')
+            pass
     return render(request,template,{'usernames':usernames,'usernames_v':usernames_v})
     
     
@@ -765,11 +848,13 @@ def edit_parents_confirm(request,id):
         val_parent = Parents.objects.filter(Q(id_number=request.POST.get('id_number')))
         if val_parent.count() > 0:
             print("La cedula ya existe")
+            messages.error(request,'La cedula ya existe!')
             form = ParentForm()
         else:
             cedula = request.POST.get('id_number')
             if len(cedula)> 11 or len(cedula) < 11:
                 print("La cedula tiene que ser de 11 digitos!")
+                messages.error(request,'La cedula debe ser de 11 digitos!')
                 form = ParentForm()
             else:
                 form.save()

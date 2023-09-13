@@ -25,6 +25,7 @@
                                     <h4 class="text-center mb-4">Identificate en el sistema</h4>
                                     <form method="POST">
                                         {% csrf_token %}
+                                        {% include "School/messages.html" %}
                                         <div class="form-group">
                                             <label><strong>Nombre de usuario</strong></label>
                                             <input name="username" type="text" class="form-control" placeholder="test214">

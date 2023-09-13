@@ -107,3 +107,7 @@ class Usuario(models.Model):
     password = models.CharField(max_length=200)
     correo = models.CharField(max_length=200)
     estado = models.SmallIntegerField()
+
+class PeriodoEscolar(models.Model):
+    inicio = models.DateTimeField()
+    final = models.DateTimeField()

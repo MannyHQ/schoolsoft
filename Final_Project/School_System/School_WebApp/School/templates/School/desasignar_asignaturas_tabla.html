@@ -230,6 +230,7 @@
 							</div>
                               <form method="post">
                                 {% csrf_token %}
+                                {% include "School/messages.html" %}
                                 <div class="table-responsive recentOrderTable">
                                     <table class="table verticle-middle table-responsive-md">
                                         <thead>

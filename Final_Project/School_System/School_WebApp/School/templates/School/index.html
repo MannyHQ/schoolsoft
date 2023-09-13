@@ -71,7 +71,7 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="search_bar dropdown">
-                                
+                                {% include "School/messages.html" %}
                                 
                             </div>
                         </div>
@@ -212,6 +212,7 @@
 				    
                 <div class="row">
 					<div class="col-xl-3 col-xxl-3 col-sm-6">
+                        <a href="/all-students">
 						<div class="widget-stat card bg-primary">
 							<div class="card-body">
 								<div class="media">
@@ -229,8 +230,11 @@
 								</div>
 							</div>
 						</div>
+                        </a>
                     </div>
 					<div class="col-xl-3 col-xxl-3 col-sm-6">
+                        <a href="/all-professors">
+
 						<div class="widget-stat card bg-warning">
 							<div class="card-body">
 								<div class="media">
@@ -248,8 +252,10 @@
 								</div>
 							</div>
 						</div>
+                    </a>
                     </div>
 					<div class="col-xl-3 col-xxl-3 col-sm-6">
+                        <a href="/all-courses">
 						<div class="widget-stat card bg-secondary">
 							<div class="card-body">
 								<div class="media">
@@ -267,13 +273,15 @@
 								</div>
 							</div>
 						</div>
+                        </a>
                     </div>
 					<div class="col-xl-3 col-xxl-3 col-sm-6">
+                        <a href="/all-inscription">
 						<div class="widget-stat card bg-danger">
 							<div class="card-body">
 								<div class="media">
 									<span class="mr-3">
-										<i class="la la-dollar"></i>
+										<i class="la la-tags"></i>
 									</span>
 									<div class="media-body text-white">
 										<p class="mb-1">Total de estudiantes inscritos</p>
@@ -286,8 +294,114 @@
 								</div>
 							</div>
 						</div>
+                    </a>
                     </div>
-					
+                    <div class="col-xl-3 col-xxl-3 col-sm-6">
+                        <a href="/all-inscription">
+						<div class="widget-stat card bg-success">
+							<div class="card-body">
+								<div class="media">
+									<span class="mr-3">
+										<i class="la la-dollar"></i>
+									</span>
+									<div class="media-body text-white">
+										<p class="mb-1">Total recaudado</p>
+										<h3 class="text-white">DOP {{bill_sum.monto_total__sum}}</h3>
+										<div class="progress mb-2 bg-white">
+                                            <div class="progress-bar progress-animated bg-light" style="width: 30%"></div>
+                                        </div>
+										{% comment %} {% endcomment %}
+									</div>
+								</div>
+							</div>
+						</div>
+                        </a>
+                    </div>
+                    <div class="col-xl-3 col-xxl-3 col-sm-6">
+                        <a href="/all-subjects">
+						<div class="widget-stat card bg-info">
+							<div class="card-body">
+								<div class="media">
+									<span class="mr-3">
+										<i class="la la-book"></i>
+									</span>
+									<div class="media-body text-white">
+										<p class="mb-1">Total de asignaturas</p>
+										<h3 class="text-white">{{subjects_count}}</h3>
+										<div class="progress mb-2 bg-white">
+                                            <div class="progress-bar progress-animated bg-light" style="width: 76%"></div>
+                                        </div>
+										{% comment %} <small>76% Increase in 20 Days</small> {% endcomment %}
+									</div>
+								</div>
+							</div>
+						</div>
+                        </a>
+                    </div>
+                    <div class="col-xl-3 col-xxl-3 col-sm-6">
+                        <a href="/all-staff">
+
+						<div class="widget-stat card bg-dark">
+							<div class="card-body">
+								<div class="media">
+									<span class="mr-3">
+										<i class="la la-user"></i>
+									</span>
+									<div class="media-body text-white">
+										<p class="mb-1">Total de usuarios</p>
+										<h3 class="text-white">{{users_count}}</h3>
+										<div class="progress mb-2 bg-white">
+                                            <div class="progress-bar progress-animated bg-light" style="width: 50%"></div>
+                                        </div>
+										{% comment %} <small>50% Increase in 25 Days</small> {% endcomment %}
+									</div>
+								</div>
+							</div>
+						</div>
+                       </a>
+                    </div>
+                    <div class="col-xl-3 col-xxl-3 col-sm-6">
+                        <a href="/all-parents">
+						<div class="widget-stat card bg-primary">
+							<div class="card-body">
+								<div class="media">
+									<span class="mr-3">
+										<i class="la la-users"></i>
+									</span>
+									<div class="media-body text-white">
+										<p class="mb-1">Total Padres</p>
+										<h3 class="text-white">{{parents_count}}</h3>
+										<div class="progress mb-2 bg-white">
+                                            <div class="progress-bar progress-animated bg-light" style="width: 10%"></div>
+                                        </div>
+										{% comment %} <small>80% Increase in 20 Days</small> {% endcomment %}
+									</div>
+								</div>
+							</div>
+						</div>
+                        </a>
+                    </div>
+					<div class="col-xl-3 col-xxl-3 col-sm-6">
+                        <a href="/mensualidad">
+						<div class="widget-stat card bg-success">
+							<div class="card-body">
+								<div class="media">
+									<span class="mr-3">
+										<i class="la la-dollar"></i>
+									</span>
+									<div class="media-body text-white">
+										<p class="mb-1">Mensualidad</p>
+										<h3 class="text-white">DOP {{monthly_pay.mensualidad}}</h3>
+										<div class="progress mb-2 bg-white">
+                                            <div class="progress-bar progress-animated bg-light" style="width: 30%"></div>
+                                        </div>
+										{% comment %} {% endcomment %}
+									</div>
+								</div>
+							</div>
+						</div>
+                        </a>
+                    </div>
 					
                 </div>
 				
