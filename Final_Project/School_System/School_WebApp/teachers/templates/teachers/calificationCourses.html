@@ -52,6 +52,7 @@
                                         {% if calificacion_estudiante.calificacion %}
                                             <tr>
                                                 <td>{{ curso.asignatura.name }}</td>
+                                                <!-- Use subject_filter when available, otherwise fall back to curso.asignatura.name -->
                                                 <td>{{ calificacion_estudiante.student.first_name }}</td>
                                                 <td>{{ calificacion_estudiante.student.last_name }}</td>
                                                 <td>

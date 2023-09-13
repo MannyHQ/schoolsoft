@@ -426,23 +426,28 @@ def teacher_course_califications(request):
                     
                     inscriptions = Inscription.objects.filter(course_id=curso.id)
                     students = set()
-                    
+                    fecha_actual = datetime.now().date()
                     for inscription in inscriptions:
-                        students.add(inscription.student_id)
+                            end_date = inscription.end_date
+                            if end_date > fecha_actual:
+                                students.add(inscription.student_id)
                 
                     # Obtener las calificaciones para cada estudiante en esta materia y curso
                     calificaciones_estudiantes = []
                     for student in students:
                         if subject_id_filter:
+                            subject_to_display = Subject.objects.get(id=subject_id_filter)
                             # Filtrar por la ID de asignatura si se proporciona en el formulario
                             calificacion = calification.objects.filter(student_id=student, Subject_id=subject_id_filter).first()
+                            
                         else:
+                            subject_to_display = subject
                             # Si no se proporciona la ID de asignatura, utilizar la asignatura actual
                             calificacion = calification.objects.filter(student_id=student, Subject_id=subject).first()
                             
                         calificaciones_estudiantes.append({
                             'student': student,
-                            'calificacion': calificacion
+                            'calificacion': calificacion,
                         })
 
                     if course_filter and curso.level != course_filter:
@@ -473,7 +478,7 @@ def teacher_course_califications(request):
                                 
                     cursos_del_maestro.append({
                         'curso': curso,
-                        'asignatura': subject,
+                        'asignatura': subject_to_display,
                         'calificaciones_estudiantes': calificaciones_estudiantes,
                         'asignatura_existe': asignatura_existe,
                     })
