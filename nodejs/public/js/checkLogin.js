@@ -18,7 +18,7 @@ fetch('/check-login')
         else if ( link === '/pagos' || link === '/historial') {
 
             alert('no has iniciado session');
-            window.location.href = '/index';
+            window.location.href = '/login';
         }
     })
     .catch((err) => {
