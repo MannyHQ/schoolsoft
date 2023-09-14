@@ -4,6 +4,9 @@ from teachers.models import calification
 from School.models import *
 from django.contrib.auth.decorators import login_required,user_passes_test,permission_required
 from datetime import datetime
+from django.http import HttpResponse
+from django.views import View
+from reportlab.pdfgen import canvas
 @login_required(login_url='/login')
 @permission_required("students.view_history",login_url='/logout')
 def estudiante(request):
@@ -112,33 +115,37 @@ def informacion(request):
     return render(request,"informacion.html")
 
 
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.views import View
-from reportlab.pdfgen import canvas
-
-class GenerarPDFView(View):
-    def get(self, request):
+from django.shortcuts import get_object_or_404
+@login_required
+def getpdf(request):
         # Obtén los datos de tu modelo (reemplaza 'MiModelo' con tu modelo real)
-        datos = calification.objects.all()
-
+    try:
+        id = 0
+        if request.session['id_estudiante'] is not None:
+            id = request.session['id_estudiante']
+            print(id)
+        students = Students.objects.get(id= id)
+        
+        datos = calification.objects.filter(student_id_id=students.id)
         # Crea un objeto BytesIO para el PDF
+        students = Students.objects.get(id= id)
         response = HttpResponse(content_type='students/pdf')
-        response['Content-Disposition'] = 'attachment; filename="datos.pdf"'
+        response['Content-Disposition'] = 'pagesize=A4; filename="datos.pdf"'
 
         # Crea el PDF utilizando ReportLab
         p = canvas.Canvas(response)  # Personaliza según tus datos
         y = 900  # Posición vertical inicial
         for dato in datos:
             y -= 100
-            p.drawString(100, y, f"Campo 1: {dato.student_id}")
-            p.drawString(100, y - 15, f"Campo 2: {dato.firstPeriod}")
-            p.drawString(100, y - 30, f"Campo 3: {dato.secondPeriod}")
-            p.drawString(100, y - 45, f"Campo 4: {dato.thirdPeriod}")
-            p.drawString(100, y - 60, f"Campo 5: {dato.fourthPeriod}")
-            p.drawString(100, y - 75, f"Campo 6: {dato.finish}")
+            p.drawString(100, y, f"{dato.student_id}")
+            p.drawString(100, y - 15, f"Primer Periodo: {dato.firstPeriod}")
+            p.drawString(100, y - 30, f"Segundo Periodo: {dato.secondPeriod}")
+            p.drawString(100, y - 45, f"Tercer Periodo: {dato.thirdPeriod}")
+            p.drawString(100, y - 60, f"Cuarto Periodo: {dato.fourthPeriod}")
+            p.drawString(100, y - 75, f"Promedio: {dato.finish}")
             # Agrega más campos según tu modelo
-
-        p.showPage()
-        p.save()
-        return response
+            p.showPage()
+            p.save()
+            return response
+    except:
+            pass
