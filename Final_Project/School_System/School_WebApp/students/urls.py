@@ -8,5 +8,5 @@ urlpatterns=[
     path('qualification/',views.ver_calificaciones, name='qualification'),
     path('subjects/',views.ver_asignaturas, name='subjects'),
     path('info/',views.informacion, name='subjects'),
-    
+    path('generate_pdf/',views.GenerarPDFView.as_view(),name='generar_pdf'),
 ]
