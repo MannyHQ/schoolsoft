@@ -100,6 +100,18 @@ class PadreUserForm(forms.ModelForm):
             'correo': forms.TextInput(attrs={'class': 'form-control'}),
             'estado': forms.Select(attrs={'class': 'form-control'}),
         }
+class PeriodoForm(forms.ModelForm):
+    class Meta:
+        model = Periodo
+        fields = ['inicio','final','inicio_escolar','fin_escolar']
+        widgets = {
+            'inicio': forms.TextInput(attrs={'class': 'datepicker-default form-control'}),
+            'final': forms.TextInput(attrs={'class': 'datepicker-default form-control'}),
+            'inicio_escolar': forms.TextInput(attrs={'class': 'datepicker-default form-control'}),
+            'fin_escolar': forms.TextInput(attrs={'class': 'datepicker-default form-control'}),
+        }
+
+
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Students

@@ -108,6 +108,8 @@ class Usuario(models.Model):
     correo = models.CharField(max_length=200)
     estado = models.SmallIntegerField()
 
-class PeriodoEscolar(models.Model):
+class Periodo(models.Model):
     inicio = models.DateTimeField()
     final = models.DateTimeField()
+    inicio_escolar =  models.DateTimeField()
+    fin_escolar = models.DateTimeField()
