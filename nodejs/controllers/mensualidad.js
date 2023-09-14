@@ -1,12 +1,8 @@
 import mysql from 'mysql2';
+import { DATABASE } from '../config.js';
 
 // Configura la conexión a tu base de datos MySQL
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'school_system',
-});
+const connection = mysql.createConnection(DATABASE);
 
 function obtenerMensualidad(callback) {
     const consultaSQL = 'SELECT mensualidad FROM school_cobro LIMIT 1';

@@ -1,14 +1,15 @@
 import mysql, { createConnection } from 'mysql2';
-
+import mysql2 from 'mysql2/promise.js'
+import fs from 'fs';
 import { DATABASE } from '../config.js';
 
 export const getProfile = async (req, res) => {
 
-    const user = req.session.usuario;
+    const id = req.session.usuario.id_usuario;
     
     const connection = await mysql.createConnection(DATABASE);
 
-    const consulta = `SELECT * FROM school_parents WHERE id=${user.id_usuario}`;
+    const consulta = `SELECT * FROM Padres WHERE id_padre=${id}`;
 
     connection.query(consulta, (err, results, query) => {
 
@@ -40,7 +41,7 @@ export const setMatricula = async (req, res) => {
         }
     });
 
-    const consultaIdStudent = `SELECT * FROM school_students where id_number=${id}`;
+    const consultaIdStudent = `SELECT * FROM Estudiante where id_number=${id}`;
 
     connection.query(consultaIdStudent, (err, results, query) => {
 
@@ -57,15 +58,17 @@ export const setMatricula = async (req, res) => {
                 res.send('false');
         }
     })
+
+    connection.end()
 }
 
-export const getPays = (req, res) => {
+export const getPays = async (req, res) => {
 
     const id = req.session.usuario.id_usuario;
 
     const connection = createConnection(DATABASE);
 
-    const consulta_pays = `SELECT * FROM school_pagos WHERE id_padre=${id}`;
+    const consulta_pays = `SELECT * FROM Pagos WHERE id_padre=${id}`;
 
     connection.query(consulta_pays, (err, results) => {
 
@@ -78,4 +81,62 @@ export const getPays = (req, res) => {
             res.json(results);
         }
     })
+
+    connection.end();
+}
+
+import PDFDocument from 'pdfkit';
+
+export const getPdf = async (req, res) => {
+
+    // conectamos la base de datos para obtener la informacion para el pdf
+
+    const id = req.session.usuario.id_usuario;
+
+    const connection = await mysql2.createConnection(DATABASE);
+
+    await connection.connect(err => {
+
+        if ( err )
+            return err;
+    })
+
+    const consulta_pays = `SELECT * FROM Pagos WHERE id_padre=${id}`;
+    const [pays] = await connection.execute(consulta_pays);
+    const consulta_profile = `SELECT * FROM Padres WHERE id_padre=${id}`;
+    const [profile] = await connection.execute(consulta_profile);
+
+    connection.end();
+
+    // toda la informacion se ordenara y guardara en este array de objetos
+    const registerPays = [];
+
+    pays.forEach( register => {
+
+        registerPays.push(
+            `
+                id_pago: ${register.id_pago},
+                id_estudiante: ${register.id_estudiante},
+                fecha_pago: ${register.fecha_pago},
+                monto_total: ${register.monto_total},
+                id_padre: ${profile[0].id_padre},
+                telefono: ${profile[0].telefono},
+                cedula: ${profile[0].cedula}
+            `
+        );
+    })
+
+    // convertimos el array en un string para guardarlo en el pdf
+    const pdfContent = registerPays.join('');
+
+    const doc = new PDFDocument();
+
+    doc.pipe( fs.createWriteStream('./nodejs/pdf/pays.pdf'));
+
+    doc.fontSize(10);
+    doc.text(pdfContent, 80, 100);
+    doc.save();
+    doc.end();
+
+    return res.download('./nodejs/pdf/pays.pdf');
 }

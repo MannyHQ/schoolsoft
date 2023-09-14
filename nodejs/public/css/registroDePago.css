@@ -3,14 +3,21 @@
 .container .tabla-registro .field-container{
     display: flex;
     flex-direction: column;
-    width: 100%;
+
 }
 
 .container .tabla-registro .field-container .field-titles, .field-data{
     display: flex;
     justify-content: space-around;
+    gap: 0;
 
     margin: 10px 0;
+
+    text-align: center;
+}
+
+.field-data {
+    justify-content: start;
 }
 
 .container .tabla-registro .field-container .field-data .field-element{
@@ -32,17 +39,45 @@
 }
 
 .container .tabla-registro .field-container .field-data .field-element:nth-child(1){
-    flex: 0.3;
+    flex: 0.2;
 }
 
 .container .tabla-registro .field-container .field-data .field-element:nth-child(2){
-    flex: 0.5;
+    flex: 0.2;
 }
 
 .container .tabla-registro .field-container .field-data .field-element:nth-child(3){
-    flex: 0.4;
+    flex: 0.24;
 }
 
 .container .tabla-registro .field-container .field-data .field-element:nth-child(4){
-    flex: 0.4;
+    flex: 0.15;
+}
+
+.container .tabla-registro .field-container .field-data .field-element:nth-child(5) {
+    flex: 0.2;
+}
+
+.container button {
+    padding: 7px;
+
+    background: none;
+
+    border: solid 2px  #ff3f24 ;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.container button i{
+    color:  #ff3f24;
+}
+
+.container button:hover{
+    background:  #ff3f24 ;
+    color: #fff;
+}
+
+.container button:hover i {
+    color: #fff;
 }

@@ -234,6 +234,10 @@ button[type="submit"]:hover {
     font-size: larger;
 }
 
+#father-profile, #father-logout {
+  display: none;
+}
+
 @media (max-width: 600px) {
   .container {
     flex-wrap: wrap;

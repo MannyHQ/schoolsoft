@@ -17,11 +17,12 @@
           </div>
           <ul>
             <div id="user-menu">
-                <li id="father-login"><a href="/login">login</a></li>
-                <li id="father-profile"><a href="/profile"><i class="fa-solid fa-user"></i></a></li>
+              <li id="father-login"><a href="/login">login</a></li>
+              <li id="father-profile"><a href="/profile"><i class="fa-solid fa-user"></i></a></li>
+              <li id="father-logout"><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a></li>
             </div>
             <li><a href="/pagos"><i class="fas fa-money-bill"></i> Pagos</a></li>
-            <li><a href="#"><i class="fas fa-history"></i> Historial de Pago</a></li>
+            <li><a href="/historial"><i class="fas fa-history"></i> Historial de Pago</a></li>
           </ul>
         </div>
     </div>
@@ -29,6 +30,7 @@
     <div class="container">
         <article class="tabla-registro">
             <h1>Historial de pagos</h1>
+            <a href="/api/get/pays/pdf" download="pays.pdf"><button id="btnPdf"><i class="fa-solid fa-file-pdf"></i> Descargar PDF</button></a>
             <section class="field-container">
                 
             </section>
@@ -37,6 +39,6 @@
     </main>
 
     <script src="../js/checkLogin.js"></script>
-    <script src="../js/registrarPago.js"></script>
+    <script src="../js/registrarPago.js" type="module"></script>
 </body>
 </html>
