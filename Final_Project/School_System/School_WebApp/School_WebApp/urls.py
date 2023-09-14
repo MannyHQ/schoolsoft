@@ -86,9 +86,11 @@ urlpatterns = [
     path('mensualidad/',views.add_mensualidad,name='mensualidad'),
     path('edit-mensualidad/',views.edit_mensualidad,name='edit-mensualidad'),
     path('edit-mensualidad/<int:id>',views.edit_mensualidad_b,name='edit-mensualidad'),
-    path('edit-mensualidad/update/<int:id>',views.edit_mensualidad_confirm,name='update')
-
-
+    path('edit-mensualidad/update/<int:id>',views.edit_mensualidad_confirm,name='update'),
+    path('add-periodo/',views.add_periodo,name='periodo'),
+    path('edit-periodo/',views.edit_periodo,name='edit-periodo'),
+    path('edit-periodo/<int:id>',views.edit_periodo_b,name='edit-periodo'),
+    path('edit-periodo/update/<int:id>',views.edit_periodo_confirm,name='update')
     
 ]
 

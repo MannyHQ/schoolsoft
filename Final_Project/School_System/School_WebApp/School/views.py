@@ -12,7 +12,8 @@ from django.db.models import Q,Sum
 from django.contrib.auth.models import Group
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
-
+from datetime import datetime
+from django.utils import timezone
 def logout_view(request):
     logout(request)
     return redirect('/login')
@@ -413,26 +414,65 @@ def add_subjects(request):
 
 @login_required(login_url="/login")
 @staff_member_required
+def add_periodo(request):
+    periodos = Periodo.objects.all()
+    if request.method == 'POST':
+        form = PeriodoForm(request.POST)
+        
+        if form.is_valid():
+            try:
+                form.save()
+                messages.success(request,"Periodo creado correctamente!")
+                return redirect('/add-periodo')
+            except:
+                messages.error(request,'Error al crear una asignatura!')
+                pass
+    else:
+        form = PeriodoForm()
+    return render(request,'School/periodo.html',{'form': form,'periodos': periodos})
+
+@login_required(login_url="/login")
+@staff_member_required
 def do_inscription(request):
     students = Students.objects.all()
     courses = Course.objects.all()
     inscriptions = Inscription.objects.all()
-
+    periodo =  Periodo.objects.all()
     if request.method == 'POST':
         print(request.POST)
         form = InscriptionForm(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                messages.success(request,'Inscripcion procesada!')
-                return redirect('/do-inscription')
-            except:
-                messages.error(request,'Error al procesar la inscripcion!')
-                pass
+
+
+        dat = request.POST.get('end_date').replace(",","")
+        final_date = datetime.strptime(dat.replace(" ","-"), '%d-%b-%Y').date()
+        start = request.POST.get('start_date').replace(",","")
+        begin_date = datetime.strptime(start.replace(' ','-'), '%d-%b-%Y').date()
+        inscripcion = Inscription.objects.filter(student_id_id=request.POST.get('student_id'),start_date__gte=datetime.strftime(begin_date,'%Y-%m-%d'),end_date__lte=datetime.strftime(final_date, '%Y-%m-%d'))
+        
+        if inscripcion.count()>0:
+            print("No se puede inscribir el mismo estudiante en la misma fecha sin finalizar el periodo escolar")
+            messages.error(request,'Error, estudiante ya inscrito!')
+        else:
+            if periodo[0].final < timezone.now():
+                print("Periodo de inscripcion finalizado!")
+                messages.error(request,'Periodo de inscripcion finalizado!')
+            else:
+                print("Inscrito!")
+                #messages.success(request,'Inscrito!')
+                #form = InscriptionForm()
+                #print(request.POST)
+                if form.is_valid():
+                    try:
+                        form.save()
+                        messages.success(request,'Inscripcion procesada!')
+                        return redirect('/do-inscription')
+                    except:
+                        messages.error(request,'Error al procesar la inscripcion!')
+                        pass
     else:
         form = InscriptionForm()
     
-    return render(request,'School/add-fees.html',{'form':form,'students':students,'courses':courses,'inscriptions':inscriptions})
+    return render(request,'School/add-fees.html',{'form':form,'students':students,'courses':courses,'inscriptions':inscriptions,'periodo':periodo})
 
 @login_required(login_url="/login")
 @staff_member_required
@@ -559,6 +599,13 @@ def edit_student(request):
 
 @login_required(login_url="/login")
 @staff_member_required
+def edit_periodo(request):
+    periodos = Periodo.objects.all()
+    template = "School/edit-periodo.html"
+    return render(request,template,{'periodos':periodos})
+
+@login_required(login_url="/login")
+@staff_member_required
 def edit_mensualidad(request):
     cobros = Cobro.objects.all()
     template = "School/edit-tarifa.html"
@@ -618,6 +665,14 @@ def edit_st(request,id):
     students = Students.objects.all()
     template = "School/edit-student.html"
     return render(request,template,{'students':students,'students_v':students_v})
+
+@login_required(login_url="/login")
+@staff_member_required
+def edit_periodo_b(request,id):
+    periodos_v = Periodo.objects.get(id=id)
+    periodos = Periodo.objects.all()
+    template = "School/edit-periodo.html"
+    return render(request,template,{'periodos':periodos,'periodos_v':periodos_v})
 
 @login_required(login_url="/login")
 @staff_member_required
@@ -696,6 +751,23 @@ def edit_courses_confirm(request,id):
             messages.error(request,'Error al modificar curso!')
             pass
     return render(request,template,{'courses':courses,'courses_v':courses_v})
+
+@login_required(login_url="/login")
+@staff_member_required
+def edit_periodo_confirm(request,id):
+    periodos_v = Periodo.objects.get(id=id)
+    periodos = Periodo.objects.all()
+    template = "School/edit-periodo.html"
+    form = PeriodoForm(request.POST, instance=periodos_v)
+    if form.is_valid():
+        try:
+            form.save()
+            messages.success(request,'Periodo modificado correctamente!')
+            return redirect('/edit-periodo')
+        except:
+            messages.error(request,'Error al modificar periodo!')
+            pass
+    return render(request,template,{'periodos':periodos,'periodos_v':periodos_v})
 
 @login_required(login_url="/login")
 @staff_member_required
