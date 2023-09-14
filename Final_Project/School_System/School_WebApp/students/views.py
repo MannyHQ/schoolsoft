@@ -110,3 +110,35 @@ def informacion(request):
         pass
     
     return render(request,"informacion.html")
+
+
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.views import View
+from reportlab.pdfgen import canvas
+
+class GenerarPDFView(View):
+    def get(self, request):
+        # Obtén los datos de tu modelo (reemplaza 'MiModelo' con tu modelo real)
+        datos = calification.objects.all()
+
+        # Crea un objeto BytesIO para el PDF
+        response = HttpResponse(content_type='students/pdf')
+        response['Content-Disposition'] = 'attachment; filename="datos.pdf"'
+
+        # Crea el PDF utilizando ReportLab
+        p = canvas.Canvas(response)  # Personaliza según tus datos
+        y = 900  # Posición vertical inicial
+        for dato in datos:
+            y -= 100
+            p.drawString(100, y, f"Campo 1: {dato.student_id}")
+            p.drawString(100, y - 15, f"Campo 2: {dato.firstPeriod}")
+            p.drawString(100, y - 30, f"Campo 3: {dato.secondPeriod}")
+            p.drawString(100, y - 45, f"Campo 4: {dato.thirdPeriod}")
+            p.drawString(100, y - 60, f"Campo 5: {dato.fourthPeriod}")
+            p.drawString(100, y - 75, f"Campo 6: {dato.finish}")
+            # Agrega más campos según tu modelo
+
+        p.showPage()
+        p.save()
+        return response
