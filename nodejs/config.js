@@ -9,7 +9,7 @@ export const PAYPAL_API_SECRET = process.env.PAYPAL_API_SECRET;
 export const PAYPAL_API = `https://api-m.sandbox.paypal.com`;
 export const DATABASE = {
     host: 'localhost',
-    user: 'junior',
-    password: '153wasd',
-    database: 'schoolsoft'
+    user: 'root',
+    password: '',
+    database: 'school_system'
 }

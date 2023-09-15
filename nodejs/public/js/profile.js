@@ -4,9 +4,9 @@ fetch('/api/profile')
 
         const elementsValue = document.querySelectorAll('.element-value');
         
-        elementsValue[0].textContent = json.nombre;
-        elementsValue[1].textContent = json.apellido;
-        elementsValue[2].textContent = json.correo;
-        elementsValue[3].textContent = json.telefono;
-        elementsValue[4].textContent = json.cedula;
+        elementsValue[0].textContent = json.first_name;
+        elementsValue[1].textContent = json.last_name;
+        elementsValue[2].textContent = json.mail;
+        elementsValue[3].textContent = json.phone_number;
+        elementsValue[4].textContent = json.id_number;
     });

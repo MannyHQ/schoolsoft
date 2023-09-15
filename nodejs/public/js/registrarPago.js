@@ -46,9 +46,9 @@ dataPays.forEach( data => {
         <div class="field-element">${data.id_estudiante}</div>
         <div class="field-element">${data.fecha_pago.substring(0, 10)}</div>
         <div class="field-element">${data.monto_total}</div>
-        <div class="field-element">${dataFather[0].id_padre}</div>
-        <div class="field-element">${dataFather[0].telefono}</div>
-        <div class="field-element">${dataFather[0].cedula}</div>
+        <div class="field-element">${dataFather[0].id}</div>
+        <div class="field-element">${dataFather[0].phone_number}</div>
+        <div class="field-element">${dataFather[0].id_number}</div>
     </div>`;
 
     html.push(field);

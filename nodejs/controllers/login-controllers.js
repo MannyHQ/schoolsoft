@@ -17,7 +17,7 @@ export const userVerfication = async (req, res) => {
             console.log('conexion exitosa');
     })
 
-    const consulta_login = `SELECT * FROM Usuario WHERE nombre_user='${req.body.username}' and password='${req.body.password}'`;
+    const consulta_login = `SELECT * FROM school_usuario WHERE nombre_user='${req.body.username}' and password='${req.body.password}'`;
 
     connection.query(consulta_login, (err, results, fields) => {
 
