@@ -54,22 +54,17 @@
                     <td>{{cal.finish}}</td>
                     
                 </tr>
-                <tr>
-                    <td>
-                        <a href='/generate_pdf'>generar pdf</a>
-                    </td>
-                </tr>
+                
             {% else %}
             
             {% endif %}
-        {% endfor %}
-        
             
-                
+        {% endfor %}
             </tbody>
         </table>
-        {% endfor %}
         
+        {% endfor %}
+        <a href='/generate_pdf' class='gen'>generar pdf</a>
     </div>
 </body>
 </html>

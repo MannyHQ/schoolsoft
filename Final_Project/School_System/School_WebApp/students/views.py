@@ -115,37 +115,50 @@ def informacion(request):
     return render(request,"informacion.html")
 
 
-from django.shortcuts import get_object_or_404
-@login_required
+from io import BytesIO
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import utils
+
 def getpdf(request):
-        # Obtén los datos de tu modelo (reemplaza 'MiModelo' con tu modelo real)
+    # Obtén los datos de tu modelo (reemplaza 'MiModelo' con tu modelo real)
     try:
         id = 0
-        if request.session['id_estudiante'] is not None:
+        if request.session.get('id_estudiante') is not None:
             id = request.session['id_estudiante']
             print(id)
-        students = Students.objects.get(id= id)
-        
+    
+        students = Students.objects.get(id=id)
         datos = calification.objects.filter(student_id_id=students.id)
-        # Crea un objeto BytesIO para el PDF
-        students = Students.objects.get(id= id)
-        response = HttpResponse(content_type='students/pdf')
-        response['Content-Disposition'] = 'pagesize=A4; filename="datos.pdf"'
 
-        # Crea el PDF utilizando ReportLab
-        p = canvas.Canvas(response)  # Personaliza según tus datos
-        y = 900  # Posición vertical inicial
+    # Crea un objeto BytesIO para el PDF
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="datos.pdf"'
+
+    # Crea el PDF utilizando ReportLab
+        buffer = BytesIO()
+        p = canvas.Canvas(buffer, pagesize=letter)
+
+        y =  800 # Posición vertical inicial
+
         for dato in datos:
             y -= 100
-            p.drawString(100, y, f"{dato.student_id}")
+            p.drawString(100, y, f"ID Estudiante: {dato.student_id}")
             p.drawString(100, y - 15, f"Primer Periodo: {dato.firstPeriod}")
             p.drawString(100, y - 30, f"Segundo Periodo: {dato.secondPeriod}")
             p.drawString(100, y - 45, f"Tercer Periodo: {dato.thirdPeriod}")
             p.drawString(100, y - 60, f"Cuarto Periodo: {dato.fourthPeriod}")
             p.drawString(100, y - 75, f"Promedio: {dato.finish}")
-            # Agrega más campos según tu modelo
+        # Agrega más campos según tu modelo
             p.showPage()
-            p.save()
-            return response
+
+        p.save()
+
+        buffer.seek(0)
+        response.write(buffer.read())
+        buffer.close()
+    
+        return response
     except:
-            pass
+        pass
