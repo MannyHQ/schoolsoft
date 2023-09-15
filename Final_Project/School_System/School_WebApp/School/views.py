@@ -198,11 +198,9 @@ def index(request):
     users_count = User.objects.count()
     parents_count = Parents.objects.count()
     bill_sum = Pagos.objects.aggregate(Sum('monto_total'))
-    try:
-        monthly_pay = Cobro.objects.all()[:1]
-    except:
-        monthly_pay = {'mensualidad': 0}
-        pass
+    
+    cobro_mes = Cobro.objects.all()
+    
     latest_inscriptions_list = Inscription.objects.order_by("-date_inscription")[:5]
     template = loader.get_template("school/index.html")
     context = {
@@ -215,7 +213,7 @@ def index(request):
         'subjects_count': subjects_count,
         'users_count': users_count,
         'parents_count': parents_count,
-        'monthly_pay': monthly_pay,
+        'cobro_mes': cobro_mes,
     }
     
     return HttpResponse(template.render(context,request))
@@ -529,6 +527,29 @@ def add_staff(request):
     return render(request,'School/add-staff.html',data)
 
 
+
+@login_required(login_url="/login")
+@staff_member_required
+def delete_staff(request,id):
+    staff = get_object_or_404(User, pk=id)
+    usernames = User.objects.all()
+    if request.method == "POST":
+        staff.delete()
+        messages.success(request,'Se elimino el usuario correctamente!')
+        return redirect('/edit-staff')
+    return render(request,'School/edit-staff.html',{'usernames_v':staff,'usernames':usernames})
+
+@login_required(login_url="/login")
+@staff_member_required
+def delete_courses(request,id):
+    courses = Course.objects.all()
+    courses_v = get_object_or_404(Course,pk=id)
+    if request.method == "POST":
+        courses_v.delete()
+        messages.success(request,'Se elimino el curso correctamente!')
+        return redirect('/edit-courses')
+    return render(request,'School/edit-courses.html',{'courses':courses,'courses_v':courses_v})
+
 @login_required(login_url="/login")
 @staff_member_required
 def add_professor(request):
@@ -729,6 +750,19 @@ def edit_subjects_b(request,id):
 
 @login_required(login_url="/login")
 @staff_member_required
+def delete_subjects(request,id):
+    subjects = Subject.objects.all()
+    subjects_v = get_object_or_404(Subject,pk=id)
+    courses = Course.objects.all()
+    if request.method == "POST":
+        subjects_v.delete()
+        messages.success(request,'Se elimino la asignatura correctamente!')
+        return redirect('/edit-subjects')
+    return render(request,'School/edit-library.html',{'subjects':subjects,'subjects_v':subjects_v,'courses':courses})
+
+
+@login_required(login_url="/login")
+@staff_member_required
 def edit_courses_b(request,id):
     courses_v = Course.objects.get(id=id)
     courses = Course.objects.all()
@@ -771,10 +805,23 @@ def edit_periodo_confirm(request,id):
 
 @login_required(login_url="/login")
 @staff_member_required
+def delete_periodo(request,id):
+    periodos = Periodo.objects.all()
+    periodos_v = get_object_or_404(Periodo,pk=id)
+    if request.method == "POST":
+        periodos_v.delete()
+        messages.success(request,'Se elimino el periodo correctamente!')
+        return redirect('/edit-periodo')
+    return render(request,'School/edit-periodo.html',{'periodos':periodos,'periodos_v':periodos_v})
+
+
+
+@login_required(login_url="/login")
+@staff_member_required
 def edit_mensualidad_confirm(request,id):
     cobros_v = Cobro.objects.get(id=id)
     cobros = Cobro.objects.all()
-    template = "School/edit-courses.html"
+    template = "School/edit-tarifa.html"
     form = CobroForm(request.POST, instance=cobros_v)
     if form.is_valid():
         try:
@@ -785,6 +832,19 @@ def edit_mensualidad_confirm(request,id):
             messages.error(request,'Error al modificar la mensualidad!')
             pass
     return render(request,template,{'cobros':cobros,'cobros_v':cobros_v})
+
+@login_required(login_url="/login")
+@staff_member_required
+def delete_mensualidad(request,id):
+    cobros = Cobro.objects.all()
+    cobros_v = get_object_or_404(Cobro,pk=id)
+    if request.method == "POST":
+        cobros_v.delete()
+        messages.success(request,'Se elimino la mensualidad correctamente!')
+        return redirect('/edit-mensualidad')
+    return render(request,'School/edit-tarifa.html',{'cobros':cobros,'cobros_v':cobros_v})
+
+
 
 @login_required(login_url="/login")
 @staff_member_required
@@ -806,6 +866,18 @@ def edit_inscription_confirm(request,id):
             pass
     return render(request,template,{'inscription':inscription,'inscription_v':inscription_v,'courses':courses,'students':students})
 
+@login_required(login_url="/login")
+@staff_member_required
+def delete_inscription(request,id):
+    inscription = Inscription.objects.all()
+    inscription_v = get_object_or_404(Inscription,pk=id)
+    students = Students.objects.all()
+    courses = Course.objects.all()
+    if request.method == "POST":
+        inscription_v.delete()
+        messages.success(request,'Se elimino la inscripcion correctamente!')
+        return redirect('/edit-inscription')
+    return render(request,'School/edit-inscriptions.html',{'inscription':inscription,'inscription_v':inscription_v,'courses':courses,'students':students})
 
 @login_required(login_url="/login")
 @staff_member_required
@@ -856,6 +928,19 @@ def edit_st_confirm(request,id):
 
 @login_required(login_url="/login")
 @staff_member_required
+def delete_student(request,id):
+    students = Students.objects.all()
+    students_v = get_object_or_404(Students,pk=id)
+    if request.method == "POST":
+        students_v.delete()
+        messages.success(request,'Se elimino el estudiante correctamente!')
+        return redirect('/edit-student')
+    return render(request,'School/edit-student.html',{'students':students,'students_v':students_v})
+
+
+
+@login_required(login_url="/login")
+@staff_member_required
 def edit_professor_confirm(request,id):
     teachers_v = Teachers.objects.get(id=id)
     teachers = Teachers.objects.all()
@@ -883,6 +968,20 @@ def edit_professor_confirm(request,id):
                         messages.error(request,'Error al modificar un profesor!')
                         pass
     return render(request,template,{'teachers':teachers,'teachers_v':teachers_v})
+
+@login_required(login_url="/login")
+@staff_member_required
+def delete_teacher(request,id):
+    teachers = Teachers.objects.all()
+    teachers_v = get_object_or_404(Teachers,pk=id)
+    if request.method == "POST":
+        teachers_v.delete()
+        messages.success(request,'Se elimino el profesor correctamente!')
+        return redirect('/edit-professor')
+    return render(request,'School/edit-professor.html',{'teachers':teachers,'teachers_v':teachers_v})
+
+
+
 
 @login_required(login_url="/login")
 @staff_member_required
@@ -932,6 +1031,19 @@ def edit_parents_confirm(request,id):
                 form.save()
                 return redirect('/edit-parents')
     return render(request,template,{'parents':parents,'parents_v':parents_v})
+
+@login_required(login_url="/login")
+@staff_member_required
+def delete_parent(request,id):
+    parents = Parents.objects.all()
+    parents_v = get_object_or_404(Parents,pk=id)
+    if request.method == "POST":
+        parents_v.delete()
+        messages.success(request,'Se elimino el padre correctamente!')
+        return redirect('/edit-parents')
+    return render(request,'School/edit-departments.html',{'parents':parents,'parents_v':parents_v})
+
+
 
 @login_required(login_url="/login")
 @staff_member_required

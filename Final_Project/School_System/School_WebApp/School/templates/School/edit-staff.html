@@ -299,6 +299,13 @@
 										</div>
 									</div>
 								</form>
+                                <br>
+                                <form action="/edit-staff/delete/{{usernames_v.id}}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <button type="submit" class="btn btn-primary">Delete</button>
+                                    </div>
+                                </form>
                                 <div class="table-responsive recentOrderTable">
                                     {% comment %} <br>
                                     <form action="{% url 'search-staff' %}" method="GET">
@@ -342,7 +349,7 @@
                                                 <td>{{username.is_active}}</td> {% endcomment %}
                                                 <td>
                                                     <a href="/edit-staff/{{username.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                    <a href="/edit-staff/delete/{{username.id}}" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
                                                 </td>
                                             </tr>
                                         {% endfor %}

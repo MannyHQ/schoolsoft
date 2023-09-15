@@ -90,7 +90,18 @@ urlpatterns = [
     path('add-periodo/',views.add_periodo,name='periodo'),
     path('edit-periodo/',views.edit_periodo,name='edit-periodo'),
     path('edit-periodo/<int:id>',views.edit_periodo_b,name='edit-periodo'),
-    path('edit-periodo/update/<int:id>',views.edit_periodo_confirm,name='update')
+    path('edit-periodo/update/<int:id>',views.edit_periodo_confirm,name='update'),
+    path('edit-staff/delete/<int:id>',views.delete_staff,name='delete'),
+    path('edit-courses/delete/<int:id>',views.delete_courses,name='delete'),
+    path('edit-subjects/delete/<int:id>',views.delete_subjects,name='delete'),
+    path('edit-inscription/delete/<int:id>',views.delete_inscription,name='delete'),
+    path('edit-mensualidad/delete/<int:id>',views.delete_mensualidad,name='delete'),
+    path('edit-student/delete/<int:id>',views.delete_student,name='delete'),
+    path('edit-professor/delete/<int:id>',views.delete_teacher,name='delete'),
+    path('edit-parents/delete/<int:id>',views.delete_parent,name='delete'),
+    path('edit-periodo/delete/<int:id>',views.delete_periodo,name='delete')
+    
+    
     
 ]
 

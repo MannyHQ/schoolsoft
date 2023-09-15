@@ -244,13 +244,13 @@
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group mb-4">
                                                 <label class="form-label">Fecha de inicio</label>
-                                                <input name="start_date" class="datepicker-default form-control" id="datepicker1" value="{{inscription_v.start_date|date:'d M Y'}}"> 
+                                                <input name="start_date" type="text" class="form-control" id="datepicker1" value="{{inscription_v.start_date|date:'d M Y'}}" readonly> 
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group mb-4">
                                                 <label class="form-label">Fecha de finalizacion</label>
-                                                <input name="end_date" class="datepicker-default form-control" id="datepicker1" value="{{inscription_v.end_date|date:'d M Y'}}"> 
+                                                <input name="end_date" type="text" class="form-control" id="datepicker1" value="{{inscription_v.end_date|date:'d M Y'}}" readonly> 
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -301,7 +301,6 @@
 										
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<button type="submit" class="btn btn-primary">Submit</button>
-											<button type="submit" class="btn btn-light">Cencel</button>
 										</div>
 									</div>
                                     <div class="table-responsive">
@@ -335,7 +334,7 @@
                                                     {% endif %}
                                                     <td>
                                                         <a href="/edit-inscription/{{student.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                        <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                        <a href="/edit-inscription/delete/{{student.id}}" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
                                                     </td>												
                                                 </tr>
                                                 {% endfor %}
@@ -344,6 +343,10 @@
                                         </table>
                                     </div>
 								</form>
+                                <form action="/edit-inscription/delete/{{inscription_v.id}}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-light">Delete</button>
+                                </form>
                                 
                             </div>
                         </div>

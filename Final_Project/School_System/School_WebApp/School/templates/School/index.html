@@ -393,7 +393,9 @@
 									</span>
 									<div class="media-body text-white">
 										<p class="mb-1">Mensualidad</p>
-										<h3 class="text-white">DOP {{monthly_pay.mensualidad}}</h3>
+                                        {% for m in cobro_mes %}
+										<h3 class="text-white">DOP {{m.mensualidad}}</h3>
+                                        {% endfor %}
 										<div class="progress mb-2 bg-white">
                                             <div class="progress-bar progress-animated bg-light" style="width: 30%"></div>
                                         </div>

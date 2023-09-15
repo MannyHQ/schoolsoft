@@ -355,10 +355,15 @@
 										</div> -->
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<button type="submit" class="btn btn-primary">Submit</button>
-											<button type="submit" class="btn btn-light">Cencel</button>
 										</div>
 									</div>
 								</form>
+                                
+                            <form action="/edit-subjects/delete/{{subjects_v.id}}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-light">Delete</button>
+                                    
+                            </form>
                                 <div class="table-responsive recentOrderTable">
                                     {% comment %} <br>
                                     <form action="{% url 'search-subjects' %}" method="GET">
@@ -388,7 +393,7 @@
 												<td>{{subject.level}}</td>
                                                 <td>
                                                     <a href="/edit-subjects/{{subject.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                    <a href="/edit-subjects/delete/{{subject.id}}" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
                                                 </td>
                                             </tr>
                                             {% endfor %}
@@ -402,7 +407,7 @@
 												<td>{{subject.level}}</td>
                                                 <td>
                                                     <a href="/edit-subjects/{{subject.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                    <a href="/edit-subjects/delete/{{subject.id}}" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
                                                 </td>
                                             </tr>
                                             {% endfor %}

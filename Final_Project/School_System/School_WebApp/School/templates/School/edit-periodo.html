@@ -318,11 +318,14 @@
                                         -->
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<button type="submit" class="btn btn-primary">Submit</button>
-											<button type="submit" class="btn btn-light">Cencel</button>
 										</div>
 									</div>
 								</form>
                                 <br>
+                                <form action="/edit-periodo/delete/{{periodos_v.id}}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-light">Delete</button>
+                                </form>
                                 <div class="table-responsive recentOrderTable">
                                 
                                 
@@ -356,7 +359,7 @@
                                                 <td>{{per.fin_escolar}}</td>
                                                 <td>
                                                     <a href="/edit-periodo/{{per.id}}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                    <a href="/edit-periodo/delete/{{per.id}}" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
